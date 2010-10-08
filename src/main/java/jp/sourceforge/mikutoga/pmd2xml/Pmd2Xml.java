@@ -98,7 +98,7 @@ public final class Pmd2Xml {
                     System.err.println("ERROR:");
                     System.err.println("You need -i argument.");
                     System.err.println("(-h for help)");
-                    System.exit(1);
+                    System.exit(5);
                 }
                 inputFile = args[argIdx];
             }else if(arg.equals("-o")){
@@ -106,11 +106,16 @@ public final class Pmd2Xml {
                     System.err.println("ERROR:");
                     System.err.println("You need -o argument.");
                     System.err.println("(-h for help)");
-                    System.exit(1);
+                    System.exit(5);
                 }
                 outputFile = args[argIdx];
             }else if(arg.equals("-f")){
                 force = true;
+            }else{
+                System.err.println("ERROR:");
+                System.err.println("Unknown option:"+arg);
+                System.err.println("(-h for help)");
+                System.exit(5);
             }
         }
 
@@ -118,21 +123,21 @@ public final class Pmd2Xml {
             System.err.println("ERROR:");
             System.err.println("You must specify -pmd2xml or -xml2pmd.");
             System.err.println("(-h for help)");
-            System.exit(1);
+            System.exit(5);
         }
 
         if(inputFile == null){
             System.err.println("ERROR:");
             System.err.println("You must specify input file with -i.");
             System.err.println("(-h for help)");
-            System.exit(1);
+            System.exit(5);
         }
 
         if(outputFile == null){
             System.err.println("ERROR:");
             System.err.println("You must specify output file with -o.");
             System.err.println("(-h for help)");
-            System.exit(1);
+            System.exit(5);
         }
 
         File iFile = new File(inputFile);
@@ -239,7 +244,7 @@ public final class Pmd2Xml {
         Package jrePackage = java.lang.Object.class.getPackage();
         if( ! jrePackage.isCompatibleWith("1.6")){
             System.err.println("You need JRE 1.6 or later.");
-            System.exit(1);
+            System.exit(4);
         }
         return;
     }
