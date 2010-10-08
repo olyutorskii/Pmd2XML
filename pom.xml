@@ -16,13 +16,13 @@
     <groupId>jp.sourceforge.mikutoga</groupId>
     <artifactId>pmd2xml</artifactId>
 
-    <version>1.101-SNAPSHOT</version>
+    <version>1.101.2</version>
 
     <packaging>jar</packaging>
     <name>Pmd2XML</name>
 
     <description><!--
--->Pmd2XML<!--
+-->Pmd2XML is a PMD-XML converter for MikuMikuDance.<!--
  -->
     </description>
 
