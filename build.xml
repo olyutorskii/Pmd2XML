@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!-- Ant build file (http://ant.apache.org/) for Ant 1.6.2 or above.        -->
+<!-- ====================================================================== -->
+
+<project name="pmd2xml" default="package" basedir=".">
+
+<!-- ====================================================================== -->
+<!-- Import maven-build.xml into the current project                        -->
+<!-- Maven2 command "mvn ant:ant" will put maven-build.xml                  -->
+<!-- ====================================================================== -->
+
+    <import optional="true" file="maven-build.xml"/>
+
+<!-- ====================================================================== -->
+<!-- Help target                                                            -->
+<!-- ====================================================================== -->
+
+    <target name="help">
+        <echo message="Please run: $ant -projecthelp"/>
+    </target>
+
+<!-- ====================================================================== -->
+<!-- sanitize files for native environment                                  -->
+<!-- ====================================================================== -->
+
+    <target description="sanitize files" name="sanitize" >
+        <echo message="sanitize files..." />
+
+        <fixcrlf
+            srcDir="./src/" includes="**/*.java"
+            encoding="UTF-8" outputencoding="UTF-8"
+            tablength="4" tab="remove" javafiles="true"
+            eof="remove"
+        />
+
+        <fixcrlf
+            srcDir="./src/" includes="**/*.xml,**/*.xsd"
+            encoding="UTF-8" outputencoding="UTF-8"
+            tablength="8" tab="remove"
+            eol="lf"
+            eof="remove"
+        />
+
+        <fixcrlf
+            srcDir="./src/" includes="**/*.properties"
+            encoding="ISO-8859-1" outputencoding="ISO-8859-1"
+            eol="lf"
+            eof="remove"
+        />
+
+        <fixcrlf
+            srcDir="." includes="*.txt"
+            encoding="UTF-8" outputencoding="UTF-8"
+            tablength="8" tab="remove"
+            eof="remove"
+        />
+
+        <chmod type="file" perm="a-x">
+            <fileset dir="." includes="**/*" excludes="**/*.sh" />
+        </chmod>
+
+    </target>
+
+</project>
+
+<!-- EOF -->
