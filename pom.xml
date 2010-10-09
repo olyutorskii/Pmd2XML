@@ -111,7 +111,7 @@
         <dependency>
             <groupId>jp.sourceforge.mikutoga</groupId>
             <artifactId>togagem</artifactId>
-            <version>1.104.2</version>
+            <version>1.105.2</version>
             <scope>compile</scope>
         </dependency>
 
