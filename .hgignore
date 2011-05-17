@@ -1,3 +1,12 @@
+syntax: regexp
+
+\.orig$
+\.orig\..*$
+\.chg\..*$
+\.rej$
+\.conflict\~$
+^maven-build\.properties$
+^maven-build\.xml$
 ^nb-configuration\.xml$
 ^nbactions\.xml$
 ^target$

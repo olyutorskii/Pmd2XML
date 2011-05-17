@@ -36,7 +36,7 @@
         />
 
         <fixcrlf
-            srcDir="./src/" includes="**/*.xml,**/*.xsd"
+            srcDir="./src/" includes="**/*.xml,**/*.xsd,**/*.dtd"
             encoding="UTF-8" outputencoding="UTF-8"
             tablength="8" tab="remove"
             eol="lf"
