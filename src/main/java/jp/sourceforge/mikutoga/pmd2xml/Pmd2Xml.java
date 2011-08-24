@@ -21,13 +21,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.parser.MmdSource;
-import jp.sourceforge.mikutoga.pmd.PmdModel;
-import jp.sourceforge.mikutoga.pmd.pmdexporter.IllegalPmdException;
-import jp.sourceforge.mikutoga.pmd.pmdexporter.PmdExporter;
-import jp.sourceforge.mikutoga.pmd.pmdloader.PmdLoader;
-import jp.sourceforge.mikutoga.pmd.xml.PmdXmlExporter;
-import jp.sourceforge.mikutoga.pmd.xml.PmdXmlResources;
-import jp.sourceforge.mikutoga.pmd.xml.Xml2PmdLoader;
+import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
+import jp.sourceforge.mikutoga.pmd.model.PmdModel;
+import jp.sourceforge.mikutoga.pmd.model.binio.PmdExporter;
+import jp.sourceforge.mikutoga.pmd.model.binio.PmdLoader;
+import jp.sourceforge.mikutoga.pmd.model.xml.PmdXmlExporter;
+import jp.sourceforge.mikutoga.pmd.model.xml.PmdXmlResources;
+import jp.sourceforge.mikutoga.pmd.model.xml.Xml2PmdLoader;
 import jp.sourceforge.mikutoga.xml.TogaXmlException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  */
 public final class Pmd2Xml {
 
-    private static final Class THISCLASS;
+    private static final Class<?> THISCLASS;
     private static final String APPNAME;
     private static final String APPVER;
     private static final String APPLICENSE;
@@ -179,7 +179,7 @@ public final class Pmd2Xml {
             ioError(e);
         }catch(ParserConfigurationException e){
             internalError(e);
-        }catch(IllegalPmdException e){
+        }catch(IllegalPmdDataException e){
             internalError(e);
         }catch(MmdFormatException e){
             pmdError(e);
@@ -273,10 +273,10 @@ public final class Pmd2Xml {
      * @param outputFile 出力ファイル名
      * @throws IOException 入出力エラー
      * @throws MmdFormatException 不正なPMDファイル
-     * @throws IllegalPmdException 不正なモデルデータ
+     * @throws IllegalPmdDataException 不正なモデルデータ
      */
     private static void pmd2xml(String inputFile, String outputFile)
-            throws IOException, MmdFormatException, IllegalPmdException{
+            throws IOException, MmdFormatException, IllegalPmdDataException{
         File iFile = new File(inputFile);
         InputStream is = new FileInputStream(iFile);
         is = new BufferedInputStream(is);
@@ -302,14 +302,14 @@ public final class Pmd2Xml {
      * @throws ParserConfigurationException XML構成のエラー
      * @throws SAXException 不正なXMLファイル
      * @throws TogaXmlException 不正なXMLファイル
-     * @throws IllegalPmdException 不正なPMDモデルデータ
+     * @throws IllegalPmdDataException 不正なPMDモデルデータ
      */
     private static void xml2pmd(String inputFile, String outputFile)
             throws IOException,
                    ParserConfigurationException,
                    SAXException,
                    TogaXmlException,
-                   IllegalPmdException {
+                   IllegalPmdDataException {
         File iFile = new File(inputFile);
         InputStream is = new FileInputStream(iFile);
         is = new BufferedInputStream(is);
@@ -392,10 +392,10 @@ public final class Pmd2Xml {
      * @param model モデルデータ
      * @param ostream 出力ストリーム
      * @throws IOException 出力エラー
-     * @throws IllegalPmdException 不正なモデルデータ
+     * @throws IllegalPmdDataException 不正なモデルデータ
      */
     private static void pmdOut(PmdModel model, OutputStream ostream)
-            throws IOException, IllegalPmdException{
+            throws IOException, IllegalPmdDataException{
         PmdExporter exporter = new PmdExporter(ostream);
         exporter.dumpPmdModel(model);
         ostream.close();
@@ -407,10 +407,10 @@ public final class Pmd2Xml {
      * @param model モデルデータ
      * @param ostream 出力ストリーム
      * @throws IOException 出力エラー
-     * @throws IllegalPmdException 不正なモデルデータ
+     * @throws IllegalPmdDataException 不正なモデルデータ
      */
     private static void xmlOut(PmdModel model, OutputStream ostream)
-            throws IOException, IllegalPmdException{
+            throws IOException, IllegalPmdDataException{
         PmdXmlExporter exporter = new PmdXmlExporter(ostream);
         exporter.setNewLine("\r\n");
         exporter.setGenerator(APPNAME + ' ' + APPVER);
