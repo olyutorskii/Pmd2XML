@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
     PMD用ルールセット定義
@@ -9,13 +9,17 @@
 -->
 
 <ruleset
-  name="Custom ruleset"
   xmlns="http://pmd.sf.net/ruleset/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
   http://pmd.sf.net/ruleset_xml_schema.xsd"
   xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+  name="Custom ruleset"
 >
+
+    <description>
+        custom rulesets for project
+    </description>
 
     <rule ref="rulesets/basic.xml">
         <exclude name="UnnecessaryReturn" />
@@ -29,18 +33,26 @@
     <rule ref="rulesets/codesize.xml">
         <exclude name="TooManyMethods" />
     </rule>
+    <rule ref="rulesets/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="25"/>
+        </properties>
+    </rule>
 
     <rule ref="rulesets/clone.xml" />
 
     <rule ref="rulesets/controversial.xml">
-        <exclude name="DataflowAnomalyAnalysis" />
+        <exclude name="NullAssignment" />
         <exclude name="OnlyOneReturn" />
         <exclude name="DefaultPackage" />
+        <exclude name="DataflowAnomalyAnalysis" />
+        <exclude name="AvoidUsingShortType" />
     </rule>
 
     <rule ref="rulesets/coupling.xml" />
 
     <rule ref="rulesets/design.xml">
+        <exclude name="ConfusingTernary" />
         <exclude name="UnnecessaryLocalBeforeReturn" />
     </rule>
 
@@ -54,8 +66,14 @@
     <rule ref="rulesets/migrating_to_15.xml" />
 
     <rule ref="rulesets/naming.xml">
-        <exclude name="LongVariable" />
         <exclude name="ShortVariable" />
+        <exclude name="LongVariable" />
+        <exclude name="AvoidFieldNameMatchingMethodName" />
+    </rule>
+    <rule ref="rulesets/naming.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="25"/>
+        </properties>
     </rule>
 
     <rule ref="rulesets/optimizations.xml">

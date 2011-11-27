@@ -1,0 +1,48 @@
+[UTF-8 Japanese]
+
+                               P m d 2 X M L
+                    バージョン管理システムに関する情報
+
+                                              Copyright(c) 2011 olyutorskii
+
+
+=== バージョン管理体制 ===
+
+  このアーカイブの原本は、Mercurial(hg)でバージョン管理されています。
+  このアーカイブの原本となる開発資産は、
+      http://hg.sourceforge.jp/view/mikutoga/Pmd2XML
+  を上位に持つMercurialリポジトリで管理されています。
+  アーカイブの代わりにMercurialを通じての開発資産へのアクセスが可能です。
+  # hg clone http://hg.sourceforge.jp/view/mikutoga/Pmd2XML
+
+
+=== 各種設定ファイル ===
+
+./.hgignore
+
+Mercurial 管理の対象外にさせたいファイル群の設定です。
+IDE独自の設定ファイルは基本的に管理対象外とするつもりです。
+
+
+./.hgeol
+
+Mercurial の EOL Extension 用の設定です。
+非バイナリなテキストファイルの改行コードに関する設定です。
+・拡張子が *.txt なローカルファイルの改行文字はローカルの環境に合わせる。
+・拡張子が *.java なローカルファイルの改行文字はローカルの環境に合わせる。
+・それ以外の非バイナリなローカルファイルの改行文字は基本LFで統一。
+・リポジトリ上の全ての非バイナリファイルの改行文字は基本LFで統一。
+というポリシーで運用しています。
+EOL Extensionを有効にしないと設定が反映されません。
+
+
+=== リンク ===
+
+・http://mercurial.selenic.com/
+・http://mercurial.selenic.com/wiki/.hgignore
+・http://www.selenic.com/mercurial/hgignore.5.html
+・http://mercurial.selenic.com/wiki/EolExtension
+・http://tortoisehg.bitbucket.org/
+
+
+--- EOF ---

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
-    Pmd2XML
-    Maven2用プロジェクト構成定義ファイル
+    Maven2(or3) POM definition file
 -->
 
 <project
@@ -24,8 +23,7 @@
 
     <description><!--
 -->Pmd2XML is a PMD-XML converter for MikuMikuDance.<!--
- -->
-    </description>
+ --></description>
 
     <url>http://sourceforge.jp/projects/mikutoga/</url>
     <inceptionYear>2010</inceptionYear>
@@ -60,7 +58,7 @@
     <mailingLists/>
 
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>2.2</maven>
     </prerequisites>
 
     <modules/>
@@ -91,18 +89,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <project.myrepoconf>${project.basedir}/src/main/config</project.myrepoconf>
+        <project.mainconf>${project.basedir}/src/main/config</project.mainconf>
 
-        <project.transformer>
-            org.apache.maven.plugins.shade.resource.ManifestResourceTransformer
-        </project.transformer>
+        <checkstyle.config.location>${project.mainconf}/checks.xml</checkstyle.config.location>
+        <checkstyle.enable.rss>false</checkstyle.enable.rss>
+
         <project.mainentry>jp.sourceforge.mikutoga.pmd2xml.Pmd2Xml</project.mainentry>
-
-        <!-- Walkaround for Maven3&PMD-plugin bug -->
-        <targetJdk>${maven.compiler.source}</targetJdk>
-
-        <!-- Walkaround for Maven3&checkstyle bug -->
-        <checkstyle.config.location>${project.myrepoconf}/checks.xml</checkstyle.config.location>
 
     </properties>
 
@@ -113,14 +105,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>[4.8.2,)</version>
+            <version>4.10</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>jp.sourceforge.mikutoga</groupId>
             <artifactId>togagem</artifactId>
-            <version>2.101.2</version>
+            <version>2.101.3-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
@@ -136,6 +128,22 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0.1</version>
+                <configuration>
+                    <rules>
+                        <requireMavenVersion>
+                            <version>[2.2,)</version>
+                        </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>[1.6,)</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.4.1</version>
                 <configuration>
@@ -144,7 +152,11 @@
                             <directory>${project.basedir}</directory>
                             <includes>
                                 <include>**/.DS_Store</include>
+                                <include>**/_MACOSX</include>
                                 <include>**/Thumbs.db</include>
+                                <include>**/thumbs.db</include>
+                                <include>**/Desktop.ini</include>
+                                <include>**/desktop.ini</include>
                                 <include>**/core</include>
                             </includes>
                         </fileset>
@@ -173,8 +185,10 @@
                 <version>2.3.2</version>
                 <configuration>
                     <archive>
+                        <manifest>
+                            <mainClass>${project.mainentry}</mainClass>
+                        </manifest>
                         <manifestEntries>
-                            <Main-Class>${project.mainentry}</Main-Class>
                             <Built-By>${project.organization.name}</Built-By>
                         </manifestEntries>
                     </archive>
@@ -183,19 +197,8 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2.1</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/descriptor.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>1.4</version>
+                <version>1.5</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -218,17 +221,12 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0.1</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
                 <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <version>[2.2,3)</version>
-                        </requireMavenVersion>
-                        <requireJavaVersion>
-                            <version>[1.6,)</version>
-                        </requireJavaVersion>
-                    </rules>
+                    <descriptors>
+                        <descriptor>src/main/assembly/descriptor.xml</descriptor>
+                    </descriptors>
                 </configuration>
             </plugin>
 
@@ -255,6 +253,63 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <skipTests>false</skipTests>
+                    <enableAssertions>true</enableAssertions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <generateReports>true</generateReports>
+                    <locales>ja</locales>
+                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.8</version>
+                <!-- config from property value -->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
+                    <rulesets>
+                        <ruleset>${project.mainconf}/pmdrules.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                </configuration>
+            </plugin>
+
         </plugins>
 
         <resources>
@@ -270,17 +325,33 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>**/*.css</include>
-                    <include>**/*.html</include>
-                    <include>**/*.png</include>
-                    <include>**/*.properties</include>
                     <include>**/*.txt</include>
+
+                    <include>**/*.properties</include>
+
                     <include>**/*.xml</include>
                     <include>**/*.xsd</include>
                     <include>**/*.dtd</include>
+
+                    <include>**/*.html</include>
+                    <include>**/*.htm</include>
+                    <include>**/*.css</include>
+
+                    <include>**/*.png</include>
+                    <include>**/*.gif</include>
+                    <include>**/*.jpeg</include>
+                    <include>**/*.jpg</include>
                 </includes>
                 <excludes>
                     <exclude>**/version.properties</exclude>
+
+                    <exclude>**/.DS_Store</exclude>
+                    <exclude>**/_MACOSX</exclude>
+                    <exclude>**/Thumbs.db</exclude>
+                    <exclude>**/thumbs.db</exclude>
+                    <exclude>**/Desktop.ini</exclude>
+                    <exclude>**/desktop.ini</exclude>
+                    <exclude>**/core</exclude>
                 </excludes>
             </resource>
 
@@ -294,15 +365,34 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.0</version>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
-                    <locales>ja</locales>
-                    <generateReports>true</generateReports>
-                    <generateSitemap>true</generateSitemap>
-                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
-                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+                    <linkOnly>true</linkOnly>
+                    <offline>true</offline>
                 </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>index</report>
+                            <report>summary</report>
+                            <report>license</report>
+                            <report>dependencies</report>
+                            <report>plugins</report>
+                            <report>scm</report>
+                            <report>project-team</report>
+<!--
+                            <report>dependency-convergence</report>
+                            <report>dependency-management</report>
+                            <report>distribution-management</report>
+                            <report>issue-tracking</report>
+                            <report>mailing-list</report>
+                            <report>modules</report>
+                            <report>plugin-management</report>
+-->
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
 
             <plugin>
@@ -310,28 +400,81 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.8</version>
                 <configuration>
+                    <skip>false</skip>
+                    <notimestamp>true</notimestamp>
+                    <quiet>true</quiet>
                     <show>protected</show>
+                    <stylesheet>maven</stylesheet>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <showSuccess>false</showSuccess>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report-only</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.8</version>
                 <configuration>
-                    <configLocation>${checkstyle.config.location}</configLocation>
-                    <encoding>UTF-8</encoding>
+                    <skip>false</skip>
+                    <!-- config from property value -->
                 </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <configuration>
+                    <skip>false</skip>
                     <targetJdk>${maven.compiler.target}</targetJdk>
                     <rulesets>
-                        <ruleset>${project.myrepoconf}/pmdrules.xml</ruleset>
+                        <ruleset>${project.mainconf}/pmdrules.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <reportSets>
@@ -349,18 +492,11 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
+                    <skip>false</skip>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
-                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
-                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-                    <!--excludeFilterFile/-->
+                    <!-- excludeFilterFile/ -->
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.5.1</version>
             </plugin>
 
             <plugin>
@@ -370,9 +506,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>2.0-beta-2</version>
             </plugin>
 
         </plugins>

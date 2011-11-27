@@ -1,12 +1,36 @@
+#########################
+# for Mercurial hgignore
+#########################
+
+
+#####################
 syntax: regexp
+
+^nb-configuration\.xml$
+^nbactions\.xml$
+^\.classpath$
+^\.project$
 
 \.orig$
 \.orig\..*$
 \.chg\..*$
 \.rej$
 \.conflict\~$
-^maven-build\.properties$
-^maven-build\.xml$
-^nb-configuration\.xml$
-^nbactions\.xml$
-^target$
+^target/
+^build/
+^bin/
+^nbproject/
+^\.settings/
+
+
+#####################
+syntax: glob
+
+.DS_Store
+_MACOSX
+[Tt]humbs.db
+[Dd]esktop.ini
+core
+
+
+### EOF ###

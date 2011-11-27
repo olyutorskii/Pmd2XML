@@ -9,6 +9,11 @@
 **.xsd = LF
 **.dtd = LF
 
-**.css = LF
 **.html = LF
+**.htm = LF
+**.css = LF
+
 **.png = BIN
+**.gif = BIN
+**.jpeg = BIN
+**.jpg = BIN
