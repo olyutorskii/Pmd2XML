@@ -175,7 +175,7 @@ public class PmdExporterBase extends BinaryExporter{
         List<Vertex> vList = model.getVertexList();
 
         int vertexNum = vList.size();
-        dumpInt(vertexNum);
+        dumpLeInt(vertexNum);
 
         for(Vertex vertex : vList){
             dumpVertex(vertex);
@@ -231,15 +231,15 @@ public class PmdExporterBase extends BinaryExporter{
         for(Material material : materialList){
             surfaceNum += material.getSurfaceList().size();
         }
-        dumpInt(surfaceNum * 3);
+        dumpLeInt(surfaceNum * 3);
 
         Vertex[] triangle = new Vertex[3];
         for(Material material : materialList){
             for(Surface surface : material){
                 surface.getTriangle(triangle);
-                dumpShort(triangle[0].getSerialNumber());
-                dumpShort(triangle[1].getSerialNumber());
-                dumpShort(triangle[2].getSerialNumber());
+                dumpLeShort(triangle[0].getSerialNumber());
+                dumpLeShort(triangle[1].getSerialNumber());
+                dumpLeShort(triangle[2].getSerialNumber());
             }
         }
 
@@ -259,32 +259,32 @@ public class PmdExporterBase extends BinaryExporter{
         List<Material> materialList = model.getMaterialList();
 
         int materialNum = materialList.size();
-        dumpInt(materialNum);
+        dumpLeInt(materialNum);
 
         float[] rgba = new float[4];
 
         for(Material material : materialList){
             Color diffuse = material.getDiffuseColor();
             diffuse.getRGBComponents(rgba);
-            dumpFloat(rgba[0]);
-            dumpFloat(rgba[1]);
-            dumpFloat(rgba[2]);
-            dumpFloat(rgba[3]);
+            dumpLeFloat(rgba[0]);
+            dumpLeFloat(rgba[1]);
+            dumpLeFloat(rgba[2]);
+            dumpLeFloat(rgba[3]);
 
             float shininess = material.getShininess();
-            dumpFloat(shininess);
+            dumpLeFloat(shininess);
 
             Color specular = material.getSpecularColor();
             specular.getRGBComponents(rgba);
-            dumpFloat(rgba[0]);
-            dumpFloat(rgba[1]);
-            dumpFloat(rgba[2]);
+            dumpLeFloat(rgba[0]);
+            dumpLeFloat(rgba[1]);
+            dumpLeFloat(rgba[2]);
 
             Color ambient = material.getAmbientColor();
             ambient.getRGBComponents(rgba);
-            dumpFloat(rgba[0]);
-            dumpFloat(rgba[1]);
-            dumpFloat(rgba[2]);
+            dumpLeFloat(rgba[0]);
+            dumpLeFloat(rgba[1]);
+            dumpLeFloat(rgba[2]);
 
             ShadeInfo shade = material.getShadeInfo();
             int toonIdx = shade.getToonIndex();
@@ -297,7 +297,7 @@ public class PmdExporterBase extends BinaryExporter{
             dumpByte(edgeFlag);
 
             int surfaceNum = material.getSurfaceList().size();
-            dumpInt(surfaceNum * 3);
+            dumpLeInt(surfaceNum * 3);
 
             dumpShadeFileInfo(shade);
         }
@@ -347,7 +347,7 @@ public class PmdExporterBase extends BinaryExporter{
         List<BoneInfo> boneList = model.getBoneList();
 
         int boneNum = boneList.size();
-        dumpShort(boneNum);
+        dumpLeShort(boneNum);
 
         for(BoneInfo bone : boneList){
             dumpBone(bone);
@@ -371,22 +371,22 @@ public class PmdExporterBase extends BinaryExporter{
 
         BoneInfo prev = bone.getPrevBone();
         if(prev != null) dumpSerialIdAsShort(prev);
-        else             dumpShort(NOPREVBONE_ID);
+        else             dumpLeShort(NOPREVBONE_ID);
 
         BoneInfo next = bone.getNextBone();
         if(next != null) dumpSerialIdAsShort(next);
-        else             dumpShort(NONEXTBONE_ID);
+        else             dumpLeShort(NONEXTBONE_ID);
 
         BoneType type = bone.getBoneType();
         dumpByte(type.encode());
 
         if(type == BoneType.LINKEDROT){
             int ratio = bone.getRotationRatio();
-            dumpShort(ratio);
+            dumpLeShort(ratio);
         }else{
             BoneInfo ik = bone.getIKBone();
             if(ik != null) dumpSerialIdAsShort(ik);
-            else           dumpShort(NOIKBONE_ID);
+            else           dumpLeShort(NOIKBONE_ID);
         }
 
         MkPos3D position = bone.getPosition();
@@ -405,7 +405,7 @@ public class PmdExporterBase extends BinaryExporter{
         List<IKChain> ikChainList = model.getIKChainList();
 
         int ikNum = ikChainList.size();
-        dumpShort(ikNum);
+        dumpLeShort(ikNum);
 
         for(IKChain chain : ikChainList){
             dumpIKChain(chain);
@@ -438,8 +438,8 @@ public class PmdExporterBase extends BinaryExporter{
         int depth = chain.getIKDepth();
         float weight = chain.getIKWeight();
 
-        dumpShort(depth);
-        dumpFloat(weight);
+        dumpLeShort(depth);
+        dumpLeFloat(weight);
 
         for(int idx = 1; idx < boneNum; idx++){ // リストの2番目以降全て
             BoneInfo bone = boneList.get(idx);
@@ -469,20 +469,20 @@ public class PmdExporterBase extends BinaryExporter{
         }
 
         if(totalMorphPart <= 0){
-            dumpShort(0);
+            dumpLeShort(0);
             return;
         }else{
             totalMorphPart++;  // baseの分
-            dumpShort(totalMorphPart);
+            dumpLeShort(totalMorphPart);
         }
 
         dumpText("base", PmdLimits.MAXBYTES_MORPHNAME);
         int totalVertex = mergedMorphVertexList.size();
-        dumpInt(totalVertex);
+        dumpLeInt(totalVertex);
         dumpByte(MorphType.BASE.encode());
         for(MorphVertex morphVertex : mergedMorphVertexList){
             Vertex baseVertex = morphVertex.getBaseVertex();
-            dumpInt(baseVertex.getSerialNumber());
+            dumpLeInt(baseVertex.getSerialNumber());
             dumpPos3D(baseVertex.getPosition());
         }
 
@@ -493,11 +493,11 @@ public class PmdExporterBase extends BinaryExporter{
                 dumpText(part.getMorphName().getPrimaryText(),
                          PmdLimits.MAXBYTES_MORPHNAME );
                 List<MorphVertex> morphVertexList = part.getMorphVertexList();
-                dumpInt(morphVertexList.size());
+                dumpLeInt(morphVertexList.size());
                 dumpByte(part.getMorphType().encode());
 
                 for(MorphVertex morphVertex : morphVertexList){
-                    dumpInt(morphVertex.getSerialNumber());
+                    dumpLeInt(morphVertex.getSerialNumber());
                     dumpPos3D(morphVertex.getOffset());
                 }
             }
@@ -566,7 +566,7 @@ public class PmdExporterBase extends BinaryExporter{
                           PmdLimits.MAXBYTES_BONEGROUPNAME, LFFILLER );
             dispBoneNum += group.getBoneList().size();
         }
-        dumpInt(dispBoneNum);
+        dumpLeInt(dispBoneNum);
 
         for(BoneGroup group : groupList){
             if(group.isDefaultBoneGroup()) continue;
@@ -591,7 +591,7 @@ public class PmdExporterBase extends BinaryExporter{
     protected void dumpSerialIdAsShort(SerialNumbered obj)
             throws IOException{
         int serialId = obj.getSerialNumber();
-        dumpShort(serialId);
+        dumpLeShort(serialId);
         return;
     }
 
@@ -604,8 +604,8 @@ public class PmdExporterBase extends BinaryExporter{
         float xPos = (float) position.getXpos();
         float yPos = (float) position.getYpos();
 
-        dumpFloat(xPos);
-        dumpFloat(yPos);
+        dumpLeFloat(xPos);
+        dumpLeFloat(yPos);
 
         return;
     }
@@ -620,9 +620,9 @@ public class PmdExporterBase extends BinaryExporter{
         float yPos = (float) position.getYpos();
         float zPos = (float) position.getZpos();
 
-        dumpFloat(xPos);
-        dumpFloat(yPos);
-        dumpFloat(zPos);
+        dumpLeFloat(xPos);
+        dumpLeFloat(yPos);
+        dumpLeFloat(zPos);
 
         return;
     }
@@ -637,9 +637,9 @@ public class PmdExporterBase extends BinaryExporter{
         float yVal = (float) vector.getYVal();
         float zVal = (float) vector.getZVal();
 
-        dumpFloat(xVal);
-        dumpFloat(yVal);
-        dumpFloat(zVal);
+        dumpLeFloat(xVal);
+        dumpLeFloat(yVal);
+        dumpLeFloat(zVal);
 
         return;
     }

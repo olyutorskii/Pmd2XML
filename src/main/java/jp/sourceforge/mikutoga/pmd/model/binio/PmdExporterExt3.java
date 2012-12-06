@@ -77,7 +77,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
             throws IOException, IllegalTextExportException{
         List<RigidInfo> rigidList = model.getRigidList();
         int rigidNum = rigidList.size();
-        dumpInt(rigidNum);
+        dumpLeInt(rigidNum);
 
         for(RigidInfo rigid : rigidList){
             dumpRigid(rigid);
@@ -101,9 +101,9 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
         BoneInfo linkedBone = rigid.getLinkedBone();
         if(linkedBone == null){
-            dumpShort(-1);
+            dumpLeShort(-1);
         }else{
-            dumpShort(linkedBone.getSerialNumber());
+            dumpLeShort(linkedBone.getSerialNumber());
         }
 
         RigidGroup group = rigid.getRigidGroup();
@@ -114,7 +114,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
             int serialId = throughGroup.getSerialNumber();
             mask &= ~(0x0001 << serialId);
         }
-        dumpShort(mask);
+        dumpLeShort(mask);
 
         dumpRigidShape(rigid.getRigidShape());
 
@@ -142,9 +142,9 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         float height = shape.getHeight();
         float depth = shape.getDepth();
 
-        dumpFloat(width);
-        dumpFloat(height);
-        dumpFloat(depth);
+        dumpLeFloat(width);
+        dumpLeFloat(height);
+        dumpLeFloat(depth);
 
         return;
     }
@@ -162,11 +162,11 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         float restitution = dynamics.getRestitution();
         float friction    = dynamics.getFriction();
 
-        dumpFloat(mass);
-        dumpFloat(dampPos);
-        dumpFloat(dampRot);
-        dumpFloat(restitution);
-        dumpFloat(friction);
+        dumpLeFloat(mass);
+        dumpLeFloat(dampPos);
+        dumpLeFloat(dampRot);
+        dumpLeFloat(restitution);
+        dumpLeFloat(friction);
 
         return;
     }
@@ -181,7 +181,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
             throws IOException, IllegalTextExportException{
         List<JointInfo> jointList = model.getJointList();
         int jointNum = jointList.size();
-        dumpInt(jointNum);
+        dumpLeInt(jointNum);
 
         for(JointInfo joint : jointList){
             dumpJoint(joint);
@@ -206,8 +206,8 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         RigidInfo rigidA = joint.getRigidA();
         RigidInfo rigidB = joint.getRigidB();
 
-        dumpInt(rigidA.getSerialNumber());
-        dumpInt(rigidB.getSerialNumber());
+        dumpLeInt(rigidA.getSerialNumber());
+        dumpLeInt(rigidB.getSerialNumber());
 
         dumpPos3D(joint.getPosition());
         dumpRad3d(joint.getRotation());
@@ -231,17 +231,17 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         float yFrom = range.getYFrom();
         float zFrom = range.getZFrom();
 
-        dumpFloat(xFrom);
-        dumpFloat(yFrom);
-        dumpFloat(zFrom);
+        dumpLeFloat(xFrom);
+        dumpLeFloat(yFrom);
+        dumpLeFloat(zFrom);
 
         float xTo = range.getXTo();
         float yTo = range.getYTo();
         float zTo = range.getZTo();
 
-        dumpFloat(xTo);
-        dumpFloat(yTo);
-        dumpFloat(zTo);
+        dumpLeFloat(xTo);
+        dumpLeFloat(yTo);
+        dumpLeFloat(zTo);
 
         return;
     }
@@ -256,9 +256,9 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         float yVal = rad.getYRad();
         float zVal = rad.getZRad();
 
-        dumpFloat(xVal);
-        dumpFloat(yVal);
-        dumpFloat(zVal);
+        dumpLeFloat(xVal);
+        dumpLeFloat(yVal);
+        dumpLeFloat(zVal);
 
         return;
     }
@@ -273,9 +273,9 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         float yVal = deg.getYDeg();
         float zVal = deg.getZDeg();
 
-        dumpFloat(xVal);
-        dumpFloat(yVal);
-        dumpFloat(zVal);
+        dumpLeFloat(xVal);
+        dumpLeFloat(yVal);
+        dumpLeFloat(zVal);
 
         return;
     }

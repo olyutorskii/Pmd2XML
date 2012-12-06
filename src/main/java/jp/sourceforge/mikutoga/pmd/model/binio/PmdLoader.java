@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.pmd.model.MorphPart;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.parser.PmdParser;
@@ -32,7 +32,7 @@ public class PmdLoader {
      * コンストラクタ。
      * @param source PMDファイル入力ソース
      */
-    public PmdLoader(MmdSource source){
+    public PmdLoader(MmdInputStream source){
         super();
 
         this.model = new PmdModel();

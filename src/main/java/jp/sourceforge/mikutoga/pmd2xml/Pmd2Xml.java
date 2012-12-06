@@ -20,7 +20,7 @@ import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.parser.MmdSource;
+import jp.sourceforge.mikutoga.parser.MmdInputStream;
 import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.binio.PmdExporter;
@@ -356,7 +356,7 @@ public final class Pmd2Xml {
      */
     private static PmdModel pmdRead(InputStream is)
             throws IOException, MmdFormatException{
-        MmdSource source = new MmdSource(is);
+        MmdInputStream source = new MmdInputStream(is);
         PmdLoader loader = new PmdLoader(source);
 
         PmdModel model = loader.load();
