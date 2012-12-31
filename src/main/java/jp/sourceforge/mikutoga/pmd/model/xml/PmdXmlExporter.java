@@ -92,7 +92,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
         + "[1 : ONLYDYNAMICS  : 物理演算         ]\n"
         + "[2 : BONEDDYNAMICS : ボーン位置合わせ ]\n";
 
-    private String generator = "";
+    private String generator = null;
 
     /**
      * コンストラクタ。
@@ -106,12 +106,9 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
     /**
      * Generatorメタ情報を設定する。
-     * @param generatorArg Generatorメタ情報
-     * @throws NullPointerException 引数がnull
+     * @param generatorArg Generatorメタ情報。表示したくないときはnull
      */
-    public void setGenerator(String generatorArg)
-            throws NullPointerException{
-        if(generatorArg == null) throw new NullPointerException();
+    public void setGenerator(String generatorArg){
         this.generator = generatorArg;
         return;
     }
@@ -366,7 +363,6 @@ public class PmdXmlExporter extends BasicXmlExporter{
 
         putBRedContent(text);
 
-        ln();
         ind().put("</description>").ln();
 
         if( ! hasOnlyBasicLatin(text) && isBasicLatinOnlyOut() ){
@@ -389,24 +385,20 @@ public class PmdXmlExporter extends BasicXmlExporter{
             throws IOException{
         int length = content.length();
 
-        for(int pos = 0; pos < length; pos++){
-            char ch = content.charAt(pos);
+        int startPos = 0;
+
+        for(int idx = 0; idx < length; idx++){
+            char ch = content.charAt(idx);
             if(ch == '\n'){
-                put("<br/>").ln();
-            }else if(Character.isISOControl(ch)){
-                putCharRef2Hex(ch);
-            }else if( ! isBasicLatin(ch) && isBasicLatinOnlyOut()){
-                putCharRef4Hex(ch);
-            }else{
-                switch(ch){
-                case '&':  put("&amp;");  break;
-                case '<':  put("&lt;");   break;
-                case '>':  put("&gt;");   break;
-                case '"':  put("&quot;"); break;
-                case '\'': put("&apos;"); break;
-                default:   put(ch);       break;
-                }
+                CharSequence seq = content.subSequence(startPos, idx);
+                putContent(seq).put("<br/>").ln();
+                startPos = idx + 1;
             }
+        }
+
+        if(startPos < length){
+            CharSequence seq = content.subSequence(startPos, length);
+            putContent(seq).ln();
         }
 
         return this;
@@ -425,10 +417,13 @@ public class PmdXmlExporter extends BasicXmlExporter{
         ind().put("<credits>").ln();
         ind().put("</credits>").ln(2);
 
-        ind().put("<meta ");
-        putAttr("name", "generator").sp()
-                                    .putAttr("content", this.generator);
-        put(" />").ln();
+        if(this.generator != null){
+            ind().put("<meta ");
+            putAttr("name", "generator").sp()
+                                        .putAttr("content", this.generator);
+            put(" />").ln();
+        }
+
         ind().put("<meta ");
         putAttr("name", "siteURL").sp().putAttr("content", "");
         put(" />").ln();

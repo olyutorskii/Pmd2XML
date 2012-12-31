@@ -11,24 +11,17 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.channels.FileChannel;
 import java.util.Properties;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
-import jp.sourceforge.mikutoga.pmd.model.PmdModel;
-import jp.sourceforge.mikutoga.pmd.model.binio.PmdExporter;
-import jp.sourceforge.mikutoga.pmd.model.binio.PmdLoader;
-import jp.sourceforge.mikutoga.pmd.model.xml.PmdXmlExporter;
-import jp.sourceforge.mikutoga.pmd.model.xml.PmdXmlResources;
-import jp.sourceforge.mikutoga.pmd.model.xml.Xml2PmdLoader;
 import jp.sourceforge.mikutoga.xml.TogaXmlException;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
@@ -36,10 +29,31 @@ import org.xml.sax.SAXException;
  */
 public final class Pmd2Xml {
 
+    /** 正常系。 */
+    public static final int EXIT_OK     = 0;
+    /** ファイル入出力に起因するエラー。 */
+    public static final int EXIT_FILE   = 1;
+    /** XMLフォーマットに起因するエラー。 */
+    public static final int EXIT_XML    = 2;
+    /** PMDフォーマットに起因するエラー。 */
+    public static final int EXIT_PMD    = 3;
+    /** 実行環境に起因するエラー。 */
+    public static final int EXIT_JREVER = 4;
+    /** オプション指定に起因するエラー。 */
+    public static final int EXIT_OPT    = 5;
+    /** 内部エラー。 */
+    public static final int EXIT_INTERN = 6;
+
+    /** アプリ名。 */
+    public static final String APPNAME;
+    /** バージョン識別子。 */
+    public static final String APPVER;
+    /** ライセンス種別。 */
+    public static final String APPLICENSE;
+
     private static final Class<?> THISCLASS;
-    private static final String APPNAME;
-    private static final String APPVER;
-    private static final String APPLICENSE;
+
+    private static final PrintStream ERROUT = System.err;
 
     static{
         THISCLASS = Pmd2Xml.class;
@@ -47,7 +61,11 @@ public final class Pmd2Xml {
                 THISCLASS.getResourceAsStream("resources/version.properties");
         Properties verProps = new Properties();
         try{
-            verProps.load(ver);
+            try{
+                verProps.load(ver);
+            }finally{
+                ver.close();
+            }
         }catch(IOException e){
             throw new ExceptionInInitializerError(e);
         }
@@ -56,11 +74,12 @@ public final class Pmd2Xml {
         APPVER     = verProps.getProperty("app.version");
         APPLICENSE = verProps.getProperty("app.license");
 
-        Object dummy = new Pmd2Xml();
+        new Pmd2Xml().hashCode();
     }
 
+
     /**
-     * 隠しコンストラクタ。
+     * ダミーコンストラクタ。
      */
     private Pmd2Xml(){
         super();
@@ -68,128 +87,49 @@ public final class Pmd2Xml {
         return;
     }
 
+
     /**
-     * Mainエントリ。
-     * @param args コマンドパラメータ
+     * VMを終了させる。
+     * @param code 終了コード
      */
-    public static void main(String[] args){
-        checkJRE();
+    private static void exit(int code){
+        System.exit(code);
+        return;
+    }
 
-        String inputFile = null;
-        String outputFile = null;
-        boolean pmd2xml = false;
-        boolean xml2pmd = false;
-        boolean force = false;
-        int argsLen = args.length;
-        for(int argIdx = 0; argIdx < argsLen; argIdx++){
-            String arg = args[argIdx];
+    /**
+     * 標準エラー出力へ例外情報出力。
+     * @param ex 例外
+     * @param dumpStack スタックトレースを出力するならtrue
+     */
+    private static void errPrintln(Throwable ex, boolean dumpStack){
+        String text = ex.toString();
+        ERROUT.println(text);
 
-            if(arg.equals("-h")){
-                putHelp();
-            }else if(arg.equals("-pmd2xml")){
-                pmd2xml = true;
-                xml2pmd = false;
-            }else if(arg.equals("-xml2pmd")){
-                pmd2xml = false;
-                xml2pmd = true;
-            }else if(arg.equals("-i")){
-                if(++argIdx >= argsLen){
-                    System.err.println("ERROR:");
-                    System.err.println("You need -i argument.");
-                    System.err.println("(-h for help)");
-                    System.exit(5);
-                }
-                inputFile = args[argIdx];
-            }else if(arg.equals("-o")){
-                if(++argIdx >= argsLen){
-                    System.err.println("ERROR:");
-                    System.err.println("You need -o argument.");
-                    System.err.println("(-h for help)");
-                    System.exit(5);
-                }
-                outputFile = args[argIdx];
-            }else if(arg.equals("-f")){
-                force = true;
-            }else{
-                System.err.println("ERROR:");
-                System.err.println("Unknown option:"+arg);
-                System.err.println("(-h for help)");
-                System.exit(5);
-            }
+        if(dumpStack){
+            ex.printStackTrace(ERROUT);
         }
 
-        if( ( ! pmd2xml) && ( ! xml2pmd) ){
-            System.err.println("ERROR:");
-            System.err.println("You must specify -pmd2xml or -xml2pmd.");
-            System.err.println("(-h for help)");
-            System.exit(5);
-        }
+        return;
+    }
 
-        if(inputFile == null){
-            System.err.println("ERROR:");
-            System.err.println("You must specify input file with -i.");
-            System.err.println("(-h for help)");
-            System.exit(5);
-        }
+    /**
+     * 標準エラー出力へ例外情報出力。
+     * @param ex 例外
+     */
+    private static void errPrintln(Throwable ex){
+        errPrintln(ex, false);
+        return;
+    }
 
-        if(outputFile == null){
-            System.err.println("ERROR:");
-            System.err.println("You must specify output file with -o.");
-            System.err.println("(-h for help)");
-            System.exit(5);
-        }
-
-        File iFile = new File(inputFile);
-        if( (! iFile.exists()) || (! iFile.isFile()) ){
-            System.err.println("ERROR:");
-            System.err.println("Can't find input file:"
-                    + iFile.getAbsolutePath());
-            System.err.println("(-h for help)");
-            System.exit(1);
-        }
-
-        if( ! force ){
-            File oFile = new File(outputFile);
-            if(oFile.exists()){
-                System.err.println("ERROR:");
-                System.err.println(oFile.getAbsolutePath()
-                        + " already exists.");
-                System.err.println("If you want to overwrite, use -f.");
-                System.err.println("(-h for help)");
-                System.exit(1);
-            }
-        }else{
-            File oFile = new File(outputFile);
-            if(oFile.exists()){
-                if( ! oFile.isFile()){
-                    System.err.println("ERROR:");
-                    System.err.println(oFile.getAbsolutePath()
-                            + " is not file.");
-                    System.err.println("(-h for help)");
-                    System.exit(1);
-                }
-            }
-        }
-
-        try{
-            if(pmd2xml) pmd2xml(inputFile, outputFile);
-            else        xml2pmd(inputFile, outputFile);
-        }catch(IOException e){
-            ioError(e);
-        }catch(ParserConfigurationException e){
-            internalError(e);
-        }catch(IllegalPmdDataException e){
-            internalError(e);
-        }catch(MmdFormatException e){
-            pmdError(e);
-        }catch(TogaXmlException e){
-            xmlError(e);
-        }catch(SAXException e){
-            xmlError(e);
-        }
-
-        System.exit(0);
-
+    /**
+     * 共通エラーメッセージを出力する。
+     * @param text 個別メッセージ
+     */
+    private static void errMsg(String text){
+        ERROUT.println("ERROR:");
+        ERROUT.println(text);
+        ERROUT.println("(-h for help)");
         return;
     }
 
@@ -199,8 +139,8 @@ public final class Pmd2Xml {
      * @param ex 例外
      */
     private static void ioError(Throwable ex){
-        System.err.println(ex);
-        System.exit(1);
+        errPrintln(ex);
+        exit(EXIT_FILE);
     }
 
     /**
@@ -209,8 +149,8 @@ public final class Pmd2Xml {
      * @param ex 例外
      */
     private static void xmlError(Throwable ex){
-        System.err.println(ex);
-        System.exit(2);
+        errPrintln(ex);
+        exit(EXIT_XML);
     }
 
     /**
@@ -219,9 +159,8 @@ public final class Pmd2Xml {
      * @param ex 例外
      */
     private static void pmdError(Throwable ex){
-        System.err.println(ex);
-        ex.printStackTrace(System.err);
-        System.exit(3);
+        errPrintln(ex, true);
+        exit(EXIT_PMD);
     }
 
     /**
@@ -230,9 +169,8 @@ public final class Pmd2Xml {
      * @param ex 例外
      */
     private static void internalError(Throwable ex){
-        System.err.println(ex);
-        ex.printStackTrace(System.err);
-        System.exit(4);
+        errPrintln(ex, true);
+        exit(EXIT_INTERN);
     }
 
     /**
@@ -242,8 +180,8 @@ public final class Pmd2Xml {
     private static void checkJRE(){
         Package jrePackage = java.lang.Object.class.getPackage();
         if( ! jrePackage.isCompatibleWith("1.6")){
-            System.err.println("You need JRE 1.6 or later.");
-            System.exit(4);
+            ERROUT.println("You need JRE 1.6 or later.");
+            exit(EXIT_JREVER);
         }
         return;
     }
@@ -252,77 +190,20 @@ public final class Pmd2Xml {
      * ヘルプメッセージを出力してVMを終了させる。
      */
     private static void putHelp(){
-        System.err.println(APPNAME + ' ' + APPVER );
-        System.err.println("  License : " + APPLICENSE);
-        System.err.println("  http://mikutoga.sourceforge.jp/");
-        System.err.println();
-        System.err.println("-h       : put help massage");
-        System.err.println("-pmd2xml : convert *.pmd to *.xml");
-        System.err.println("-xml2pmd : convert *.xml to *.pmd");
-        System.err.println("-i file  : specify input file");
-        System.err.println("-o file  : specify output file");
-        System.err.println("-f       : force overwriting");
-        System.exit(0);
-        return;
-    }
+        StringBuilder appInfo = new StringBuilder();
+        String indent = "  ";
 
-    /**
-     * PMD->XML変換を行う。
-     * @param inputFile 入力ファイル名
-     * @param outputFile 出力ファイル名
-     * @throws IOException 入出力エラー
-     * @throws MmdFormatException 不正なPMDファイル
-     * @throws IllegalPmdDataException 不正なモデルデータ
-     */
-    private static void pmd2xml(String inputFile, String outputFile)
-            throws IOException, MmdFormatException, IllegalPmdDataException{
-        File iFile = new File(inputFile);
-        InputStream is = new FileInputStream(iFile);
-        is = new BufferedInputStream(is);
-        PmdModel model = pmdRead(is);
-        is.close();
+        appInfo.append(APPNAME).append(' ').append(APPVER)
+               .append('\n');
+        appInfo.append(indent)
+               .append("License").append(" : ").append(APPLICENSE)
+               .append('\n');
+        appInfo.append(indent)
+               .append("http://mikutoga.sourceforge.jp/")
+               .append('\n');
 
-        File oFile = new File(outputFile);
-        trunc(oFile);
-        OutputStream ostream;
-        ostream = new FileOutputStream(oFile, false);
-        ostream = new BufferedOutputStream(ostream);
-        xmlOut(model, ostream);
-        ostream.close();
-
-        return;
-    }
-
-    /**
-     * XML->PMD変換を行う。
-     * @param inputFile 入力ファイル名
-     * @param outputFile 出力ファイル名
-     * @throws IOException 入出力エラー
-     * @throws ParserConfigurationException XML構成のエラー
-     * @throws SAXException 不正なXMLファイル
-     * @throws TogaXmlException 不正なXMLファイル
-     * @throws IllegalPmdDataException 不正なPMDモデルデータ
-     */
-    private static void xml2pmd(String inputFile, String outputFile)
-            throws IOException,
-                   ParserConfigurationException,
-                   SAXException,
-                   TogaXmlException,
-                   IllegalPmdDataException {
-        File iFile = new File(inputFile);
-        InputStream is = new FileInputStream(iFile);
-        is = new BufferedInputStream(is);
-        InputSource source = new InputSource(is);
-        PmdModel model = xmlRead(source);
-        is.close();
-
-        File oFile = new File(outputFile);
-        trunc(oFile);
-        OutputStream ostream;
-        ostream = new FileOutputStream(oFile, false);
-        ostream = new BufferedOutputStream(ostream);
-        pmdOut(model, ostream);
-        ostream.close();
+        ERROUT.println(appInfo.toString());
+        ERROUT.println(OptInfo.getConsoleHelp());
 
         return;
     }
@@ -347,73 +228,135 @@ public final class Pmd2Xml {
     }
 
     /**
-     * PMDファイルからモデルデータを読み込む。
-     * @param is 入力ストリーム
-     * @return モデルデータ
-     * @throws IOException 入力エラー
-     * @throws MmdFormatException 不正なPMDファイルフォーマット
+     * 入力ストリームを準備する。
+     * @param fileName 入力ファイル名
+     * @return 入力ストリーム
      */
-    private static PmdModel pmdRead(InputStream is)
-            throws IOException, MmdFormatException{
-        PmdLoader loader = new PmdLoader(is);
+    private static InputStream openInfile(String fileName){
+        File inFile = new File(fileName);
 
-        PmdModel model = loader.load();
+        if( (! inFile.exists()) || (! inFile.isFile()) ){
+            String absPath = inFile.getAbsolutePath();
+            errMsg("Can't find input file:" + absPath);
+            exit(EXIT_FILE);
+        }
 
-        return model;
+        InputStream is = null;
+        try{
+            is = new FileInputStream(inFile);
+        }catch(FileNotFoundException e){
+            ioError(e);
+            assert false;
+        }
+
+        is = new BufferedInputStream(is);
+
+        return is;
     }
 
     /**
-     * XMLファイルからモデルデータを読み込む。
-     * @param source 入力ソース
-     * @return モデルデータ
-     * @throws IOException 入力エラー
-     * @throws ParserConfigurationException XML構成エラー
-     * @throws SAXException XML構文エラー
-     * @throws TogaXmlException 不正なXMLデータ
+     * 出力ストリームを準備する。
+     * @param fileName 出力ファイル名
+     * @param overWrite 頭から上書きして良ければtrue
+     * @return 出力ストリーム
      */
-    private static PmdModel xmlRead(InputSource source)
-            throws IOException,
-                   ParserConfigurationException,
-                   SAXException,
-                   TogaXmlException {
-        DocumentBuilder builder =
-                PmdXmlResources.newBuilder(XmlHandler.HANDLER);
-        Xml2PmdLoader loader = new Xml2PmdLoader(builder);
+    private static OutputStream openOutfile(String fileName,
+                                            boolean overWrite) {
+        File outFile = new File(fileName);
 
-        PmdModel model = loader.parse(source);
+        if(outFile.exists()){
+            String absPath = outFile.getAbsolutePath();
+            if( ! outFile.isFile() ){
+                String msg = absPath + " is not file.";
+                errMsg(msg);
+                exit(EXIT_FILE);
+            }else if( ! overWrite ){
+                String msg =
+                          absPath + " already exists.\n"
+                        + "If you want to overwrite, use -f.";
+                errMsg(msg);
+                exit(EXIT_FILE);
+            }
+        }
 
-        return model;
+        try{
+            trunc(outFile);
+        }catch(IOException e){
+            ioError(e);
+        }
+
+        OutputStream os = null;
+        try{
+            os = new FileOutputStream(outFile);
+        }catch(FileNotFoundException e){
+            ioError(e);
+            assert false;
+        }
+
+        os = new BufferedOutputStream(os);
+
+        return os;
     }
 
     /**
-     * モデルデータをPMDファイルに出力する。
-     * @param model モデルデータ
-     * @param ostream 出力ストリーム
-     * @throws IOException 出力エラー
-     * @throws IllegalPmdDataException 不正なモデルデータ
+     * Mainエントリ。
+     * @param args コマンドパラメータ
      */
-    private static void pmdOut(PmdModel model, OutputStream ostream)
-            throws IOException, IllegalPmdDataException{
-        PmdExporter exporter = new PmdExporter(ostream);
-        exporter.dumpPmdModel(model);
-        ostream.close();
-        return;
-    }
+    public static void main(String[] args){
+        checkJRE();
 
-    /**
-     * モデルデータをXMLファイルに出力する。
-     * @param model モデルデータ
-     * @param ostream 出力ストリーム
-     * @throws IOException 出力エラー
-     * @throws IllegalPmdDataException 不正なモデルデータ
-     */
-    private static void xmlOut(PmdModel model, OutputStream ostream)
-            throws IOException, IllegalPmdDataException{
-        PmdXmlExporter exporter = new PmdXmlExporter(ostream);
-        exporter.setNewLine("\r\n");
-        exporter.setGenerator(APPNAME + ' ' + APPVER);
-        exporter.putPmdModel(model);
-        exporter.close();
+        Pmd2XmlConv converter = new Pmd2XmlConv();
+
+        OptInfo optInfo = OptInfo.parseOption(args);
+        if(optInfo.needHelp()){
+            putHelp();
+            exit(EXIT_OK);
+        }else if(optInfo.hasError()){
+            String optErrMsg = optInfo.getErrorMessage();
+            errMsg(optErrMsg);
+            exit(EXIT_OPT);
+        }
+
+        String inputFile = optInfo.getInFilename();
+        String outputFile = optInfo.getOutFilename();
+        boolean overwrite = optInfo.overwriteMode();
+
+        InputStream  is = openInfile(inputFile);
+        OutputStream os = openOutfile(outputFile, overwrite);
+
+        converter.setInType(optInfo.getInFileType());
+        converter.setOutType(optInfo.getOutFileType());
+
+        converter.setNewline(optInfo.getNewline());
+        converter.setGenerator(optInfo.getGenerator());
+
+        try{
+            converter.convert(is, os);
+        }catch(IOException e){
+            ioError(e);
+        }catch(IllegalPmdDataException e){
+            internalError(e);
+        }catch(MmdFormatException e){
+            pmdError(e);
+        }catch(TogaXmlException e){
+            xmlError(e);
+        }catch(SAXException e){
+            xmlError(e);
+        }
+
+        try{
+            is.close();
+            try{
+                os.close();
+            }catch(IOException e){
+                ioError(e);
+            }
+        }catch(IOException e){
+            ioError(e);
+        }
+
+        exit(EXIT_OK);
+
         return;
     }
 
