@@ -10,6 +10,7 @@ package jp.sourceforge.mikutoga.pmd2xml;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
+import jp.sourceforge.mikutoga.pmd.ModelFileType;
 
 /**
  * コマンドラインオプション情報。
@@ -50,8 +51,8 @@ final class OptInfo {
     private String errMsg = null;
 
     private boolean needHelp = false;
-    private ModelFileTypes inTypes  = ModelFileTypes.NONE;
-    private ModelFileTypes outTypes = ModelFileTypes.NONE;
+    private ModelFileType inTypes  = ModelFileType.NONE;
+    private ModelFileType outTypes = ModelFileType.NONE;
     private String inFilename = null;
     private String outFilename = null;
     private boolean overwrite = false;
@@ -97,12 +98,12 @@ final class OptInfo {
                 result.overwrite = true;
                 break;
             case OPT_PMD2XML:
-                result.inTypes  = ModelFileTypes.PMD;
-                result.outTypes = ModelFileTypes.XML_101009;
+                result.inTypes  = ModelFileType.PMD;
+                result.outTypes = ModelFileType.XML_101009;
                 break;
             case OPT_XML2PMD:
-                result.inTypes  = ModelFileTypes.XML_101009;
-                result.outTypes = ModelFileTypes.PMD;
+                result.inTypes  = ModelFileType.XML_101009;
+                result.outTypes = ModelFileType.PMD;
                 break;
             case OPT_INFILE:
                 argIdx++;
@@ -157,8 +158,8 @@ final class OptInfo {
      * @param result オプション情報
      */
     private static void checkResult(OptInfo result){
-        if(   result.getInFileType()  == ModelFileTypes.NONE
-           || result.getOutFileType() == ModelFileTypes.NONE ){
+        if(   result.getInFileType()  == ModelFileType.NONE
+           || result.getOutFileType() == ModelFileType.NONE ){
             result.putErrMsg(ERRMSG_NODIR);
             return;
         }
@@ -213,7 +214,7 @@ final class OptInfo {
      * 入力ファイル種別を返す。
      * @return 入力ファイル種別
      */
-    ModelFileTypes getInFileType(){
+    ModelFileType getInFileType(){
         return this.inTypes;
     }
 
@@ -221,7 +222,7 @@ final class OptInfo {
      * 出力ファイル種別を返す。
      * @return 出力ファイル種別
      */
-    ModelFileTypes getOutFileType(){
+    ModelFileType getOutFileType(){
         return this.outTypes;
     }
 

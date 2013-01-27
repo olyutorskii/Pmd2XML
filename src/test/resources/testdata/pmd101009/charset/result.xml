@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+-->
+
+
+<!-- a A  9　亜'" -->
+<pmdModel
+  xmlns="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009
+    http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-101009.xsd"
+  schemaVersion="101009"
+
+  name="a A &#x20;9&#x3000;&#x4E9C;&apos;&quot;"
+>
+
+
+<description>
+azAZ09&#xFF71;<br/>
+&#xFF21;&#xFF3A;&#xFF10;&#xFF19;&#x3042;&#x30A2;&#x3091;&#x30F5;&#x30F6;<br/>
+&#x30F4;&#x30A6;&#x309B;&#xFF73;&#xFF9E;&#x30D1;&#x30CF;&#x309C;&#xFF8A;&#xFF9F;<br/>
+&#x03A9;&#x03C9;&#x0416;&#x0436;&#x2534;<br/>
+&#x5CE0;&#x58FA;&#x58F7;&#x5C2D;&#x582F;&#x51DC;&#x7199;<br/>
+\&#xFF3C;\&#xFFE5;<br/>
+&#x9AD9;&#x2468;&#x2252;&#x2235;&#xFFE2;&#x3231;&#x03A3;<br/>
+#$[\]^{|}~<br/>
+&apos;&quot;&amp;&lt;&gt;<br/>
+&lt;!--fake comment--&gt;<br/>
+A B &#x20;C<br/>
+A&#x09;B&#x09;&#x09;C<br/>
+A&#x3000;B&#x3000;&#x3000;C<br/>
+AB<br/>
+</description>
+<!--
+azAZ09ｱ
+ＡＺ０９あアゑヵヶ
+ヴウ゛ｳﾞパハ゜ﾊﾟ
+ΩωЖж┴
+峠壺壷尭堯凜熙
+\＼\￥
+髙⑨≒∵￢㈱Σ
+#$[\]^{|}~
+'"&<>
+<!- -fake comment- ->
+A B  C
+A␉B␉␉C
+A　B　　C
+AB
+-->
+
+<license>
+</license>
+
+<credits>
+</credits>
+
+<meta name="siteURL" content="" />
+<meta name="imageURL" content="" />
+
+<materialList>
+</materialList>
+
+<toonMap>
+  <toonDef toonFileId="tf0" index="0" winFileName="toon01.bmp" />
+  <toonDef toonFileId="tf1" index="1" winFileName="toon02.bmp" />
+  <toonDef toonFileId="tf2" index="2" winFileName="toon03.bmp" />
+  <toonDef toonFileId="tf3" index="3" winFileName="toon04.bmp" />
+  <toonDef toonFileId="tf4" index="4" winFileName="toon05.bmp" />
+  <toonDef toonFileId="tf5" index="5" winFileName="toon06.bmp" />
+  <toonDef toonFileId="tf6" index="6" winFileName="toon07.bmp" />
+  <toonDef toonFileId="tf7" index="7" winFileName="toon08.bmp" />
+  <toonDef toonFileId="tf8" index="8" winFileName="toon09.bmp" />
+  <toonDef toonFileId="tf9" index="9" winFileName="toon10.bmp" />
+</toonMap>
+
+<boneList>
+</boneList>
+
+<boneGroupList>
+</boneGroupList>
+
+<ikChainList>
+</ikChainList>
+
+<morphList>
+</morphList>
+
+<rigidList>
+</rigidList>
+
+<rigidGroupList>
+
+  <rigidGroup rigidGroupId="rg1" />
+  <rigidGroup rigidGroupId="rg2" />
+  <rigidGroup rigidGroupId="rg3" />
+  <rigidGroup rigidGroupId="rg4" />
+  <rigidGroup rigidGroupId="rg5" />
+  <rigidGroup rigidGroupId="rg6" />
+  <rigidGroup rigidGroupId="rg7" />
+  <rigidGroup rigidGroupId="rg8" />
+  <rigidGroup rigidGroupId="rg9" />
+  <rigidGroup rigidGroupId="rg10" />
+  <rigidGroup rigidGroupId="rg11" />
+  <rigidGroup rigidGroupId="rg12" />
+  <rigidGroup rigidGroupId="rg13" />
+  <rigidGroup rigidGroupId="rg14" />
+  <rigidGroup rigidGroupId="rg15" />
+  <rigidGroup rigidGroupId="rg16" />
+
+</rigidGroupList>
+
+<jointList>
+</jointList>
+
+<surfaceGroupList>
+</surfaceGroupList>
+
+<vertexList>
+</vertexList>
+
+</pmdModel>
+
+<!-- EOF -->

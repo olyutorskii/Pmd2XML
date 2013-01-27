@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+-->
+
+
+<!-- [NAMELESS] -->
+<pmdModel
+  xmlns="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009
+    http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-101009.xsd"
+  schemaVersion="101009"
+
+  name=""
+>
+
+
+<description>
+</description>
+
+<license>
+</license>
+
+<credits>
+</credits>
+
+<meta name="siteURL" content="" />
+<meta name="imageURL" content="" />
+
+<materialList>
+</materialList>
+
+<toonMap>
+  <toonDef toonFileId="tf0" index="0" winFileName="toon01.bmp" />
+  <toonDef toonFileId="tf1" index="1" winFileName="toon02.bmp" />
+  <toonDef toonFileId="tf2" index="2" winFileName="toon03.bmp" />
+  <toonDef toonFileId="tf3" index="3" winFileName="toon04.bmp" />
+  <toonDef toonFileId="tf4" index="4" winFileName="toon05.bmp" />
+  <toonDef toonFileId="tf5" index="5" winFileName="toon06.bmp" />
+  <toonDef toonFileId="tf6" index="6" winFileName="toon07.bmp" />
+  <toonDef toonFileId="tf7" index="7" winFileName="toon08.bmp" />
+  <toonDef toonFileId="tf8" index="8" winFileName="toon09.bmp" />
+  <toonDef toonFileId="tf9" index="9" winFileName="toon10.bmp" />
+</toonMap>
+
+<boneList>
+
+<!--
+Bone types:
+[0 : ROTATE      : Rotate       : 回転           :]
+[1 : ROTMOV      : Rotate/Move  : 回転/移動      :]
+[2 : IK          : IK           : IK             :]
+[3 : UNKNOWN     : Unknown      : 不明           :]
+[4 : UNDERIK     : Under IK     : IK影響下(回転) :]
+[5 : UNDERROT    : Under rotate : 回転影響下     :]
+[6 : IKCONNECTED : IK connected : IK接続先       :]
+[7 : HIDDEN      : Hidden       : 非表示         :]
+[8 : TWIST       : Twist        : 捩り           :]
+[9 : LINKEDROT   : Linked Rotate: 回転連動       :]
+-->
+
+  <!-- センター [回転/移動] -->
+  <bone name="&#x30BB;&#x30F3;&#x30BF;&#x30FC;" boneId="bn0" type="ROTMOV" >
+    <position x="0.0" y="0.0" z="0.0" />
+    <boneChain />
+  </bone>
+
+  <!-- 左足 [IK影響下(回転)] -->
+  <bone name="&#x5DE6;&#x8DB3;" boneId="bn1" type="UNDERIK" >
+    <position x="0.0" y="10.0" z="0.0" />
+    <ikBone boneIdRef="bn4" /> <!-- Ref:左足ＩＫ -->
+
+    <!-- [センター] >>#>> [左ひざ] -->
+    <boneChain prevBoneIdRef="bn0" nextBoneIdRef="bn2" />
+  </bone>
+
+  <!-- 左ひざ [IK影響下(回転)] -->
+  <bone name="&#x5DE6;&#x3072;&#x3056;" boneId="bn2" type="UNDERIK" >
+    <position x="0.0" y="7.0" z="-0.01" />
+    <ikBone boneIdRef="bn4" /> <!-- Ref:左足ＩＫ -->
+
+    <!-- [左足] >>#>> [左足首] -->
+    <boneChain prevBoneIdRef="bn1" nextBoneIdRef="bn3" />
+  </bone>
+
+  <!-- 左足首 [IK影響下(回転)] -->
+  <bone name="&#x5DE6;&#x8DB3;&#x9996;" boneId="bn3" type="UNDERIK" >
+    <position x="0.0" y="4.0" z="0.0" />
+    <ikBone boneIdRef="bn4" /> <!-- Ref:左足ＩＫ -->
+
+    <!-- [左ひざ] >># -->
+    <boneChain prevBoneIdRef="bn2" />
+  </bone>
+
+  <!-- 左足ＩＫ [IK] -->
+  <bone name="&#x5DE6;&#x8DB3;&#xFF29;&#xFF2B;" boneId="bn4" type="IK" >
+    <position x="0.0" y="4.0" z="0.0" />
+    <boneChain />
+  </bone>
+
+</boneList>
+
+<boneGroupList>
+</boneGroupList>
+
+<ikChainList>
+
+  <!-- Ref:左足ＩＫ -->
+  <ikChain ikBoneIdRef="bn4" recursiveDepth="50" weight="0.5" >
+    <chainOrder boneIdRef="bn3" /> <!-- Ref:左足首 -->
+    <chainOrder boneIdRef="bn2" /> <!-- Ref:左ひざ -->
+    <chainOrder boneIdRef="bn1" /> <!-- Ref:左足 -->
+  </ikChain>
+
+</ikChainList>
+
+<morphList>
+</morphList>
+
+<rigidList>
+</rigidList>
+
+<rigidGroupList>
+
+  <rigidGroup rigidGroupId="rg1" />
+  <rigidGroup rigidGroupId="rg2" />
+  <rigidGroup rigidGroupId="rg3" />
+  <rigidGroup rigidGroupId="rg4" />
+  <rigidGroup rigidGroupId="rg5" />
+  <rigidGroup rigidGroupId="rg6" />
+  <rigidGroup rigidGroupId="rg7" />
+  <rigidGroup rigidGroupId="rg8" />
+  <rigidGroup rigidGroupId="rg9" />
+  <rigidGroup rigidGroupId="rg10" />
+  <rigidGroup rigidGroupId="rg11" />
+  <rigidGroup rigidGroupId="rg12" />
+  <rigidGroup rigidGroupId="rg13" />
+  <rigidGroup rigidGroupId="rg14" />
+  <rigidGroup rigidGroupId="rg15" />
+  <rigidGroup rigidGroupId="rg16" />
+
+</rigidGroupList>
+
+<jointList>
+</jointList>
+
+<surfaceGroupList>
+</surfaceGroupList>
+
+<vertexList>
+</vertexList>
+
+</pmdModel>
+
+<!-- EOF -->

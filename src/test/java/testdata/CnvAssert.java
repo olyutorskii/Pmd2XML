@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import jp.sourceforge.mikutoga.pmd2xml.ModelFileTypes;
+import jp.sourceforge.mikutoga.pmd.ModelFileType;
 import jp.sourceforge.mikutoga.pmd2xml.Pmd2XmlConv;
 
 import static org.junit.Assert.*;
@@ -56,8 +56,8 @@ public class CnvAssert {
         destOut = new BufferedOutputStream(destOut);
 
         Pmd2XmlConv converter = new Pmd2XmlConv();
-        converter.setInType(ModelFileTypes.XML_101009);
-        converter.setOutType(ModelFileTypes.PMD);
+        converter.setInType(ModelFileType.XML_101009);
+        converter.setOutType(ModelFileType.PMD);
         converter.setNewline("\n");
 
         converter.convert(xmlis, destOut);
@@ -93,8 +93,8 @@ public class CnvAssert {
         destOut = new BufferedOutputStream(destOut);
 
         Pmd2XmlConv converter = new Pmd2XmlConv();
-        converter.setInType(ModelFileTypes.PMD);
-        converter.setOutType(ModelFileTypes.XML_101009);
+        converter.setInType(ModelFileType.PMD);
+        converter.setOutType(ModelFileType.XML_101009);
         converter.setNewline("\n");
         converter.setGenerator(null);
 

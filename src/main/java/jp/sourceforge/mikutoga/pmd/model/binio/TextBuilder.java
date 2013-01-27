@@ -101,10 +101,13 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
                 this.currentBone = this.boneIt.next();
             }
         }else if(stage == PmdEngHandler.ENGMORPH_LIST){
+            if(this.morphPartList.isEmpty()){
+                return;
+            }
+
             this.morphPartIt = this.morphPartList.iterator();
 
             // 「base」モーフを読み飛ばす
-            assert this.morphPartIt.hasNext();
             MorphPart part = this.morphPartIt.next();
             assert part != null;
 

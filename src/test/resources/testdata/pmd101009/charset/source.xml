@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+-->
+
+
+<pmdModel
+  xmlns="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/101009
+    http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-101009.xsd"
+  schemaVersion="101009"
+
+  name="a A  9　亜&apos;&quot;"
+>
+
+
+<description>
+azAZ09ｱ<br/><!--                           半角 -->
+ＡＺ０９あアゑヵヶ<br/><!--                全角 -->
+ヴウ゛ｳﾞパハ゜ﾊﾟ<br/><!--                  濁点 & 半濁点 -->
+ΩωЖж┴<br/><!--                        ギリシャ & ロシア & 罫線 -->
+峠壺壷尭堯凜熙<br/><!--                    国字 JIS78 → JIS83 → JIS90 -->
+\＼¥￥<br/><!--                            円通貨 & バックスラッシュ -->
+髙⑨≒∵￢㈱Σ<br/><!--                    IBM漢字 & NEC漢字 & MS漢字 -->
+#$[\]^{|}~<br/><!--                        ISO-646 バリアント -->
+<![CDATA['"&<>]]><br/><!--                 XML 特殊文字 -->
+<![CDATA[<!--fake comment-->]]><br/><!--   コメントのCDATA化 -->
+A B  C<br/><!--                            半角スペース -->
+A&#x09;B&#x09;&#x09;C<br/><!--           タブ -->
+A　B　　C<br/><!--                         全角スペース -->
+A&#x0A;B<br/><!--                          無視される改行 -->
+</description>
+
+<license>
+</license>
+
+<credits>
+</credits>
+
+<meta name="siteURL" content="" />
+<meta name="imageURL" content="" />
+
+<materialList>
+
+</materialList>
+
+<toonMap>
+  <toonDef toonFileId="tf0" index="0" winFileName="toon01.bmp" />
+  <toonDef toonFileId="tf1" index="1" winFileName="toon02.bmp" />
+  <toonDef toonFileId="tf2" index="2" winFileName="toon03.bmp" />
+  <toonDef toonFileId="tf3" index="3" winFileName="toon04.bmp" />
+  <toonDef toonFileId="tf4" index="4" winFileName="toon05.bmp" />
+  <toonDef toonFileId="tf5" index="5" winFileName="toon06.bmp" />
+  <toonDef toonFileId="tf6" index="6" winFileName="toon07.bmp" />
+  <toonDef toonFileId="tf7" index="7" winFileName="toon08.bmp" />
+  <toonDef toonFileId="tf8" index="8" winFileName="toon09.bmp" />
+  <toonDef toonFileId="tf9" index="9" winFileName="toon10.bmp" />
+</toonMap>
+
+<boneList>
+</boneList>
+
+<boneGroupList>
+
+</boneGroupList>
+
+<ikChainList>
+
+</ikChainList>
+
+<morphList>
+</morphList>
+
+<rigidList>
+</rigidList>
+
+<rigidGroupList>
+
+  <rigidGroup rigidGroupId="rg1" />
+  <rigidGroup rigidGroupId="rg2" />
+  <rigidGroup rigidGroupId="rg3" />
+  <rigidGroup rigidGroupId="rg4" />
+  <rigidGroup rigidGroupId="rg5" />
+  <rigidGroup rigidGroupId="rg6" />
+  <rigidGroup rigidGroupId="rg7" />
+  <rigidGroup rigidGroupId="rg8" />
+  <rigidGroup rigidGroupId="rg9" />
+  <rigidGroup rigidGroupId="rg10" />
+  <rigidGroup rigidGroupId="rg11" />
+  <rigidGroup rigidGroupId="rg12" />
+  <rigidGroup rigidGroupId="rg13" />
+  <rigidGroup rigidGroupId="rg14" />
+  <rigidGroup rigidGroupId="rg15" />
+  <rigidGroup rigidGroupId="rg16" />
+
+</rigidGroupList>
+
+<jointList>
+
+</jointList>
+
+<surfaceGroupList>
+
+</surfaceGroupList>
+
+<vertexList>
+
+</vertexList>
+
+</pmdModel>
+
+<!-- EOF -->

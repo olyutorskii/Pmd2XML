@@ -12,14 +12,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
+import jp.sfjp.mikutoga.pmd.xml101009.Xml101009Exporter;
+import jp.sfjp.mikutoga.pmd.xml101009.Xml101009Loader;
+import jp.sfjp.mikutoga.pmd.xml101009.Xml101009Resources;
 import jp.sourceforge.mikutoga.parser.MmdFormatException;
 import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
+import jp.sourceforge.mikutoga.pmd.ModelFileType;
 import jp.sourceforge.mikutoga.pmd.model.PmdModel;
 import jp.sourceforge.mikutoga.pmd.model.binio.PmdExporter;
 import jp.sourceforge.mikutoga.pmd.model.binio.PmdLoader;
-import jp.sourceforge.mikutoga.pmd.model.xml.PmdXmlExporter;
-import jp.sourceforge.mikutoga.pmd.model.xml.PmdXmlResources;
-import jp.sourceforge.mikutoga.pmd.model.xml.Xml2PmdLoader;
 import jp.sourceforge.mikutoga.xml.TogaXmlException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -29,8 +30,8 @@ import org.xml.sax.SAXException;
  */
 public class Pmd2XmlConv {
 
-    private ModelFileTypes inTypes  = ModelFileTypes.NONE;
-    private ModelFileTypes outTypes = ModelFileTypes.NONE;
+    private ModelFileType inTypes  = ModelFileType.NONE;
+    private ModelFileType outTypes = ModelFileType.NONE;
     private String newLine = "\r\n";
     private String generator = null;
 
@@ -44,7 +45,7 @@ public class Pmd2XmlConv {
         super();
 
         try{
-            this.builder = PmdXmlResources.newBuilder(XmlHandler.HANDLER);
+            this.builder = Xml101009Resources.newBuilder(XmlHandler.HANDLER);
         }catch(SAXException e){
             throw new AssertionError(e);
         }catch(ParserConfigurationException e){
@@ -59,7 +60,7 @@ public class Pmd2XmlConv {
      * 入力ファイル種別を設定する。
      * @param type ファイル種別
      */
-    public void setInType(ModelFileTypes type){
+    public void setInType(ModelFileType type){
         if(type == null) throw new NullPointerException();
         this.inTypes = type;
         return;
@@ -69,7 +70,7 @@ public class Pmd2XmlConv {
      * 入力ファイル種別を返す。
      * @return ファイル種別
      */
-    public ModelFileTypes getInTypes(){
+    public ModelFileType getInTypes(){
         return this.inTypes;
     }
 
@@ -77,7 +78,7 @@ public class Pmd2XmlConv {
      * 出力ファイル種別を設定する。
      * @param type ファイル種別
      */
-    public void setOutType(ModelFileTypes type){
+    public void setOutType(ModelFileType type){
         if(type == null) throw new NullPointerException();
         this.outTypes = type;
         return;
@@ -87,7 +88,7 @@ public class Pmd2XmlConv {
      * 出力ファイル種別を返す。
      * @return ファイル種別
      */
-    public ModelFileTypes getOutTypes(){
+    public ModelFileType getOutTypes(){
         return this.outTypes;
     }
 
@@ -241,7 +242,7 @@ public class Pmd2XmlConv {
             throws IOException,
                    SAXException,
                    TogaXmlException {
-        Xml2PmdLoader loader = new Xml2PmdLoader(this.builder);
+        Xml101009Loader loader = new Xml101009Loader(this.builder);
         PmdModel model = loader.parse(source);
         return model;
     }
@@ -270,7 +271,7 @@ public class Pmd2XmlConv {
      */
     private void xmlOut(PmdModel model, OutputStream ostream)
             throws IOException, IllegalPmdDataException{
-        PmdXmlExporter exporter = new PmdXmlExporter(ostream);
+        Xml101009Exporter exporter = new Xml101009Exporter(ostream);
         exporter.setNewLine(this.newLine);
         exporter.setGenerator(this.generator);
         exporter.putPmdModel(model);
