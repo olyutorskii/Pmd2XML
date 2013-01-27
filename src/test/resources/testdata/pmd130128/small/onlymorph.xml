@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+-->
+
+
+<!-- [NAMELESS] -->
+<pmdModel
+  xmlns="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128
+    http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-130128.xsd"
+  schemaVersion="130128"
+
+  name=""
+>
+
+
+<description>
+</description>
+
+<license>
+</license>
+
+<credits>
+</credits>
+
+<meta name="siteURL" content="" />
+<meta name="imageURL" content="" />
+
+<materialList>
+
+  <material showEdge="true" surfaceGroupIdRef="sg0" >
+    <diffuse r="0.75" g="0.25" b="0.25" alpha="1.0" />
+    <specular r="0.0" g="0.0" b="0.0" shininess="5.0" />
+    <ambient r="0.25" g="0.75" b="0.25" />
+  </material>
+
+</materialList>
+
+<toonMap>
+  <toonDef toonFileId="tf0" index="0" winFileName="toon01.bmp" />
+  <toonDef toonFileId="tf1" index="1" winFileName="toon02.bmp" />
+  <toonDef toonFileId="tf2" index="2" winFileName="toon03.bmp" />
+  <toonDef toonFileId="tf3" index="3" winFileName="toon04.bmp" />
+  <toonDef toonFileId="tf4" index="4" winFileName="toon05.bmp" />
+  <toonDef toonFileId="tf5" index="5" winFileName="toon06.bmp" />
+  <toonDef toonFileId="tf6" index="6" winFileName="toon07.bmp" />
+  <toonDef toonFileId="tf7" index="7" winFileName="toon08.bmp" />
+  <toonDef toonFileId="tf8" index="8" winFileName="toon09.bmp" />
+  <toonDef toonFileId="tf9" index="9" winFileName="toon10.bmp" />
+</toonMap>
+
+<boneList>
+
+<!--
+Bone types:
+[0 : ROTATE      : Rotate       : 回転           :]
+[1 : ROTMOV      : Rotate/Move  : 回転/移動      :]
+[2 : IK          : IK           : IK             :]
+[3 : UNKNOWN     : Unknown      : 不明           :]
+[4 : UNDERIK     : Under IK     : IK影響下(回転) :]
+[5 : UNDERROT    : Under rotate : 回転影響下     :]
+[6 : IKCONNECTED : IK connected : IK接続先       :]
+[7 : HIDDEN      : Hidden       : 非表示         :]
+[8 : TWIST       : Twist        : 捩り           :]
+[9 : LINKEDROT   : Linked Rotate: 回転連動       :]
+-->
+
+  <!-- テストボーン [回転/移動] -->
+  <bone name="&#x30C6;&#x30B9;&#x30C8;&#x30DC;&#x30FC;&#x30F3;" boneId="bn0" type="ROTMOV" >
+    <position x="0.0" y="0.0" z="0.0" />
+    <boneChain />
+  </bone>
+
+</boneList>
+
+<boneGroupList>
+</boneGroupList>
+
+<ikChainList>
+</ikChainList>
+
+<morphList>
+
+<!--
+Morph types:
+[1 : EYEBROW : まゆ   ]
+[2 : EYE     : 目     ]
+[3 : LIP     : リップ ]
+[4 : EXTRA   : その他 ]
+-->
+
+  <!-- テストモーフ -->
+  <morph name="&#x30C6;&#x30B9;&#x30C8;&#x30E2;&#x30FC;&#x30D5;" type="EXTRA" >
+    <morphVertex vtxIdRef="vtx0" xOff="0.0" yOff="3.0" zOff="0.0" />
+  </morph>
+
+</morphList>
+
+<rigidList>
+</rigidList>
+
+<rigidGroupList>
+
+  <rigidGroup rigidGroupId="rg1" />
+  <rigidGroup rigidGroupId="rg2" />
+  <rigidGroup rigidGroupId="rg3" />
+  <rigidGroup rigidGroupId="rg4" />
+  <rigidGroup rigidGroupId="rg5" />
+  <rigidGroup rigidGroupId="rg6" />
+  <rigidGroup rigidGroupId="rg7" />
+  <rigidGroup rigidGroupId="rg8" />
+  <rigidGroup rigidGroupId="rg9" />
+  <rigidGroup rigidGroupId="rg10" />
+  <rigidGroup rigidGroupId="rg11" />
+  <rigidGroup rigidGroupId="rg12" />
+  <rigidGroup rigidGroupId="rg13" />
+  <rigidGroup rigidGroupId="rg14" />
+  <rigidGroup rigidGroupId="rg15" />
+  <rigidGroup rigidGroupId="rg16" />
+
+</rigidGroupList>
+
+<jointList>
+</jointList>
+
+<surfaceGroupList>
+
+  <surfaceGroup surfaceGroupId="sg0" >
+    <surface vtxIdRef1="vtx0" vtxIdRef2="vtx1" vtxIdRef3="vtx2" />
+  </surfaceGroup>
+
+</surfaceGroupList>
+
+<vertexList>
+
+  <vertex vtxId="vtx0" showEdge="true" >
+    <position x="0.0" y="0.0" z="0.0" />
+    <normal x="0.0" y="0.0" z="-1.0" />
+    <uvMap u="0.0" v="1.0" />
+    <skinning boneIdRef1="bn0" boneIdRef2="bn0" weightBalance="100" />
+  </vertex>
+
+  <vertex vtxId="vtx1" showEdge="true" >
+    <position x="-5.0" y="8.0" z="0.0" />
+    <normal x="0.0" y="0.0" z="-1.0" />
+    <uvMap u="0.0" v="1.0" />
+    <skinning boneIdRef1="bn0" boneIdRef2="bn0" weightBalance="100" />
+  </vertex>
+
+  <vertex vtxId="vtx2" showEdge="true" >
+    <position x="5.0" y="8.0" z="0.0" />
+    <normal x="0.0" y="0.0" z="-1.0" />
+    <uvMap u="0.0" v="1.0" />
+    <skinning boneIdRef1="bn0" boneIdRef2="bn0" weightBalance="100" />
+  </vertex>
+
+</vertexList>
+
+</pmdModel>
+
+<!-- EOF -->

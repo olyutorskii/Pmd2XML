@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+-->
+
+
+<!-- [NAMELESS] -->
+<testns:pmdModel
+  xmlns:testns="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128
+    http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-130128.xsd"
+  schemaVersion="130128"
+
+  name=""
+>
+
+
+<testns:description>
+</testns:description>
+
+<testns:license>
+</testns:license>
+
+<testns:credits>
+</testns:credits>
+
+<testns:meta name="siteURL" content="" />
+<testns:meta name="imageURL" content="" />
+
+<testns:materialList>
+</testns:materialList>
+
+<testns:toonMap>
+  <testns:toonDef toonFileId="tf0" index="0" winFileName="toon01.bmp" />
+  <testns:toonDef toonFileId="tf1" index="1" winFileName="toon02.bmp" />
+  <testns:toonDef toonFileId="tf2" index="2" winFileName="toon03.bmp" />
+  <testns:toonDef toonFileId="tf3" index="3" winFileName="toon04.bmp" />
+  <testns:toonDef toonFileId="tf4" index="4" winFileName="toon05.bmp" />
+  <testns:toonDef toonFileId="tf5" index="5" winFileName="toon06.bmp" />
+  <testns:toonDef toonFileId="tf6" index="6" winFileName="toon07.bmp" />
+  <testns:toonDef toonFileId="tf7" index="7" winFileName="toon08.bmp" />
+  <testns:toonDef toonFileId="tf8" index="8" winFileName="toon09.bmp" />
+  <testns:toonDef toonFileId="tf9" index="9" winFileName="toon10.bmp" />
+</testns:toonMap>
+
+<testns:boneList>
+</testns:boneList>
+
+<testns:boneGroupList>
+</testns:boneGroupList>
+
+<testns:ikChainList>
+</testns:ikChainList>
+
+<testns:morphList>
+</testns:morphList>
+
+<testns:rigidList>
+</testns:rigidList>
+
+<testns:rigidGroupList>
+
+  <testns:rigidGroup rigidGroupId="rg1" />
+  <testns:rigidGroup rigidGroupId="rg2" />
+  <testns:rigidGroup rigidGroupId="rg3" />
+  <testns:rigidGroup rigidGroupId="rg4" />
+  <testns:rigidGroup rigidGroupId="rg5" />
+  <testns:rigidGroup rigidGroupId="rg6" />
+  <testns:rigidGroup rigidGroupId="rg7" />
+  <testns:rigidGroup rigidGroupId="rg8" />
+  <testns:rigidGroup rigidGroupId="rg9" />
+  <testns:rigidGroup rigidGroupId="rg10" />
+  <testns:rigidGroup rigidGroupId="rg11" />
+  <testns:rigidGroup rigidGroupId="rg12" />
+  <testns:rigidGroup rigidGroupId="rg13" />
+  <testns:rigidGroup rigidGroupId="rg14" />
+  <testns:rigidGroup rigidGroupId="rg15" />
+  <testns:rigidGroup rigidGroupId="rg16" />
+
+</testns:rigidGroupList>
+
+<testns:jointList>
+</testns:jointList>
+
+<testns:surfaceGroupList>
+</testns:surfaceGroupList>
+
+<testns:vertexList>
+</testns:vertexList>
+
+</testns:pmdModel>
+
+<!-- EOF -->

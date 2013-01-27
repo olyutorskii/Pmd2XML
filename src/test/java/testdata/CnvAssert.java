@@ -11,8 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import jp.sourceforge.mikutoga.pmd.ModelFileType;
-import jp.sourceforge.mikutoga.pmd2xml.Pmd2XmlConv;
+import jp.sfjp.mikutoga.pmd2xml.ModelFileType;
+import jp.sfjp.mikutoga.pmd2xml.Pmd2XmlConv;
 
 import static org.junit.Assert.*;
 
@@ -20,6 +20,9 @@ import static org.junit.Assert.*;
  *
  */
 public class CnvAssert {
+
+    private CnvAssert(){
+    }
 
     /**
      * テスト出力用テンポラリファイルの生成。
@@ -56,7 +59,7 @@ public class CnvAssert {
         destOut = new BufferedOutputStream(destOut);
 
         Pmd2XmlConv converter = new Pmd2XmlConv();
-        converter.setInType(ModelFileType.XML_101009);
+        converter.setInType(ModelFileType.XML_AUTO);
         converter.setOutType(ModelFileType.PMD);
         converter.setNewline("\n");
 
@@ -95,6 +98,44 @@ public class CnvAssert {
         Pmd2XmlConv converter = new Pmd2XmlConv();
         converter.setInType(ModelFileType.PMD);
         converter.setOutType(ModelFileType.XML_101009);
+        converter.setNewline("\n");
+        converter.setGenerator(null);
+
+        converter.convert(pmdis, destOut);
+
+        pmdis.close();
+        destOut.close();
+
+        assertSameFile(klass, expXmlResource, destFile);
+
+        return;
+    }
+
+    /**
+     * PMDリソースをXMLに変換した結果がXMLリソースに等しいと表明する。
+     * @param klass リソース元クラス
+     * @param pmdResource PMDリソース名
+     * @param expXmlResource XMLリソース名
+     * @throws Exception エラー
+     */
+    public static void assertPmd2Xml13(
+            Class<?> klass,
+            String pmdResource,
+            String expXmlResource )
+            throws Exception{
+        InputStream pmdis =
+                klass.getResourceAsStream(pmdResource);
+        assertNotNull(pmdis);
+        pmdis = new BufferedInputStream(pmdis);
+
+        File destFile = openTempFile();
+        OutputStream destOut;
+        destOut = new FileOutputStream(destFile);
+        destOut = new BufferedOutputStream(destOut);
+
+        Pmd2XmlConv converter = new Pmd2XmlConv();
+        converter.setInType(ModelFileType.PMD);
+        converter.setOutType(ModelFileType.XML_130128);
         converter.setNewline("\n");
         converter.setGenerator(null);
 

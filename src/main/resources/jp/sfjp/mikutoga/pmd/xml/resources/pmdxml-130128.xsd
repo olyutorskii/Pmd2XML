@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+    schema definition
+
+  License : The MIT License
+  Copyright(c) 2013 MikuToga Partners
+-->
+
+
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+    targetNamespace="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128"
+    xmlns:tns      ="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128"
+
+    elementFormDefault="qualified"
+    version="130128"
+>
+
+    <xsd:annotation>
+        <xsd:documentation>
+            MikuMikuDance model-data(*.pmd) on XML.
+            License : The MIT License
+            Copyright(c) 2013 MikuToga Partners
+        </xsd:documentation>
+    </xsd:annotation>
+
+
+    <xsd:import
+        namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/xml.xsd" />
+
+
+    <!-- ROOT -->
+    <xsd:element name="pmdModel">
+        <xsd:annotation>
+            <xsd:documentation>
+                Root element.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:i18nName"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:description"
+                    minOccurs="1" maxOccurs="unbounded" />
+                <xsd:element ref="tns:license"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:credits"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:meta"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:materialList" />
+                <xsd:element ref="tns:toonMap" />
+                <xsd:element ref="tns:boneList" />
+                <xsd:element ref="tns:boneGroupList" />
+                <xsd:element ref="tns:ikChainList" />
+                <xsd:element ref="tns:morphList" />
+                <xsd:element ref="tns:rigidList" />
+                <xsd:element ref="tns:rigidGroupList" />
+                <xsd:element ref="tns:jointList" />
+                <xsd:element ref="tns:surfaceGroupList" />
+                <xsd:element ref="tns:vertexList" />
+            </xsd:sequence>
+            <xsd:attribute name="name" type="xsd:string" use="required" />
+            <xsd:attribute
+                name="schemaVersion"
+                type="xsd:string"
+                use="required"
+                fixed="130128" />
+        </xsd:complexType>
+
+        <xsd:unique name="ModelLang">
+            <xsd:selector xpath="./tns:i18nName" />
+            <xsd:field xpath="@lang" />
+        </xsd:unique>
+
+        <xsd:unique name="DescriptionLang">
+            <xsd:selector xpath="./tns:description" />
+            <xsd:field xpath="@lang" />
+        </xsd:unique>
+
+        <xsd:unique name="LicenseLang">
+            <xsd:selector xpath="./tns:license" />
+            <xsd:field xpath="@lang" />
+        </xsd:unique>
+
+        <xsd:unique name="CreditsLang">
+            <xsd:selector xpath="./tns:credits" />
+            <xsd:field xpath="@lang" />
+        </xsd:unique>
+
+        <xsd:keyref name="Material-SurfaceGroup" refer="tns:SurfaceGroup-Id">
+            <xsd:selector xpath="./tns:materialList/tns:material" />
+            <xsd:field xpath="@surfaceGroupIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Material-Toon" refer="tns:Toon-Id">
+            <xsd:selector xpath="./tns:materialList/tns:material/tns:toon" />
+            <xsd:field xpath="@toonFileIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Bone-prev" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:boneList/tns:bone/tns:boneChain" />
+            <xsd:field xpath="@prevBoneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Bone-next" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:boneList/tns:bone/tns:boneChain" />
+            <xsd:field xpath="@nextBoneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Bone-source" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:boneList/tns:bone/tns:sourceBone" />
+            <xsd:field xpath="@boneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="BoneGroup-Bone" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:boneGroupList/tns:boneGroup/tns:boneGroupMember" />
+            <xsd:field xpath="@boneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="IkChain-Bone" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:ikChainList/tns:ikChain" />
+            <xsd:field xpath="@ikBoneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="IkChainPart-Bone" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:ikChainList/tns:ikChain/tns:chainOrder" />
+            <xsd:field xpath="@boneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Morph-Vertex" refer="tns:Vertex-Id">
+            <xsd:selector xpath="./tns:morphList/tns:morph/tns:morphVertex" />
+            <xsd:field xpath="@vtxIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Rigid-Bone" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:rigidList/tns:rigid/tns:linkedBone" />
+            <xsd:field xpath="@boneIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Rigid-RigidGroup" refer="tns:RigidGroup-Id">
+            <xsd:selector xpath="./tns:rigidList/tns:rigid/tns:throughRigidGroup" />
+            <xsd:field xpath="@rigidGroupIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="RigidGroup-Rigid" refer="tns:Rigid-Id">
+            <xsd:selector xpath="./tns:rigidGroupList/tns:rigidGroup/tns:rigidGroupMember" />
+            <xsd:field xpath="@rigidIdRef" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Joint-Rigid1" refer="tns:Rigid-Id">
+            <xsd:selector xpath="./tns:jointList/tns:joint/tns:jointedRigidPair" />
+            <xsd:field xpath="@rigidIdRef1" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Joint-Rigid2" refer="tns:Rigid-Id">
+            <xsd:selector xpath="./tns:jointList/tns:joint/tns:jointedRigidPair" />
+            <xsd:field xpath="@rigidIdRef2" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Surface-Vertex1" refer="tns:Vertex-Id">
+            <xsd:selector xpath="./tns:surfaceGroupList/tns:surfaceGroup/tns:surface" />
+            <xsd:field xpath="@vtxIdRef1" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Surface-Vertex2" refer="tns:Vertex-Id">
+            <xsd:selector xpath="./tns:surfaceGroupList/tns:surfaceGroup/tns:surface" />
+            <xsd:field xpath="@vtxIdRef2" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Surface-Vertex3" refer="tns:Vertex-Id">
+            <xsd:selector xpath="./tns:surfaceGroupList/tns:surfaceGroup/tns:surface" />
+            <xsd:field xpath="@vtxIdRef3" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Vertex-Bone1" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:vertexList/tns:vertex/tns:skinning" />
+            <xsd:field xpath="@boneIdRef1" />
+        </xsd:keyref>
+
+        <xsd:keyref name="Vertex-Bone2" refer="tns:Bone-Id">
+            <xsd:selector xpath="./tns:vertexList/tns:vertex/tns:skinning" />
+            <xsd:field xpath="@boneIdRef2" />
+        </xsd:keyref>
+
+    </xsd:element>
+
+
+    <xsd:simpleType name="NonJaLanguage">
+        <xsd:annotation>
+            <xsd:documentation>
+                xsd:language except "ja" (Primary-language in MMD)
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:language">
+            <xsd:pattern value="([^jJ].*)|([jJ][^aA].*)|([jJ][aA].+)" />
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+
+    <xsd:element name="i18nName">
+        <xsd:annotation>
+            <xsd:documentation>
+                Multilingual name.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="lang"
+                type="tns:NonJaLanguage"
+                use="required" />
+            <xsd:attribute
+                name="name"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="br">
+        <xsd:annotation>
+            <xsd:documentation>
+                Break line.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:complexType name="bredContent" mixed="true">
+        <xsd:annotation>
+            <xsd:documentation>
+                Free paragraph with break-line.
+                Any raw-newline(CR,CRLF) will be ignored later.
+                But, other white-spaces will be preserved.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element ref="tns:br" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+
+        <xsd:attribute
+            name="lang"
+            type="xsd:language"
+            use="optional"
+            default="ja" />
+        <xsd:attribute ref="xml:space" use="optional" fixed="preserve" />
+
+    </xsd:complexType>
+
+
+    <xsd:element name="description" type="tns:bredContent">
+        <xsd:annotation>
+            <xsd:documentation>
+                Description note about model.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:element name="license" type="tns:bredContent">
+        <xsd:annotation>
+            <xsd:documentation>
+                License term of usage.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:element name="credits" type="tns:bredContent">
+        <xsd:annotation>
+            <xsd:documentation>
+                Credits for someone.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+
+    <xsd:element name="meta">
+        <xsd:annotation>
+            <xsd:documentation>
+                Meta-information of model.
+                Use free.
+                but, some meta-name has recommended usage.
+                + "generator" (Generator application name)
+                + "siteURL" (Website URL)
+                + "imageURL" (Thumbnail image URL)
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="name"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="content"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="materialList">
+        <xsd:annotation>
+            <xsd:documentation>
+                Material list.
+                All visual things can be tracked from here.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:material"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:unique name="SurfaceGroupRef">
+            <xsd:selector xpath="./tns:material" />
+            <xsd:field xpath="@surfaceGroupIdRef" />
+        </xsd:unique>
+
+    </xsd:element>
+
+
+    <xsd:element name="material">
+        <xsd:annotation>
+            <xsd:documentation>
+                Material definition.
+                Colors, shading, any other definitions.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:i18nName" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="tns:diffuse" />
+                <xsd:element ref="tns:specular" />
+                <xsd:element ref="tns:ambient" />
+                <xsd:element ref="tns:toon" minOccurs="0" />
+                <xsd:element ref="tns:textureFile" minOccurs="0" />
+                <xsd:element ref="tns:spheremapFile" minOccurs="0" />
+            </xsd:sequence>
+
+            <xsd:attribute
+                name="name"
+                type="xsd:string"
+                use="optional" />
+            <xsd:attribute
+                name="showEdge"
+                type="xsd:boolean"
+                use="required" />
+            <xsd:attribute
+                name="surfaceGroupIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:simpleType name="SrgbCompo">
+        <xsd:annotation>
+            <xsd:documentation>
+                sRGB component value. (0.0 - 1.0)
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:float">
+            <xsd:minInclusive value="0.0" />
+            <xsd:maxInclusive value="1.0" />
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+
+    <xsd:element name="diffuse">
+        <xsd:annotation>
+            <xsd:documentation>
+                Diffuse color definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="r" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="g" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="b" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="alpha" type="tns:SrgbCompo" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="specular">
+        <xsd:annotation>
+            <xsd:documentation>
+                Specular color definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="r" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="g" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="b" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="shininess" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="ambient">
+        <xsd:annotation>
+            <xsd:documentation>
+                Ambient color definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="r" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="g" type="tns:SrgbCompo" use="required" />
+            <xsd:attribute name="b" type="tns:SrgbCompo" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="toon">
+        <xsd:annotation>
+            <xsd:documentation>
+                Reference for Toon-image.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="toonFileIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="textureFile">
+        <xsd:annotation>
+            <xsd:documentation>
+                Texture file information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="winFileName"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="spheremapFile">
+        <xsd:annotation>
+            <xsd:documentation>
+                Sphere-map file information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="winFileName"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="toonMap">
+        <xsd:annotation>
+            <xsd:documentation>
+                Toon-file mappings.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:toonDef"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:unique name="ToonIndex">
+            <xsd:selector xpath="./tns:toonDef" />
+            <xsd:field xpath="@index" />
+        </xsd:unique>
+
+        <xsd:key name="Toon-Id">
+            <xsd:selector xpath="./tns:toonDef" />
+            <xsd:field xpath="@toonFileId" />
+        </xsd:key>
+
+    </xsd:element>
+
+
+    <xsd:element name="toonDef">
+        <xsd:annotation>
+            <xsd:documentation>
+                Toon-file information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="toonFileId"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="index"
+                type="xsd:nonNegativeInteger"
+                use="required" />
+            <xsd:attribute
+                name="winFileName"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="boneList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of bone information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:bone" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:key name="Bone-Id">
+            <xsd:selector xpath="./tns:bone" />
+            <xsd:field xpath="@boneId" />
+        </xsd:key>
+<!--
+        <xsd:unique name="BoneName">
+            <xsd:selector xpath="./tns:bone" />
+            <xsd:field xpath="@name" />
+        </xsd:unique>
+-->
+    </xsd:element>
+
+
+    <xsd:simpleType name="BoneType">
+        <xsd:annotation>
+            <xsd:documentation>
+                bone types.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ROTATE" />      <!-- 回転 -->
+            <xsd:enumeration value="ROTMOV" />      <!-- 回転/移動 -->
+            <xsd:enumeration value="IK" />          <!-- IK -->
+            <xsd:enumeration value="UNKNOWN" />     <!-- 不明 -->
+            <xsd:enumeration value="UNDERIK" />     <!-- IK影響下(回転) -->
+            <xsd:enumeration value="UNDERROT" />    <!-- 回転影響下 -->
+            <xsd:enumeration value="IKCONNECTED" /> <!-- IK接続先 -->
+            <xsd:enumeration value="HIDDEN" />      <!-- 非表示 -->
+            <xsd:enumeration value="TWIST" />       <!-- 捩り -->
+            <xsd:enumeration value="LINKEDROT" />   <!-- 回転連動 -->
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+
+    <xsd:element name="bone">
+        <xsd:annotation>
+            <xsd:documentation>
+                Bone definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:i18nName" minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:position" />
+                <xsd:choice minOccurs="0">
+                    <xsd:element ref="tns:rotationRatio" />
+                    <xsd:element ref="tns:sourceBone" />
+                </xsd:choice>
+                <xsd:element ref="tns:boneChain" />
+            </xsd:sequence>
+
+            <xsd:attribute name="name" type="xsd:string" use="required" />
+            <xsd:attribute name="boneId" type="xsd:NCName" use="required" />
+            <xsd:attribute name="type" type="tns:BoneType" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="boneChain">
+        <xsd:annotation>
+            <xsd:documentation>
+                Relationship-info between bones.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="prevBoneIdRef"
+                type="xsd:NCName"
+                use="optional" />
+            <xsd:attribute
+                name="nextBoneIdRef"
+                type="xsd:NCName"
+                use="optional" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="rotationRatio">
+        <xsd:annotation>
+            <xsd:documentation>
+                Rotation ratio between Linked-rotationed bones.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="ratio"
+                type="xsd:integer"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="sourceBone">
+        <xsd:annotation>
+            <xsd:documentation>
+                Reference to source-Bone (UNDERIK, IKCONNECTED, UNDERROT)
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="boneIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="boneGroupList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of Bone-group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:boneGroup"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+<!--
+        <xsd:unique name="BoneGroupName">
+            <xsd:selector xpath="./tns:boneGroup" />
+            <xsd:field xpath="@name" />
+        </xsd:unique>
+-->
+    </xsd:element>
+
+
+    <xsd:element name="boneGroup">
+        <xsd:annotation>
+            <xsd:documentation>
+                Bone-group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:i18nName"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element
+                    ref="tns:boneGroupMember"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+            <xsd:attribute
+                name="name"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="boneGroupMember">
+        <xsd:annotation>
+            <xsd:documentation>
+                Member of Bone-group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="boneIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="ikChainList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of IK chain.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:ikChain"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+<!--
+        <xsd:unique name="IkChainBone">
+            <xsd:selector xpath="./tns:ikChain" />
+            <xsd:field xpath="@ikBoneIdRef" />
+        </xsd:unique>
+-->
+
+    </xsd:element>
+
+
+    <xsd:element name="ikChain">
+        <xsd:annotation>
+            <xsd:documentation>
+                IK chained bones definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:chainOrder"
+                    minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+
+            <xsd:attribute
+                name="ikBoneIdRef"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="recursiveDepth"
+                type="xsd:integer"
+                use="required" />
+            <xsd:attribute
+                name="weight"
+                type="xsd:float"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="chainOrder">
+        <xsd:annotation>
+            <xsd:documentation>
+                Part of IK chained bones.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="boneIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="morphList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of morphing definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:morph"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+<!--
+        <xsd:unique name="MorphName">
+            <xsd:selector xpath="./tns:morph" />
+            <xsd:field xpath="@name" />
+        </xsd:unique>
+-->
+    </xsd:element>
+
+
+    <xsd:simpleType name="MorphType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Morph types.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="EYEBROW" /> <!-- まゆ -->
+            <xsd:enumeration value="EYE" />     <!-- 目 -->
+            <xsd:enumeration value="LIP" />     <!-- リップ -->
+            <xsd:enumeration value="EXTRA" />   <!-- その他 -->
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+
+    <xsd:element name="morph">
+        <xsd:annotation>
+            <xsd:documentation>
+                Morphing definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:i18nName"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element
+                    ref="tns:morphVertex"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+            <xsd:attribute
+                name="name"
+                type="xsd:string"
+                use="required" />
+            <xsd:attribute name="type" type="tns:MorphType" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="morphVertex">
+        <xsd:annotation>
+            <xsd:documentation>
+                Morphing vertex information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="vtxIdRef" type="xsd:NCName" use="required" />
+            <xsd:attribute name="xOff" type="xsd:float" use="required" />
+            <xsd:attribute name="yOff" type="xsd:float" use="required" />
+            <xsd:attribute name="zOff" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidList">
+        <xsd:annotation>
+            <xsd:documentation>
+                list of Rigid-body definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:rigid"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:key name="Rigid-Id">
+            <xsd:selector xpath="./tns:rigid" />
+            <xsd:field xpath="@rigidId" />
+        </xsd:key>
+<!--
+        <xsd:unique name="RigidName">
+            <xsd:selector xpath="./tns:rigid" />
+            <xsd:field xpath="@name" />
+        </xsd:unique>
+-->
+    </xsd:element>
+
+
+    <xsd:simpleType name="RigidBehaviorType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Rigid bahavior types.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="FOLLOWBONE" />    <!-- ボーン追従 -->
+            <xsd:enumeration value="ONLYDYNAMICS" />  <!-- 物理 -->
+            <xsd:enumeration value="BONEDDYNAMICS" /> <!-- 物理+ボーン -->
+        </xsd:restriction>
+
+    </xsd:simpleType>
+
+
+    <xsd:element name="rigid">
+        <xsd:annotation>
+            <xsd:documentation>
+                Rigid-body definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:i18nName"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:linkedBone" minOccurs="0" />
+
+                <xsd:choice>
+                    <xsd:element ref="tns:rigidShapeSphere" />
+                    <xsd:element ref="tns:rigidShapeBox" />
+                    <xsd:element ref="tns:rigidShapeCapsule" />
+                </xsd:choice>
+
+                <xsd:element ref="tns:position" />
+                <xsd:element ref="tns:radRotation" />
+                <xsd:element ref="tns:dynamics" />
+                <xsd:element
+                    ref="tns:throughRigidGroup"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+
+            <xsd:attribute name="name" type="xsd:string" use="required" />
+            <xsd:attribute name="rigidId" type="xsd:NCName" use="required" />
+            <xsd:attribute
+                name="behavior"
+                type="tns:RigidBehaviorType"
+                use="required" />
+        </xsd:complexType>
+
+        <xsd:unique name="ThroughRigidGroup">
+            <xsd:selector xpath="./tns:throughRigidGroup" />
+            <xsd:field xpath="@rigidGroupIdRef" />
+        </xsd:unique>
+
+    </xsd:element>
+
+
+    <xsd:element name="linkedBone">
+        <xsd:annotation>
+            <xsd:documentation>
+                Referenced Bone from Rigid-body.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="boneIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidShapeSphere">
+        <xsd:annotation>
+            <xsd:documentation>
+                Sphere shape of Rigid-body.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="radius" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidShapeBox">
+        <xsd:annotation>
+            <xsd:documentation>
+                Box shape of Rigid-body.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="width"  type="xsd:float" use="required" />
+            <xsd:attribute name="height" type="xsd:float" use="required" />
+            <xsd:attribute name="depth"  type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidShapeCapsule">
+        <xsd:annotation>
+            <xsd:documentation>
+                Capsule shape of Rigid-body.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="height" type="xsd:float" use="required" />
+            <xsd:attribute name="radius" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="radRotation">
+        <xsd:annotation>
+            <xsd:documentation>
+                Rotaion information by radian.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="xRad" type="xsd:float" use="required" />
+            <xsd:attribute name="yRad" type="xsd:float" use="required" />
+            <xsd:attribute name="zRad" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="dynamics">
+        <xsd:annotation>
+            <xsd:documentation>
+                Dynamics parameters.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="mass"
+                type="xsd:float"
+                use="required" />
+            <xsd:attribute
+                name="dampingPosition"
+                type="xsd:float"
+                use="required" />
+            <xsd:attribute
+                name="dampingRotation"
+                type="xsd:float"
+                use="required" />
+            <xsd:attribute
+                name="restitution"
+                type="xsd:float"
+                use="required" />
+            <xsd:attribute
+                name="friction"
+                type="xsd:float"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="throughRigidGroup">
+        <xsd:annotation>
+            <xsd:documentation>
+                Reference for non-collision rigid-group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="rigidGroupIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidGroupList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of Rigid-body group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:rigidGroup"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:key name="RigidGroup-Id">
+            <xsd:selector xpath="./tns:rigidGroup" />
+            <xsd:field xpath="@rigidGroupId" />
+        </xsd:key>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidGroup">
+        <xsd:annotation>
+            <xsd:documentation>
+                Rigid-body group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:rigidGroupMember"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+
+            <xsd:attribute
+                name="rigidGroupId"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+        <xsd:unique name="RigidGroupMember">
+            <xsd:selector xpath="./tns:rigidGroupMember" />
+            <xsd:field xpath="@rigidIdRef" />
+        </xsd:unique>
+
+    </xsd:element>
+
+
+    <xsd:element name="rigidGroupMember">
+        <xsd:annotation>
+            <xsd:documentation>
+                Member of Rigid-body group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="rigidIdRef"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="jointList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of joint definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:joint"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="joint">
+        <xsd:annotation>
+            <xsd:documentation>
+                Joint definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:i18nName"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xsd:element ref="tns:jointedRigidPair" />
+                <xsd:element ref="tns:position" />
+                <xsd:element ref="tns:limitPosition" />
+                <xsd:element ref="tns:radRotation" />
+                <xsd:element ref="tns:limitRotation" />
+                <xsd:element ref="tns:elasticPosition" />
+                <xsd:element ref="tns:elasticRotation" />
+            </xsd:sequence>
+
+            <xsd:attribute
+                name="name"
+                type="xsd:string"
+                use="required" />
+        </xsd:complexType>
+
+<!--
+        <xsd:unique name="JointName">
+            <xsd:selector xpath="./tns:joint" />
+            <xsd:field xpath="@name" />
+        </xsd:unique>
+-->
+    </xsd:element>
+
+
+    <xsd:element name="jointedRigidPair">
+        <xsd:annotation>
+            <xsd:documentation>
+                Jointed-bones information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="rigidIdRef1"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="rigidIdRef2"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="limitPosition">
+        <xsd:annotation>
+            <xsd:documentation>
+                Limit of Position.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="xFrom" type="xsd:float" use="required" />
+            <xsd:attribute name="xTo"   type="xsd:float" use="required" />
+            <xsd:attribute name="yFrom" type="xsd:float" use="required" />
+            <xsd:attribute name="yTo"   type="xsd:float" use="required" />
+            <xsd:attribute name="zFrom" type="xsd:float" use="required" />
+            <xsd:attribute name="zTo"   type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="limitRotation">
+        <xsd:annotation>
+            <xsd:documentation>
+                Limit of Rotation.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="xFrom" type="xsd:float" use="required" />
+            <xsd:attribute name="xTo"   type="xsd:float" use="required" />
+            <xsd:attribute name="yFrom" type="xsd:float" use="required" />
+            <xsd:attribute name="yTo"   type="xsd:float" use="required" />
+            <xsd:attribute name="zFrom" type="xsd:float" use="required" />
+            <xsd:attribute name="zTo"   type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="elasticPosition">
+        <xsd:annotation>
+            <xsd:documentation>
+                Elastic position of joint.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="x" type="xsd:float" use="required" />
+            <xsd:attribute name="y" type="xsd:float" use="required" />
+            <xsd:attribute name="z" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="elasticRotation">
+        <xsd:annotation>
+            <xsd:documentation>
+                Elastic rotation of joint by degree.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="xDeg" type="xsd:float" use="required" />
+            <xsd:attribute name="yDeg" type="xsd:float" use="required" />
+            <xsd:attribute name="zDeg" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="surfaceGroupList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of surface group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element
+                    ref="tns:surfaceGroup"
+                    minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:key name="SurfaceGroup-Id">
+            <xsd:selector xpath="./tns:surfaceGroup" />
+            <xsd:field xpath="@surfaceGroupId" />
+        </xsd:key>
+
+    </xsd:element>
+
+
+    <xsd:element name="surfaceGroup">
+        <xsd:annotation>
+            <xsd:documentation>
+                Surface group.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:surface" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+
+            <xsd:attribute
+                name="surfaceGroupId"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="surface">
+        <xsd:annotation>
+            <xsd:documentation>
+                Each surface with Triangle.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute
+                name="vtxIdRef1"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="vtxIdRef2"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="vtxIdRef3"
+                type="xsd:NCName"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="vertexList">
+        <xsd:annotation>
+            <xsd:documentation>
+                List of vertex.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:vertex" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+
+        <xsd:key name="Vertex-Id">
+            <xsd:selector xpath="./tns:vertex" />
+            <xsd:field xpath="@vtxId" />
+        </xsd:key>
+
+    </xsd:element>
+
+
+    <xsd:element name="vertex">
+        <xsd:annotation>
+            <xsd:documentation>
+                Vertex definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:position" />
+                <xsd:element ref="tns:normal" />
+                <xsd:element ref="tns:uvMap" />
+                <xsd:element ref="tns:skinning" />
+            </xsd:sequence>
+
+            <xsd:attribute
+                name="vtxId"
+                type="xsd:NCName"
+                use="required" />
+            <xsd:attribute
+                name="showEdge"
+                type="xsd:boolean"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="position">
+        <xsd:annotation>
+            <xsd:documentation>
+                Position definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="x" type="xsd:float" use="required" />
+            <xsd:attribute name="y" type="xsd:float" use="required" />
+            <xsd:attribute name="z" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="normal">
+        <xsd:annotation>
+            <xsd:documentation>
+                Normal vector definition.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="x" type="xsd:float" use="required" />
+            <xsd:attribute name="y" type="xsd:float" use="required" />
+            <xsd:attribute name="z" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="uvMap">
+        <xsd:annotation>
+            <xsd:documentation>
+                UV-mapping information.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="u" type="xsd:float" use="required" />
+            <xsd:attribute name="v" type="xsd:float" use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+    <xsd:element name="skinning">
+        <xsd:annotation>
+            <xsd:documentation>
+                Skinning definition from vertex to bone.
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:attribute name="boneIdRef1" type="xsd:NCName" use="required" />
+            <xsd:attribute name="boneIdRef2" type="xsd:NCName" use="required" />
+            <xsd:attribute
+                name="weightBalance"
+                type="xsd:nonNegativeInteger"
+                use="required" />
+        </xsd:complexType>
+
+    </xsd:element>
+
+
+</xsd:schema>
+
+
+<!-- EOF -->

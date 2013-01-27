@@ -94,7 +94,7 @@
         <checkstyle.config.location>${project.mainconf}/checks.xml</checkstyle.config.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
-        <project.mainentry>jp.sourceforge.mikutoga.pmd2xml.Pmd2Xml</project.mainentry>
+        <project.mainentry>jp.sfjp.mikutoga.pmd2xml.Pmd2Xml</project.mainentry>
 
     </properties>
 
@@ -112,7 +112,7 @@
         <dependency>
             <groupId>jp.sourceforge.mikutoga</groupId>
             <artifactId>togagem</artifactId>
-            <version>2.101.3-SNAPSHOT</version>
+            <version>2.102.2</version>
             <scope>compile</scope>
         </dependency>
 
@@ -129,11 +129,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.1.1</version>
+                <version>1.2</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <version>[2.2,)</version>
+                            <version>[3.0,)</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
                             <version>[1.6,)</version>
@@ -270,7 +270,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.4</version>
+                <version>2.13</version>
                 <configuration>
                     <skipTests>false</skipTests>
                     <enableAssertions>true</enableAssertions>
@@ -299,7 +299,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>
+                <version>2.7.1</version>  <!-- 3.0 is buggy -->
                 <configuration>
                     <targetJdk>${maven.compiler.target}</targetJdk>
                     <rulesets>
@@ -453,7 +453,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.12.4</version>
+                <version>2.13</version>
                 <configuration>
                     <showSuccess>false</showSuccess>
                 </configuration>
@@ -499,7 +499,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>
+                <version>2.7.1</version>  <!-- 3.0 is buggy -->
                 <configuration>
                     <skip>false</skip>
                     <targetJdk>${maven.compiler.target}</targetJdk>

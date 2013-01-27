@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  MikuMikuDance
+    model-data(*.pmd) on XML
+-->
+
+
+<!-- [NAMELESS] -->
+<pmdModel
+  xmlns="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://mikutoga.sourceforge.jp/xml/ns/pmdxml/130128
+    http://mikutoga.sourceforge.jp/xml/xsd/pmdxml-130128.xsd"
+  schemaVersion="130128"
+
+  name=""
+>
+
+
+<description>
+</description>
+
+<license>
+</license>
+
+<credits>
+</credits>
+
+<meta name="siteURL" content="" />
+<meta name="imageURL" content="" />
+
+<materialList>
+</materialList>
+
+<toonMap>
+  <toonDef toonFileId="tf0" index="0" winFileName="toon01.bmp" />
+  <toonDef toonFileId="tf1" index="1" winFileName="toon02.bmp" />
+  <toonDef toonFileId="tf2" index="2" winFileName="toon03.bmp" />
+  <toonDef toonFileId="tf3" index="3" winFileName="toon04.bmp" />
+  <toonDef toonFileId="tf4" index="4" winFileName="toon05.bmp" />
+  <toonDef toonFileId="tf5" index="5" winFileName="toon06.bmp" />
+  <toonDef toonFileId="tf6" index="6" winFileName="toon07.bmp" />
+  <toonDef toonFileId="tf7" index="7" winFileName="toon08.bmp" />
+  <toonDef toonFileId="tf8" index="8" winFileName="toon09.bmp" />
+  <toonDef toonFileId="tf9" index="9" winFileName="toon10.bmp" />
+</toonMap>
+
+<boneList>
+
+<!--
+Bone types:
+[0 : ROTATE      : Rotate       : 回転           :]
+[1 : ROTMOV      : Rotate/Move  : 回転/移動      :]
+[2 : IK          : IK           : IK             :]
+[3 : UNKNOWN     : Unknown      : 不明           :]
+[4 : UNDERIK     : Under IK     : IK影響下(回転) :]
+[5 : UNDERROT    : Under rotate : 回転影響下     :]
+[6 : IKCONNECTED : IK connected : IK接続先       :]
+[7 : HIDDEN      : Hidden       : 非表示         :]
+[8 : TWIST       : Twist        : 捩り           :]
+[9 : LINKEDROT   : Linked Rotate: 回転連動       :]
+-->
+
+  <!-- test01 [回転/移動] -->
+  <bone name="test01" boneId="bn0" type="ROTMOV" >
+    <position x="0.0" y="0.0" z="-0.0" />
+    <boneChain />
+  </bone>
+
+  <!-- test02 [回転/移動] -->
+  <bone name="test02" boneId="bn1" type="ROTMOV" >
+    <position x="1200.0" y="1200.0" z="0.0012" />
+    <boneChain />
+  </bone>
+
+  <!-- test03 [回転/移動] -->
+  <bone name="test03" boneId="bn2" type="ROTMOV" >
+    <position x="1200.0" y="1.2" z="0.0" />
+    <boneChain />
+  </bone>
+
+  <!-- test04 [回転/移動] -->
+  <bone name="test04" boneId="bn3" type="ROTMOV" >
+    <position x="0.0" y="1.4E-45" z="2.8E-45" />
+    <boneChain />
+  </bone>
+
+  <!-- test05 [回転/移動] -->
+  <bone name="test05" boneId="bn4" type="ROTMOV" >
+    <position x="1.1754942E-38" y="1.17549435E-38" z="1.1754945E-38" />
+    <boneChain />
+  </bone>
+
+  <!-- test06 [回転/移動] -->
+  <bone name="test06" boneId="bn5" type="ROTMOV" >
+    <position x="0.99999994" y="1.0" z="1.0000001" />
+    <boneChain />
+  </bone>
+
+</boneList>
+
+<boneGroupList>
+</boneGroupList>
+
+<ikChainList>
+</ikChainList>
+
+<morphList>
+</morphList>
+
+<rigidList>
+</rigidList>
+
+<rigidGroupList>
+
+  <rigidGroup rigidGroupId="rg1" />
+  <rigidGroup rigidGroupId="rg2" />
+  <rigidGroup rigidGroupId="rg3" />
+  <rigidGroup rigidGroupId="rg4" />
+  <rigidGroup rigidGroupId="rg5" />
+  <rigidGroup rigidGroupId="rg6" />
+  <rigidGroup rigidGroupId="rg7" />
+  <rigidGroup rigidGroupId="rg8" />
+  <rigidGroup rigidGroupId="rg9" />
+  <rigidGroup rigidGroupId="rg10" />
+  <rigidGroup rigidGroupId="rg11" />
+  <rigidGroup rigidGroupId="rg12" />
+  <rigidGroup rigidGroupId="rg13" />
+  <rigidGroup rigidGroupId="rg14" />
+  <rigidGroup rigidGroupId="rg15" />
+  <rigidGroup rigidGroupId="rg16" />
+
+</rigidGroupList>
+
+<jointList>
+</jointList>
+
+<surfaceGroupList>
+</surfaceGroupList>
+
+<vertexList>
+</vertexList>
+
+</pmdModel>
+
+<!-- EOF -->
