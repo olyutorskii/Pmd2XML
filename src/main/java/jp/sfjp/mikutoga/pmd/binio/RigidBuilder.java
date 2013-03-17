@@ -9,6 +9,12 @@ package jp.sfjp.mikutoga.pmd.binio;
 
 import java.util.Iterator;
 import java.util.List;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.Rad3d;
+import jp.sfjp.mikutoga.pmd.RigidBehaviorType;
+import jp.sfjp.mikutoga.pmd.RigidShapeType;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.DynamicsInfo;
 import jp.sfjp.mikutoga.pmd.model.ListUtil;
@@ -16,13 +22,7 @@ import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.RigidGroup;
 import jp.sfjp.mikutoga.pmd.model.RigidInfo;
 import jp.sfjp.mikutoga.pmd.model.RigidShape;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.Rad3d;
-import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
-import jp.sourceforge.mikutoga.pmd.RigidShapeType;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
-import jp.sourceforge.mikutoga.pmd.parser.PmdRigidHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdRigidHandler;
 
 /**
  * 剛体関係の通知をパーサから受け取る。

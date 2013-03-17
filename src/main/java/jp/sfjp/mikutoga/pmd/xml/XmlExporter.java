@@ -11,7 +11,18 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import jp.sfjp.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.math.MkPos2D;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.math.MkVec3D;
+import jp.sfjp.mikutoga.pmd.BoneType;
+import jp.sfjp.mikutoga.pmd.Deg3d;
+import jp.sfjp.mikutoga.pmd.MorphType;
+import jp.sfjp.mikutoga.pmd.Rad3d;
+import jp.sfjp.mikutoga.pmd.RigidShapeType;
+import jp.sfjp.mikutoga.pmd.TripletRange;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.DynamicsInfo;
@@ -29,16 +40,6 @@ import jp.sfjp.mikutoga.pmd.model.ShadeInfo;
 import jp.sfjp.mikutoga.pmd.model.Surface;
 import jp.sfjp.mikutoga.pmd.model.ToonMap;
 import jp.sfjp.mikutoga.pmd.model.Vertex;
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.math.MkPos2D;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.math.MkVec3D;
-import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.Deg3d;
-import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.Rad3d;
-import jp.sourceforge.mikutoga.pmd.RigidShapeType;
-import jp.sourceforge.mikutoga.pmd.TripletRange;
 import jp.sourceforge.mikutoga.xml.BasicXmlExporter;
 import jp.sourceforge.mikutoga.xml.XmlResourceResolver;
 
@@ -90,6 +91,9 @@ public class XmlExporter extends BasicXmlExporter{
         + "[0 : FOLLOWBONE    : ボーン追従       ]\n"
         + "[1 : ONLYDYNAMICS  : 物理演算         ]\n"
         + "[2 : BONEDDYNAMICS : ボーン位置合わせ ]\n";
+
+    private static final Locale DEF_LOCALE = Locale.JAPANESE;
+
 
     private String generator = null;
 
@@ -841,7 +845,7 @@ public class XmlExporter extends BasicXmlExporter{
             boneName = "[NAMELESS]";
         }
         boneComment.append(boneName);
-        String typeName = type.getGuiName();
+        String typeName = type.getGuiName(DEF_LOCALE);
         boneComment.append(" [").append(typeName).append(']');
         ind().putLineComment(boneComment.toString()).ln();
 

@@ -12,15 +12,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.pmd.MorphType;
 import jp.sfjp.mikutoga.pmd.model.ListUtil;
 import jp.sfjp.mikutoga.pmd.model.MorphPart;
 import jp.sfjp.mikutoga.pmd.model.MorphVertex;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.Vertex;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.parser.PmdMorphHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdMorphHandler;
 
 /**
  * モーフ関係の通知をパーサから受け取る。

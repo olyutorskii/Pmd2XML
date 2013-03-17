@@ -10,6 +10,13 @@ package jp.sfjp.mikutoga.pmd.binio;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
+import jp.sfjp.mikutoga.pmd.Deg3d;
+import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.Rad3d;
+import jp.sfjp.mikutoga.pmd.RigidShapeType;
+import jp.sfjp.mikutoga.pmd.TripletRange;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.DynamicsInfo;
 import jp.sfjp.mikutoga.pmd.model.JointInfo;
@@ -17,13 +24,6 @@ import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.RigidGroup;
 import jp.sfjp.mikutoga.pmd.model.RigidInfo;
 import jp.sfjp.mikutoga.pmd.model.RigidShape;
-import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
-import jp.sourceforge.mikutoga.pmd.Deg3d;
-import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
-import jp.sourceforge.mikutoga.pmd.Rad3d;
-import jp.sourceforge.mikutoga.pmd.RigidShapeType;
-import jp.sourceforge.mikutoga.pmd.TripletRange;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張3:物理演算対応)。
@@ -71,7 +71,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * 剛体リストを出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 長すぎる剛体名
+     * @throws IllegalTextExportException 長すぎる剛体名
      */
     private void dumpRigidList(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -92,7 +92,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * 個別の剛体情報を出力する。
      * @param rigid 剛体
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 長すぎる剛体名
+     * @throws IllegalTextExportException 長すぎる剛体名
      */
     private void dumpRigid(RigidInfo rigid)
             throws IOException, IllegalTextExportException{
@@ -175,7 +175,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * ジョイントリストを出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 長すぎるジョイント名
+     * @throws IllegalTextExportException 長すぎるジョイント名
      */
     private void dumpJointList(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -196,7 +196,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
      * 個別のジョイント情報を出力する。
      * @param joint ジョイント
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 長すぎるジョイント名
+     * @throws IllegalTextExportException 長すぎるジョイント名
      */
     private void dumpJoint(JointInfo joint)
             throws IOException, IllegalTextExportException{

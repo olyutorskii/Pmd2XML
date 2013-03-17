@@ -9,11 +9,11 @@ package jp.sfjp.mikutoga.pmd.binio;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
+import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.ToonMap;
-import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
-import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張2:任意のトゥーンファイル名対応)。
@@ -58,7 +58,7 @@ public class PmdExporterExt2 extends PmdExporterExt1{
      * 独自トゥーンファイルテーブルを出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException トゥーンファイル名が長すぎる
+     * @throws IllegalTextExportException トゥーンファイル名が長すぎる
      */
     private void dumpToonMap(PmdModel model)
             throws IOException, IllegalTextExportException{

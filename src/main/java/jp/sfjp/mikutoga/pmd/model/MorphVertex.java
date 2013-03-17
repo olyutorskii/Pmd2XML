@@ -8,7 +8,7 @@
 package jp.sfjp.mikutoga.pmd.model;
 
 import java.util.Comparator;
-import jp.sourceforge.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.math.MkPos3D;
 
 /**
  * モーフアニメーションを構成する個別の頂点移動の情報。

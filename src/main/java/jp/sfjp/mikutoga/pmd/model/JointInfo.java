@@ -7,11 +7,11 @@
 
 package jp.sfjp.mikutoga.pmd.model;
 
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.pmd.Deg3d;
-import jp.sourceforge.mikutoga.pmd.Rad3d;
-import jp.sourceforge.mikutoga.pmd.TripletRange;
+import jp.sfjp.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.pmd.Deg3d;
+import jp.sfjp.mikutoga.pmd.Rad3d;
+import jp.sfjp.mikutoga.pmd.TripletRange;
 
 /**
  * 剛体間ジョイント情報。

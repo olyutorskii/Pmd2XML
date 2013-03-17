@@ -15,6 +15,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import jp.sfjp.mikutoga.bin.export.BinaryExporter;
+import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
+import jp.sfjp.mikutoga.math.MkPos2D;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.math.MkVec3D;
+import jp.sfjp.mikutoga.pmd.BoneType;
+import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
+import jp.sfjp.mikutoga.pmd.MorphType;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.IKChain;
@@ -26,15 +35,6 @@ import jp.sfjp.mikutoga.pmd.model.SerialNumbered;
 import jp.sfjp.mikutoga.pmd.model.ShadeInfo;
 import jp.sfjp.mikutoga.pmd.model.Surface;
 import jp.sfjp.mikutoga.pmd.model.Vertex;
-import jp.sourceforge.mikutoga.binio.BinaryExporter;
-import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
-import jp.sourceforge.mikutoga.math.MkPos2D;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.math.MkVec3D;
-import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
-import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張無し基本フォーマット)。
@@ -108,7 +108,7 @@ public class PmdExporterBase extends BinaryExporter{
      * @param text 文字列
      * @param maxByteLength バイト長指定
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException エンコード結果が
+     * @throws IllegalTextExportException エンコード結果が
      * 指定バイト長をはみ出した。
      */
     protected void dumpText(String text, int maxByteLength)
@@ -146,7 +146,7 @@ public class PmdExporterBase extends BinaryExporter{
      * モデル基本情報を出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException モデル名もしくは説明が長すぎる
+     * @throws IllegalTextExportException モデル名もしくは説明が長すぎる
      */
     private void dumpBasic(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -252,7 +252,7 @@ public class PmdExporterBase extends BinaryExporter{
      * マテリアル素材リストを出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException シェーディングファイル情報が長すぎる
+     * @throws IllegalTextExportException シェーディングファイル情報が長すぎる
      */
     private void dumpMaterialList(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -340,7 +340,7 @@ public class PmdExporterBase extends BinaryExporter{
      * ボーンリストを出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException ボーン名が長すぎる
+     * @throws IllegalTextExportException ボーン名が長すぎる
      */
     private void dumpBoneList(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -362,7 +362,7 @@ public class PmdExporterBase extends BinaryExporter{
      * 個別のボーン情報を出力する。
      * @param bone ボーン情報
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException ボーン名が長すぎる
+     * @throws IllegalTextExportException ボーン名が長すぎる
      */
     private void dumpBone(BoneInfo bone)
             throws IOException, IllegalTextExportException{
@@ -453,7 +453,7 @@ public class PmdExporterBase extends BinaryExporter{
      * モーフリストを出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException モーフ名が長すぎる
+     * @throws IllegalTextExportException モーフ名が長すぎる
      */
     private void dumpMorphList(PmdModel model)
             throws IOException, IllegalTextExportException{

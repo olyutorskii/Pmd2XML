@@ -11,14 +11,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
+import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
+import jp.sfjp.mikutoga.pmd.MorphType;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.MorphPart;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
-import jp.sourceforge.mikutoga.binio.IllegalTextExportException;
-import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
-import jp.sourceforge.mikutoga.pmd.MorphType;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
 
 /**
  * PMDファイルのエクスポーター(拡張1:英名対応)。
@@ -59,7 +59,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * 英語名情報を出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 文字列が長すぎる。
+     * @throws IllegalPmdDataException 文字列が長すぎる。
      */
     private void dumpGlobalInfo(PmdModel model)
             throws IOException, IllegalPmdDataException{
@@ -89,7 +89,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * モデル基本情報を英語で出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 文字列が長すぎる。
+     * @throws IllegalTextExportException 文字列が長すぎる。
      */
     private void dumpBasicGlobal(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -108,7 +108,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * ボーン英語名情報を出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 文字列が長すぎる。
+     * @throws IllegalTextExportException 文字列が長すぎる。
      */
     private void dumpBoneGlobal(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -125,7 +125,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * モーフ英語名情報を出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 文字列が長すぎる。
+     * @throws IllegalTextExportException 文字列が長すぎる。
      */
     private void dumpMorphGlobal(PmdModel model)
             throws IOException, IllegalTextExportException{
@@ -149,7 +149,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
      * ボーングループ英語名情報を出力する。
      * @param model モデルデータ
      * @throws IOException 出力エラー
-     * @throws IllegalPmdTextException 文字列が長すぎる
+     * @throws IllegalTextExportException 文字列が長すぎる
      */
     private void dumpBoneGroupGlobal(PmdModel model)
             throws IOException, IllegalTextExportException{

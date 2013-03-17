@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.RandomAccess;
 import java.util.Set;
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.pmd.MorphType;
+import jp.sfjp.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.pmd.MorphType;
 
 /**
  * PMDモデルファイル一式に相当するもの。

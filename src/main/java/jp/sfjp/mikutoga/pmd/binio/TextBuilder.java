@@ -9,14 +9,14 @@ package jp.sfjp.mikutoga.pmd.binio;
 
 import java.util.Iterator;
 import java.util.List;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
+import jp.sfjp.mikutoga.corelib.I18nText;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.MorphPart;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.parser.PmdBasicHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdEngHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdBasicHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdEngHandler;
 
 /**
  * テキスト関係の通知をパーサから受け取る。

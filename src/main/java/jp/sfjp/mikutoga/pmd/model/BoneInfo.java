@@ -7,9 +7,9 @@
 
 package jp.sfjp.mikutoga.pmd.model;
 
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.pmd.BoneType;
+import jp.sfjp.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.pmd.BoneType;
 
 /**
  * ボーン情報。

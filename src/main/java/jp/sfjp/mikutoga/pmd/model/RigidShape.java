@@ -7,7 +7,7 @@
 
 package jp.sfjp.mikutoga.pmd.model;
 
-import jp.sourceforge.mikutoga.pmd.RigidShapeType;
+import jp.sfjp.mikutoga.pmd.RigidShapeType;
 
 /**
  * 剛体形状に関する情報。

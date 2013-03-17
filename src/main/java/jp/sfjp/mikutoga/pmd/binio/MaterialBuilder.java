@@ -10,14 +10,14 @@ package jp.sfjp.mikutoga.pmd.binio;
 import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
 import jp.sfjp.mikutoga.pmd.model.ListUtil;
 import jp.sfjp.mikutoga.pmd.model.Material;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.ShadeInfo;
 import jp.sfjp.mikutoga.pmd.model.Surface;
 import jp.sfjp.mikutoga.pmd.model.ToonMap;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.parser.PmdMaterialHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdMaterialHandler;
 
 /**
  * マテリアル素材関連の通知をパーサから受け取る。

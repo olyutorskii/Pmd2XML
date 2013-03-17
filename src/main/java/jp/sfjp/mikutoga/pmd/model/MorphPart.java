@@ -10,8 +10,8 @@ package jp.sfjp.mikutoga.pmd.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.pmd.MorphType;
+import jp.sfjp.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.pmd.MorphType;
 
 /**
  * 個別モーフ情報。

@@ -10,16 +10,16 @@ package jp.sfjp.mikutoga.pmd.binio;
 import java.util.Iterator;
 import java.util.List;
 import java.util.RandomAccess;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
+import jp.sfjp.mikutoga.math.MkPos2D;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.math.MkVec3D;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.ListUtil;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.Surface;
 import jp.sfjp.mikutoga.pmd.model.Vertex;
-import jp.sourceforge.mikutoga.math.MkPos2D;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.math.MkVec3D;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.parser.PmdShapeHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdShapeHandler;
 
 /**
  * モデル形状に関する通知をパーサから受け取る。

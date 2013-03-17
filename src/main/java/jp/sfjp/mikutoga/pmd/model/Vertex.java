@@ -7,9 +7,9 @@
 
 package jp.sfjp.mikutoga.pmd.model;
 
-import jp.sourceforge.mikutoga.math.MkPos2D;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.math.MkVec3D;
+import jp.sfjp.mikutoga.math.MkPos2D;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.math.MkVec3D;
 
 /**
  * 頂点情報。

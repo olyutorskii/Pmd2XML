@@ -10,16 +10,16 @@ package jp.sfjp.mikutoga.pmd.binio;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.pmd.BoneType;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.IKChain;
 import jp.sfjp.mikutoga.pmd.model.ListUtil;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.BoneType;
-import jp.sourceforge.mikutoga.pmd.parser.PmdBoneHandler;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
+import jp.sfjp.mikutoga.pmd.parser.PmdBoneHandler;
 
 /**
  * ボーン関係の通知をパーサから受け取る。

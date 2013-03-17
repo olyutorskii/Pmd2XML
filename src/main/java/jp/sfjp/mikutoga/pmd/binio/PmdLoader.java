@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.pmd.model.MorphPart;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.pmd.parser.PmdParser;
+import jp.sfjp.mikutoga.pmd.parser.PmdParser;
 
 /**
  * PMDモデルファイルを読み込むためのローダ。

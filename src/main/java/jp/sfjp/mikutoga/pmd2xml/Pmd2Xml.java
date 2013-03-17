@@ -19,8 +19,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.channels.FileChannel;
 import java.util.Properties;
-import jp.sourceforge.mikutoga.parser.MmdFormatException;
-import jp.sourceforge.mikutoga.pmd.IllegalPmdDataException;
+import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
+import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
 import jp.sourceforge.mikutoga.xml.TogaXmlException;
 import org.xml.sax.SAXException;
 
@@ -217,12 +217,19 @@ public final class Pmd2Xml {
         if( ! file.exists() ) return;
         if( ! file.isFile() ) return;
 
-        FileOutputStream foStream = new FileOutputStream(file);
-        FileChannel channnel = foStream.getChannel();
-        channnel.truncate(0);
+        if(file.length() <= 0L) return;
 
-        channnel.close();
-        foStream.close();
+        FileOutputStream foStream = new FileOutputStream(file);
+        try{
+            FileChannel channnel = foStream.getChannel();
+            try{
+                channnel.truncate(0L);
+            }finally{
+                channnel.close();
+            }
+        }finally{
+            foStream.close();
+        }
 
         return;
     }

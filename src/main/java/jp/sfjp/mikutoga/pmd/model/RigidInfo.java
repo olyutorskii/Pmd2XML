@@ -9,10 +9,10 @@ package jp.sfjp.mikutoga.pmd.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import jp.sourceforge.mikutoga.corelib.I18nText;
-import jp.sourceforge.mikutoga.math.MkPos3D;
-import jp.sourceforge.mikutoga.pmd.Rad3d;
-import jp.sourceforge.mikutoga.pmd.RigidBehaviorType;
+import jp.sfjp.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.math.MkPos3D;
+import jp.sfjp.mikutoga.pmd.Rad3d;
+import jp.sfjp.mikutoga.pmd.RigidBehaviorType;
 
 /**
  * 個別の剛体の情報。

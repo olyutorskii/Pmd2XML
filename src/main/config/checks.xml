@@ -114,7 +114,7 @@
         <module name="ArrayTrailingComma" />
         <module name="AvoidInlineConditionals" />
         <module name="CovariantEquals" />
-        <module name="DoubleCheckedLocking" />
+<!--    <module name="DoubleCheckedLocking" />  5.6 obsolete -->
         <module name="EmptyStatement" />
         <module name="EqualsAvoidNull" />
         <module name="EqualsHashCode" />

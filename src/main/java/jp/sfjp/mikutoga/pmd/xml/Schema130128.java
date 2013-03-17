@@ -9,6 +9,7 @@ package jp.sfjp.mikutoga.pmd.xml;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import jp.sourceforge.mikutoga.xml.LocalSchema;
 
 /**
  * 130128形式XML各種リソースの定義。

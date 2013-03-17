@@ -12,7 +12,7 @@ import java.awt.Transparency;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import jp.sourceforge.mikutoga.corelib.I18nText;
+import jp.sfjp.mikutoga.corelib.I18nText;
 
 /**
  * マテリアル素材情報。

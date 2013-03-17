@@ -7,11 +7,11 @@
 
 package jp.sfjp.mikutoga.pmd.binio;
 
+import jp.sfjp.mikutoga.bin.parser.ParseStage;
+import jp.sfjp.mikutoga.pmd.PmdLimits;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.ToonMap;
-import jp.sourceforge.mikutoga.parser.ParseStage;
-import jp.sourceforge.mikutoga.pmd.parser.PmdLimits;
-import jp.sourceforge.mikutoga.pmd.parser.PmdToonHandler;
+import jp.sfjp.mikutoga.pmd.parser.PmdToonHandler;
 
 /**
  * トゥーン関係の通知をパーサから受け取る。
