@@ -69,7 +69,7 @@ enum OptSwitch {
 
     /**
      * コンストラクタ。
-     * @patam argnum 必要な引数の数
+     * @param argnum 必要な引数の数
      * @param cmdopts オプションスイッチパターン群
      */
     private OptSwitch(int argnum, String... cmdopts) {

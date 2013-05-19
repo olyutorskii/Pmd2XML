@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * コマンドラインの1オプションとその引数群に相当。
  */
-class CmdLine {
+final class CmdLine {
 
     private OptSwitch opt;
     private List<String> optArgs;

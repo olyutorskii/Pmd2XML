@@ -21,97 +21,85 @@ import jp.sfjp.mikutoga.pmd.parser.PmdParser;
  */
 public class PmdLoader {
 
-    private PmdModel model;
-    private PmdParser parser;
-    private TextBuilder textBuilder;
+    private static final String ERR_TRYLOAD = "try loading first.";
+    private static final String ERR_LOADED  = "has been loaded.";
+
 
     private boolean loaded = false;
-    private boolean hasMoreData = false;
+    private boolean hasMoreData = true;
+
 
     /**
      * コンストラクタ。
-     * @param source PMDファイル入力ソース
      */
-    public PmdLoader(InputStream source){
+    public PmdLoader(){
         super();
-
-        this.model = new PmdModel();
-        this.parser = new PmdParser(source);
-        this.textBuilder = new TextBuilder(this.model);
-
-        setHandler();
-
         return;
     }
 
+
     /**
-     * パーサに各種ハンドラの設定を行う。
+     * 正常パース時に読み残したデータがあったか判定する。
+     * <p>MMDでの仕様拡張による
+     * PMDファイルフォーマットの拡張が行われた場合を想定。
+     * @return 読み残したデータがあればtrue
+     * @throws IllegalStateException まだパースを試みていない。
      */
-    private void setHandler(){
-        ShapeBuilder    shapeBuilder    = new ShapeBuilder(this.model);
-        MaterialBuilder materialBuilder = new MaterialBuilder(this.model);
-        BoneBuilder     boneBuilder     = new BoneBuilder(this.model);
-        MorphBuilder    morphBuilder    = new MorphBuilder(this.model);
-        ToonBuilder     toonBuilder     = new ToonBuilder(this.model);
-        RigidBuilder    rigidBuilder    = new RigidBuilder(this.model);
-        JointBuilder    jointBuilder    = new JointBuilder(this.model);
-
-        this.parser.setBasicHandler(this.textBuilder);
-        this.parser.setShapeHandler(shapeBuilder);
-        this.parser.setMaterialHandler(materialBuilder);
-        this.parser.setBoneHandler(boneBuilder);
-        this.parser.setMorphHandler(morphBuilder);
-        this.parser.setEngHandler(this.textBuilder);
-        this.parser.setToonHandler(toonBuilder);
-        this.parser.setRigidHandler(rigidBuilder);
-        this.parser.setJointHandler(jointBuilder);
-
-        List<MorphPart> morphPartList = new ArrayList<MorphPart>();
-        morphBuilder.setMorphPartList(morphPartList);
-        this.textBuilder.setMorphPartList(morphPartList);
-        morphPartList.clear();
-
-        return;
+    public boolean hasMoreData() throws IllegalStateException{
+        if( ! this.loaded ) throw new IllegalStateException(ERR_TRYLOAD);
+        return this.hasMoreData;
     }
 
     /**
      * PMDファイルの読み込みを行いモデル情報を返す。
      * 1インスタンスにつき一度しかロードできない。
+     * @param source PMDファイル入力ソース
      * @return モデル情報
      * @throws IOException 入力エラー
      * @throws MmdFormatException PMDファイルフォーマットの異常を検出
      * @throws IllegalStateException このインスタンスで再度のロードを試みた。
      */
-    public PmdModel load()
+    public PmdModel load(InputStream source)
             throws IOException,
                    MmdFormatException,
                    IllegalStateException {
-        if(this.loaded) throw new IllegalStateException();
+        if(this.loaded) throw new IllegalStateException(ERR_LOADED);
 
-        PmdModel result;
+        PmdModel model = new PmdModel();
+
+        PmdParser parser = new PmdParser(source);
+
+        TextBuilder     textBuilder     = new TextBuilder(model);
+        ShapeBuilder    shapeBuilder    = new ShapeBuilder(model);
+        MaterialBuilder materialBuilder = new MaterialBuilder(model);
+        BoneBuilder     boneBuilder     = new BoneBuilder(model);
+        MorphBuilder    morphBuilder    = new MorphBuilder(model);
+        ToonBuilder     toonBuilder     = new ToonBuilder(model);
+        RigidBuilder    rigidBuilder    = new RigidBuilder(model);
+        JointBuilder    jointBuilder    = new JointBuilder(model);
+
+        List<MorphPart> morphPartList = new ArrayList<MorphPart>();
+        morphBuilder.setMorphPartList(morphPartList);
+        textBuilder.setMorphPartList(morphPartList);
+
+        parser.setBasicHandler(textBuilder);
+        parser.setShapeHandler(shapeBuilder);
+        parser.setMaterialHandler(materialBuilder);
+        parser.setBoneHandler(boneBuilder);
+        parser.setMorphHandler(morphBuilder);
+        parser.setEngHandler(textBuilder);
+        parser.setToonHandler(toonBuilder);
+        parser.setRigidHandler(rigidBuilder);
+        parser.setJointHandler(jointBuilder);
+
         try{
-            this.parser.parsePmd();
+            parser.parsePmd();
+            this.hasMoreData = textBuilder.hasMoreData();
         }finally{
             this.loaded = true;
-
-            result = this.model;
-            this.hasMoreData = this.textBuilder.hasMoreData();
-
-            this.model = null;
-            this.parser = null;
-            this.textBuilder = null;
         }
 
-        return result;
-    }
-
-    /**
-     * ロード処理が正常終了したのにまだ読み込んでいない部分が放置されているか判定する。
-     * MMDでの仕様拡張によるPMDファイルフォーマットの拡張が行われた場合を想定。
-     * @return 読み込んでいない部分があればtrue
-     */
-    public boolean hasMoreData(){
-        return this.hasMoreData;
+        return model;
     }
 
 }

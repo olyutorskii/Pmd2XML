@@ -25,7 +25,8 @@ import jp.sfjp.mikutoga.pmd.xml.XmlExporter;
 import jp.sfjp.mikutoga.pmd.xml.XmlLoader;
 import jp.sfjp.mikutoga.pmd.xml.XmlModelFileType;
 import jp.sourceforge.mikutoga.xml.BotherHandler;
-import jp.sourceforge.mikutoga.xml.LocalSchema;
+import jp.sourceforge.mikutoga.xml.LocalXmlResource;
+import jp.sourceforge.mikutoga.xml.SchemaUtil;
 import jp.sourceforge.mikutoga.xml.TogaXmlException;
 import jp.sourceforge.mikutoga.xml.XmlResourceResolver;
 import org.xml.sax.InputSource;
@@ -78,22 +79,29 @@ public class Pmd2XmlConv {
     private DocumentBuilder buildBuilder(){
         XmlResourceResolver resolver = new XmlResourceResolver();
 
-        Schema schema;
-
+        LocalXmlResource[] schemaArray;
         switch(this.inTypes){
         case XML_101009:
-            schema = LocalSchema.newSchema(resolver, new Schema101009());
+            schemaArray = new LocalXmlResource[]{
+                Schema101009.SINGLETON,
+            };
             break;
         case XML_130128:
-            schema = LocalSchema.newSchema(resolver, new Schema130128());
+            schemaArray = new LocalXmlResource[]{
+                Schema130128.SINGLETON,
+            };
             break;
         case XML_AUTO:
-            schema = LocalSchema.newSchema(resolver,
-                    new Schema101009(), new Schema130128());
+            schemaArray = new LocalXmlResource[]{
+                Schema101009.SINGLETON,
+                Schema130128.SINGLETON,
+            };
             break;
         default:
             throw new IllegalStateException();
         }
+
+        Schema schema = SchemaUtil.newSchema(resolver, schemaArray);
 
         DocumentBuilderFactory builderFactory =
                 DocumentBuilderFactory.newInstance();
@@ -117,9 +125,11 @@ public class Pmd2XmlConv {
     /**
      * 入力ファイル種別を設定する。
      * @param type ファイル種別
+     * @throws NullPointerException 引数がnull
      * @throws IllegalArgumentException 具体的な種別を渡さなかった
      */
-    public void setInType(ModelFileType type){
+    public void setInType(ModelFileType type)
+            throws NullPointerException, IllegalArgumentException {
         if(type == null) throw new NullPointerException();
         if(type == ModelFileType.NONE) throw new IllegalArgumentException();
         this.inTypes = type;
@@ -137,9 +147,11 @@ public class Pmd2XmlConv {
     /**
      * 出力ファイル種別を設定する。
      * @param type ファイル種別
+     * @throws NullPointerException 引数がnull
      * @throws IllegalArgumentException 具体的な種別を渡さなかった
      */
-    public void setOutType(ModelFileType type){
+    public void setOutType(ModelFileType type)
+            throws NullPointerException, IllegalArgumentException {
         if(type == null) throw new NullPointerException();
         if(type == ModelFileType.NONE) throw new IllegalArgumentException();
         this.outTypes = type;
@@ -167,7 +179,7 @@ public class Pmd2XmlConv {
      * XML出力用改行文字列を返す。
      * @return 改行文字
      */
-    public String getNewLine(){
+    public String getNewline(){
         return this.newLine;
     }
 
@@ -217,7 +229,6 @@ public class Pmd2XmlConv {
      * @throws MmdFormatException フォーマットエラー
      * @throws SAXException XMLエラー
      * @throws TogaXmlException XMLエラー
-     * @throws IllegalStateException ファイル種別がまた指定されていない
      */
     public PmdModel readModel(InputStream is)
             throws IOException,
@@ -243,7 +254,6 @@ public class Pmd2XmlConv {
      * @param os 出力ストリーム
      * @throws IOException 出力エラー
      * @throws IllegalPmdDataException データの不備
-     * @throws IllegalStateException ファイル種別がまた指定されていない
      */
     public void writeModel(PmdModel model, OutputStream os)
             throws IOException,
@@ -268,8 +278,8 @@ public class Pmd2XmlConv {
      */
     private PmdModel pmdRead(InputStream is)
             throws IOException, MmdFormatException{
-        PmdLoader loader = new PmdLoader(is);
-        PmdModel model = loader.load();
+        PmdLoader loader = new PmdLoader();
+        PmdModel model = loader.load(is);
         return model;
     }
 

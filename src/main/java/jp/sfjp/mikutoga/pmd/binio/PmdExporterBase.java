@@ -23,7 +23,7 @@ import jp.sfjp.mikutoga.math.MkVec3D;
 import jp.sfjp.mikutoga.pmd.BoneType;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
 import jp.sfjp.mikutoga.pmd.MorphType;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.IKChain;
@@ -71,7 +71,7 @@ public class PmdExporterBase extends BinaryExporter{
     private static final String CRLF = CR + LF;  // 0x0d, 0x0a
 
     static{
-        assert NOPREVBONE_ID > PmdLimits.MAX_BONE - 1;
+        assert NOPREVBONE_ID > PmdConst.MAX_BONE - 1;
     }
 
     /**
@@ -157,8 +157,8 @@ public class PmdExporterBase extends BinaryExporter{
         String modelName   = model.getModelName()  .getPrimaryText();
         String description = model.getDescription().getPrimaryText();
 
-        dumpText(modelName, PmdLimits.MAXBYTES_MODELNAME);
-        dumpText(description, PmdLimits.MAXBYTES_MODELDESC);
+        dumpText(modelName, PmdConst.MAXBYTES_MODELNAME);
+        dumpText(description, PmdConst.MAXBYTES_MODELDESC);
 
         flush();
 
@@ -330,7 +330,7 @@ public class PmdExporterBase extends BinaryExporter{
         else                   filler = FDFILLER;
 
         dumpFixedW31j(text.toString(),
-                      PmdLimits.MAXBYTES_TEXTUREFILENAME,
+                      PmdConst.MAXBYTES_TEXTUREFILENAME,
                       filler );
 
         return;
@@ -367,7 +367,7 @@ public class PmdExporterBase extends BinaryExporter{
     private void dumpBone(BoneInfo bone)
             throws IOException, IllegalTextExportException{
         String boneName = bone.getBoneName().getPrimaryText();
-        dumpText(boneName, PmdLimits.MAXBYTES_BONENAME);
+        dumpText(boneName, PmdConst.MAXBYTES_BONENAME);
 
         BoneInfo prev = bone.getPrevBone();
         if(prev != null) dumpSerialIdAsShort(prev);
@@ -476,7 +476,7 @@ public class PmdExporterBase extends BinaryExporter{
             dumpLeShort(totalMorphPart);
         }
 
-        dumpText("base", PmdLimits.MAXBYTES_MORPHNAME);
+        dumpText("base", PmdConst.MAXBYTES_MORPHNAME);
         int totalVertex = mergedMorphVertexList.size();
         dumpLeInt(totalVertex);
         dumpByte(MorphType.BASE.encode());
@@ -491,7 +491,7 @@ public class PmdExporterBase extends BinaryExporter{
             if(partList == null) continue;
             for(MorphPart part : partList){
                 dumpText(part.getMorphName().getPrimaryText(),
-                         PmdLimits.MAXBYTES_MORPHNAME );
+                         PmdConst.MAXBYTES_MORPHNAME );
                 List<MorphVertex> morphVertexList = part.getMorphVertexList();
                 dumpLeInt(morphVertexList.size());
                 dumpByte(part.getMorphType().encode());
@@ -563,7 +563,7 @@ public class PmdExporterBase extends BinaryExporter{
         for(BoneGroup group : groupList){
             if(group.isDefaultBoneGroup()) continue;
             dumpFixedW31j(group.getGroupName().getPrimaryText(),
-                          PmdLimits.MAXBYTES_BONEGROUPNAME, LFFILLER );
+                          PmdConst.MAXBYTES_BONEGROUPNAME, LFFILLER );
             dispBoneNum += group.getBoneList().size();
         }
         dumpLeInt(dispBoneNum);

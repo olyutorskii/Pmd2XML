@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
 import jp.sfjp.mikutoga.math.MkPos3D;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.Rad3d;
 import jp.sfjp.mikutoga.pmd.RigidBehaviorType;
 import jp.sfjp.mikutoga.pmd.RigidShapeType;
@@ -66,7 +66,7 @@ class RigidBuilder implements PmdRigidHandler {
 
         ListUtil.prepareDefConsList(this.rigidGroupList,
                                     RigidGroup.class,
-                                    PmdLimits.RIGIDGROUP_FIXEDNUM );
+                                    PmdConst.RIGIDGROUP_FIXEDNUM );
         ListUtil.assignIndexedSerial(this.rigidGroupList);
 
         return;
@@ -212,7 +212,7 @@ class RigidBuilder implements PmdRigidHandler {
         RigidBehaviorType type = RigidBehaviorType.decode(behaveType);
         this.currentRigid.setBehaviorType(type);
 
-        for(int bitPos = 0; bitPos < PmdLimits.RIGIDGROUP_FIXEDNUM; bitPos++){
+        for(int bitPos = 0; bitPos < PmdConst.RIGIDGROUP_FIXEDNUM; bitPos++){
             short mask = 0x0001;
             mask <<= bitPos;
             if((collisionMap & mask) == 0){

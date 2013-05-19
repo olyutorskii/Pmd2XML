@@ -9,6 +9,7 @@ package jp.sfjp.mikutoga.pmd2xml;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * コマンドラインオプション情報。
@@ -157,7 +158,7 @@ final class OptInfo {
         ModelFileType result = ModelFileType.NONE;
         if(fileName == null) return result;
 
-        String lower = fileName.toLowerCase();
+        String lower = fileName.toLowerCase(Locale.ROOT);
         if     (lower.endsWith(SFX_PMD)) result = ModelFileType.PMD;
         else if(lower.endsWith(SFX_XML)) result = ModelFileType.XML_AUTO;
 
@@ -243,7 +244,7 @@ final class OptInfo {
             throws CmdLineException{
         for(CmdLine cmd : cmdLines){
             List<String> optArgs = cmd.getOptArgs();
-            assert optArgs.size() > 0;
+            assert ! optArgs.isEmpty();
 
             String optTxt = optArgs.get(0);
             assert optTxt != null;

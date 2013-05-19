@@ -13,7 +13,7 @@ import java.util.List;
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
 import jp.sfjp.mikutoga.math.MkPos3D;
 import jp.sfjp.mikutoga.pmd.BoneType;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.IKChain;
@@ -192,7 +192,7 @@ class BoneBuilder implements PmdBoneHandler {
     @Override
     public void pmdBoneLink(int parentId, int tailId, int srcId){
         BoneInfo prevBone = null;
-        if(0 <= parentId && parentId < PmdLimits.MAX_BONE){
+        if(0 <= parentId && parentId < PmdConst.MAX_BONE){
             prevBone = this.boneList.get(parentId);
         }
 
@@ -206,7 +206,7 @@ class BoneBuilder implements PmdBoneHandler {
             srcBone = null;
             int ratio = srcId;
             this.currentBone.setRotationRatio(ratio);
-        }else if(0 < srcId && srcId < PmdLimits.MAX_BONE){
+        }else if(0 < srcId && srcId < PmdConst.MAX_BONE){
             srcBone = this.boneList.get(srcId);
         }
 

@@ -8,7 +8,7 @@
 package jp.sfjp.mikutoga.pmd.binio;
 
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.ToonMap;
 import jp.sfjp.mikutoga.pmd.parser.PmdToonHandler;
@@ -40,7 +40,7 @@ class ToonBuilder implements PmdToonHandler {
     @Override
     public void loopStart(ParseStage stage, int loops){
         assert stage == PmdToonHandler.TOON_LIST;
-        assert loops == PmdLimits.TOON_FIXEDNUM;
+        assert loops == PmdConst.TOON_FIXEDNUM;
 
         this.toonMap = new ToonMap();
         this.index = 0;

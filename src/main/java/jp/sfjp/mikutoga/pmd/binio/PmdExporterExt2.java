@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.ToonMap;
 
@@ -64,10 +64,10 @@ public class PmdExporterExt2 extends PmdExporterExt1{
             throws IOException, IllegalTextExportException{
         ToonMap map = model.getToonMap();
 
-        for(int idx = 0; idx < PmdLimits.TOON_FIXEDNUM; idx++){
+        for(int idx = 0; idx < PmdConst.TOON_FIXEDNUM; idx++){
             String toonName = map.getIndexedToon(idx);
             if(toonName == null) toonName = "";
-            dumpText(toonName, PmdLimits.MAXBYTES_TOONFILENAME);
+            dumpText(toonName, PmdConst.MAXBYTES_TOONFILENAME);
         }
 
         flush();

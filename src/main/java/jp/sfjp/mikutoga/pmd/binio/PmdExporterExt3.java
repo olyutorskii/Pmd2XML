@@ -13,7 +13,7 @@ import java.util.List;
 import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
 import jp.sfjp.mikutoga.pmd.Deg3d;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.Rad3d;
 import jp.sfjp.mikutoga.pmd.RigidShapeType;
 import jp.sfjp.mikutoga.pmd.TripletRange;
@@ -97,7 +97,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
     private void dumpRigid(RigidInfo rigid)
             throws IOException, IllegalTextExportException{
         String rigidName = rigid.getRigidName().getPrimaryText();
-        dumpText(rigidName, PmdLimits.MAXBYTES_RIGIDNAME);
+        dumpText(rigidName, PmdConst.MAXBYTES_RIGIDNAME);
 
         BoneInfo linkedBone = rigid.getLinkedBone();
         if(linkedBone == null){
@@ -201,7 +201,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
     private void dumpJoint(JointInfo joint)
             throws IOException, IllegalTextExportException{
         String jointName = joint.getJointName().getPrimaryText();
-        dumpText(jointName, PmdLimits.MAXBYTES_JOINTNAME);
+        dumpText(jointName, PmdConst.MAXBYTES_JOINTNAME);
 
         RigidInfo rigidA = joint.getRigidA();
         RigidInfo rigidB = joint.getRigidB();

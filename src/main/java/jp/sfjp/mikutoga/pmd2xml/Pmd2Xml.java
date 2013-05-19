@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.channels.FileChannel;
+import java.text.MessageFormat;
 import java.util.Properties;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
@@ -31,18 +32,18 @@ public final class Pmd2Xml {
 
     /** 正常系。 */
     public static final int EXIT_OK     = 0;
-    /** ファイル入出力に起因するエラー。 */
-    public static final int EXIT_FILE   = 1;
-    /** XMLフォーマットに起因するエラー。 */
-    public static final int EXIT_XML    = 2;
-    /** PMDフォーマットに起因するエラー。 */
-    public static final int EXIT_PMD    = 3;
-    /** 実行環境に起因するエラー。 */
-    public static final int EXIT_JREVER = 4;
-    /** オプション指定に起因するエラー。 */
-    public static final int EXIT_OPT    = 5;
     /** 内部エラー。 */
-    public static final int EXIT_INTERN = 6;
+    public static final int EXIT_INTERR = 1;
+    /** 実行環境に起因するエラー。 */
+    public static final int EXIT_ENVERR = 2;
+    /** オプション指定に起因するエラー。 */
+    public static final int EXIT_OPTERR = 3;
+    /** ファイル入出力に起因するエラー。 */
+    public static final int EXIT_IOERR  = 4;
+    /** XMLフォーマットに起因するエラー。 */
+    public static final int EXIT_XMLERR = 5;
+    /** PMDフォーマットに起因するエラー。 */
+    public static final int EXIT_PMDERR = 6;
 
     /** アプリ名。 */
     public static final String APPNAME;
@@ -50,15 +51,30 @@ public final class Pmd2Xml {
     public static final String APPVER;
     /** ライセンス種別。 */
     public static final String APPLICENSE;
+    /** 開発元URL。 */
+    public static final String APPURL;
 
     private static final Class<?> THISCLASS;
+    private static final String RES_VER = "resources/version.properties";
 
     private static final PrintStream ERROUT = System.err;
+    private static final String MSG_ERR = "ERROR:\n{0}\n(-h for help)";
+    private static final String MSG_HELP =
+              "{0} {1}\n"
+            + "\u0020\u0020License\u0020:\u0020{2}\n"
+            + "\u0020\u0020{3}\n";
+    private static final String MSG_NOINFILE = "Can't find input file:{0}";
+    private static final String MSG_ABNFILE = "{0} is not file.";
+    private static final String MSG_OWOUTFILE =
+              "{0} already exists.\n"
+            + "If you want to overwrite, use -f.";
+
+    private static final String MSG_OLDJRE = "You need JRE {0} or later.";
+    private static final String REQUIRED_JRE = "1.6";
 
     static{
         THISCLASS = Pmd2Xml.class;
-        InputStream ver =
-                THISCLASS.getResourceAsStream("resources/version.properties");
+        InputStream ver = THISCLASS.getResourceAsStream(RES_VER);
         Properties verProps = new Properties();
         try{
             try{
@@ -73,6 +89,7 @@ public final class Pmd2Xml {
         APPNAME    = verProps.getProperty("app.name");
         APPVER     = verProps.getProperty("app.version");
         APPLICENSE = verProps.getProperty("app.license");
+        APPURL     = verProps.getProperty("app.url");
 
         new Pmd2Xml().hashCode();
     }
@@ -91,9 +108,21 @@ public final class Pmd2Xml {
     /**
      * VMを終了させる。
      * @param code 終了コード
+     * @see java.lang.System#exit(int)
      */
     private static void exit(int code){
         System.exit(code);
+        assert false;
+        throw new AssertionError();
+    }
+
+    /**
+     * 共通エラーメッセージを出力する。
+     * @param text 個別メッセージ
+     */
+    private static void errMsg(String text){
+        String msg = MessageFormat.format(MSG_ERR, text);
+        ERROUT.println(msg);
         return;
     }
 
@@ -102,12 +131,12 @@ public final class Pmd2Xml {
      * @param ex 例外
      * @param dumpStack スタックトレースを出力するならtrue
      */
-    private static void errPrintln(Throwable ex, boolean dumpStack){
-        String text = ex.toString();
-        ERROUT.println(text);
-
+    private static void thPrintln(Throwable ex, boolean dumpStack){
         if(dumpStack){
             ex.printStackTrace(ERROUT);
+        }else{
+            String text = ex.toString();
+            ERROUT.println(text);
         }
 
         return;
@@ -117,19 +146,8 @@ public final class Pmd2Xml {
      * 標準エラー出力へ例外情報出力。
      * @param ex 例外
      */
-    private static void errPrintln(Throwable ex){
-        errPrintln(ex, false);
-        return;
-    }
-
-    /**
-     * 共通エラーメッセージを出力する。
-     * @param text 個別メッセージ
-     */
-    private static void errMsg(String text){
-        ERROUT.println("ERROR:");
-        ERROUT.println(text);
-        ERROUT.println("(-h for help)");
+    private static void thPrintln(Throwable ex){
+        thPrintln(ex, false);
         return;
     }
 
@@ -138,9 +156,9 @@ public final class Pmd2Xml {
      * 例外を出力してVM終了する。
      * @param ex 例外
      */
-    private static void ioError(Throwable ex){
-        errPrintln(ex);
-        exit(EXIT_FILE);
+    private static void ioError(IOException ex){
+        thPrintln(ex);
+        exit(EXIT_IOERR);
     }
 
     /**
@@ -149,8 +167,8 @@ public final class Pmd2Xml {
      * @param ex 例外
      */
     private static void xmlError(Throwable ex){
-        errPrintln(ex);
-        exit(EXIT_XML);
+        thPrintln(ex);
+        exit(EXIT_XMLERR);
     }
 
     /**
@@ -158,9 +176,9 @@ public final class Pmd2Xml {
      * 例外を出力してVM終了する。
      * @param ex 例外
      */
-    private static void pmdError(Throwable ex){
-        errPrintln(ex, true);
-        exit(EXIT_PMD);
+    private static void pmdError(MmdFormatException ex){
+        thPrintln(ex, true);
+        exit(EXIT_PMDERR);
     }
 
     /**
@@ -169,8 +187,8 @@ public final class Pmd2Xml {
      * @param ex 例外
      */
     private static void internalError(Throwable ex){
-        errPrintln(ex, true);
-        exit(EXIT_INTERN);
+        thPrintln(ex, true);
+        exit(EXIT_INTERR);
     }
 
     /**
@@ -179,37 +197,30 @@ public final class Pmd2Xml {
      */
     private static void checkJRE(){
         Package jrePackage = java.lang.Object.class.getPackage();
-        if( ! jrePackage.isCompatibleWith("1.6")){
-            ERROUT.println("You need JRE 1.6 or later.");
-            exit(EXIT_JREVER);
+        if( ! jrePackage.isCompatibleWith(REQUIRED_JRE)){
+            String msg = MessageFormat.format(MSG_OLDJRE, REQUIRED_JRE);
+            ERROUT.println(msg);
+            exit(EXIT_ENVERR);
         }
         return;
     }
 
     /**
-     * ヘルプメッセージを出力してVMを終了させる。
+     * ヘルプメッセージを出力する。
      */
     private static void putHelp(){
-        StringBuilder appInfo = new StringBuilder();
-        String indent = "  ";
-
-        appInfo.append(APPNAME).append(' ').append(APPVER)
-               .append('\n');
-        appInfo.append(indent)
-               .append("License").append(" : ").append(APPLICENSE)
-               .append('\n');
-        appInfo.append(indent)
-               .append("http://mikutoga.sourceforge.jp/")
-               .append('\n');
-
-        ERROUT.println(appInfo.toString());
+        String msg =
+                MessageFormat.format(MSG_HELP,
+                APPNAME, APPVER, APPLICENSE, APPURL);
+        ERROUT.println(msg);
         ERROUT.println(OptSwitch.getConsoleHelp());
-
         return;
     }
 
     /**
      * ファイルサイズを0に切り詰める。
+     * <p>ファイルが存在しなければなにもしない。
+     * <p>通常ファイルでなければなにもしない。
      * @param file ファイル
      * @throws IOException 入出力エラー
      */
@@ -236,6 +247,7 @@ public final class Pmd2Xml {
 
     /**
      * 入力ストリームを準備する。
+     * <p>入力ファイルが通常ファイルとして存在しなければエラー終了。
      * @param fileName 入力ファイル名
      * @return 入力ストリーム
      */
@@ -244,16 +256,18 @@ public final class Pmd2Xml {
 
         if( (! inFile.exists()) || (! inFile.isFile()) ){
             String absPath = inFile.getAbsolutePath();
-            errMsg("Can't find input file:" + absPath);
-            exit(EXIT_FILE);
+            String msg = MessageFormat.format(MSG_NOINFILE, absPath);
+            errMsg(msg);
+            exit(EXIT_IOERR);
         }
 
-        InputStream is = null;
+        InputStream is;
         try{
             is = new FileInputStream(inFile);
         }catch(FileNotFoundException e){
             ioError(e);
             assert false;
+            throw new AssertionError(e);
         }
 
         is = new BufferedInputStream(is);
@@ -263,6 +277,8 @@ public final class Pmd2Xml {
 
     /**
      * 出力ストリームを準備する。
+     * <p>出力ファイルが通常ファイルでない場合はエラー終了。
+     * <p>既存の出力ファイルに上書き指示が伴っていなければエラー終了。
      * @param fileName 出力ファイル名
      * @param overWrite 頭から上書きして良ければtrue
      * @return 出力ストリーム
@@ -274,15 +290,13 @@ public final class Pmd2Xml {
         if(outFile.exists()){
             String absPath = outFile.getAbsolutePath();
             if( ! outFile.isFile() ){
-                String msg = absPath + " is not file.";
+                String msg = MessageFormat.format(MSG_ABNFILE, absPath);
                 errMsg(msg);
-                exit(EXIT_FILE);
+                exit(EXIT_IOERR);
             }else if( ! overWrite ){
-                String msg =
-                          absPath + " already exists.\n"
-                        + "If you want to overwrite, use -f.";
+                String msg = MessageFormat.format(MSG_OWOUTFILE, absPath);
                 errMsg(msg);
-                exit(EXIT_FILE);
+                exit(EXIT_IOERR);
             }
         }
 
@@ -292,12 +306,13 @@ public final class Pmd2Xml {
             ioError(e);
         }
 
-        OutputStream os = null;
+        OutputStream os;
         try{
             os = new FileOutputStream(outFile);
         }catch(FileNotFoundException e){
             ioError(e);
             assert false;
+            throw new AssertionError(e);
         }
 
         os = new BufferedOutputStream(os);
@@ -312,15 +327,13 @@ public final class Pmd2Xml {
     public static void main(String[] args){
         checkJRE();
 
-        Pmd2XmlConv converter = new Pmd2XmlConv();
-
         OptInfo optInfo;
         try{
             optInfo = OptInfo.parseOption(args);
         }catch(CmdLineException e){
             String optErrMsg = e.getLocalizedMessage();
             errMsg(optErrMsg);
-            exit(EXIT_OPT);
+            exit(EXIT_OPTERR);
             return;
         }
 
@@ -329,14 +342,16 @@ public final class Pmd2Xml {
             exit(EXIT_OK);
         }
 
-        String inputFile = optInfo.getInFilename();
+        String inputFile  = optInfo.getInFilename();
         String outputFile = optInfo.getOutFilename();
         boolean overwrite = optInfo.overwriteMode();
 
         InputStream  is = openInfile(inputFile);
         OutputStream os = openOutfile(outputFile, overwrite);
 
-        converter.setInType(optInfo.getInFileType());
+        Pmd2XmlConv converter = new Pmd2XmlConv();
+
+        converter.setInType (optInfo.getInFileType());
         converter.setOutType(optInfo.getOutFileType());
 
         converter.setNewline(optInfo.getNewline());

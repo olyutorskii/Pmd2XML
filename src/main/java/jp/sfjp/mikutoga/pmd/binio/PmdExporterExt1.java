@@ -14,7 +14,7 @@ import java.util.Map;
 import jp.sfjp.mikutoga.bin.export.IllegalTextExportException;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
 import jp.sfjp.mikutoga.pmd.MorphType;
-import jp.sfjp.mikutoga.pmd.PmdLimits;
+import jp.sfjp.mikutoga.pmd.PmdConst;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.MorphPart;
@@ -95,11 +95,11 @@ public class PmdExporterExt1 extends PmdExporterBase{
             throws IOException, IllegalTextExportException{
         String modelName = model.getModelName().getGlobalText();
         if(modelName == null) modelName = "";
-        dumpText(modelName, PmdLimits.MAXBYTES_MODELNAME);
+        dumpText(modelName, PmdConst.MAXBYTES_MODELNAME);
 
         String description = model.getDescription().getGlobalText();
         if(description == null) description = "";
-        dumpText(description, PmdLimits.MAXBYTES_MODELDESC);
+        dumpText(description, PmdConst.MAXBYTES_MODELDESC);
 
         flush();
     }
@@ -115,7 +115,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
         for(BoneInfo bone : model.getBoneList()){
             String boneName = bone.getBoneName().getGlobalText();
             if(boneName == null) boneName = "";
-            dumpText(boneName, PmdLimits.MAXBYTES_BONENAME);
+            dumpText(boneName, PmdConst.MAXBYTES_BONENAME);
         }
 
         flush();
@@ -138,7 +138,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
             for(MorphPart part : partList){
                 String morphName = part.getMorphName().getGlobalText();
                 if(morphName == null) morphName = "";
-                dumpText(morphName, PmdLimits.MAXBYTES_MORPHNAME);
+                dumpText(morphName, PmdConst.MAXBYTES_MORPHNAME);
             }
         }
 
@@ -157,7 +157,7 @@ public class PmdExporterExt1 extends PmdExporterBase{
             if(group.isDefaultBoneGroup()) continue;
             String groupName = group.getGroupName().getGlobalText();
             if(groupName == null) groupName = "";
-            dumpText(groupName, PmdLimits.MAXBYTES_BONEGROUPNAME);
+            dumpText(groupName, PmdConst.MAXBYTES_BONEGROUPNAME);
         }
 
         flush();

@@ -9,12 +9,15 @@ package jp.sfjp.mikutoga.pmd.xml;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import jp.sourceforge.mikutoga.xml.LocalSchema;
+import jp.sourceforge.mikutoga.xml.LocalXmlResource;
 
 /**
  * 101009形式XML各種リソースの定義。
  */
-public class Schema101009 extends LocalSchema{
+public final class Schema101009 implements LocalXmlResource{
+
+    /** 唯一のシングルトン。 */
+    public static final Schema101009 SINGLETON;
 
     /** 名前空間。 */
     public static final String NS_PMDXML =
@@ -41,13 +44,15 @@ public class Schema101009 extends LocalSchema{
         }catch(URISyntaxException e){
             throw new ExceptionInInitializerError(e);
         }
+
+        SINGLETON = new Schema101009();
     }
 
 
     /**
-     * 隠しコンストラクタ。
+     * コンストラクタ。
      */
-    public Schema101009(){
+    private Schema101009(){
         super();
         assert this.getClass() == THISCLASS;
         return;
@@ -59,7 +64,7 @@ public class Schema101009 extends LocalSchema{
      * @return {@inheritDoc}
      */
     @Override
-    public URI getOriginalSchema(){
+    public URI getOriginalResource(){
         return URI_SCHEMA_PMDXML;
     }
 
@@ -68,7 +73,7 @@ public class Schema101009 extends LocalSchema{
      * @return {@inheritDoc}
      */
     @Override
-    public URI getLocalSchema(){
+    public URI getLocalResource(){
         return RES_SCHEMA_PMDXML;
     }
 
