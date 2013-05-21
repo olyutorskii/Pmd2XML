@@ -9,7 +9,6 @@ package jp.sfjp.mikutoga.pmd.xml;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -46,7 +45,7 @@ import jp.sourceforge.mikutoga.xml.XmlResourceResolver;
 /**
  * 101009形式XMLでPMDモデルデータを出力する。
  */
-public class XmlExporter extends BasicXmlExporter{
+public class PmdXmlExporter extends BasicXmlExporter{
 
     private static final String TOP_COMMENT =
               "  MikuMikuDance\n"
@@ -102,13 +101,12 @@ public class XmlExporter extends BasicXmlExporter{
 
     /**
      * コンストラクタ。
-     * 文字エンコーディングはUTF-8が用いられる。
-     * @param stream 出力ストリーム
      */
-    public XmlExporter(OutputStream stream){
-        super(stream);
+    public PmdXmlExporter(){
+        super();
         return;
     }
+
 
     /**
      * 出力XMLファイル種別を返す。
@@ -171,7 +169,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @throws IOException {@inheritDoc}
      */
     @Override
-    public XmlExporter ind() throws IOException{
+    public PmdXmlExporter ind() throws IOException{
         super.ind();
         return this;
     }
@@ -182,7 +180,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putUnescapedComment(CharSequence seq)
+    protected PmdXmlExporter putUnescapedComment(CharSequence seq)
             throws IOException{
         if( ! isBasicLatinOnlyOut() ) return this;
         if(hasOnlyBasicLatin(seq)) return this;
@@ -197,7 +195,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putI18nName(I18nText text) throws IOException{
+    protected PmdXmlExporter putI18nName(I18nText text) throws IOException{
         for(String lang639 : text.lang639CodeList()){
             if(lang639.equals(I18nText.CODE639_PRIMARY)) continue;
             String name = text.getI18nText(lang639);
@@ -219,7 +217,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putNumberedIdAttr(CharSequence attrName,
+    protected PmdXmlExporter putNumberedIdAttr(CharSequence attrName,
                                                  CharSequence prefix,
                                                  int num )
             throws IOException{
@@ -237,7 +235,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putNumberedIdAttr(CharSequence attrName,
+    protected PmdXmlExporter putNumberedIdAttr(CharSequence attrName,
                                                  CharSequence prefix,
                                                  SerialNumbered numbered )
             throws IOException{
@@ -251,7 +249,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putPosition(MkPos3D position)
+    protected PmdXmlExporter putPosition(MkPos3D position)
             throws IOException{
         putRawText("<position ");
         putFloatAttr("x", (float) position.getXpos()).sp();
@@ -267,7 +265,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putRadRotation(Rad3d rotation)
+    protected PmdXmlExporter putRadRotation(Rad3d rotation)
             throws IOException{
         putRawText("<radRotation ");
         putFloatAttr("xRad", rotation.getXRad()).sp();
@@ -283,7 +281,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putLocalNameComment(I18nText name)
+    protected PmdXmlExporter putLocalNameComment(I18nText name)
             throws IOException{
         String localName = name.getText();
         if(localName.isEmpty()){
@@ -300,7 +298,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    protected XmlExporter putPrimaryNameAttr(CharSequence attrName,
+    protected PmdXmlExporter putPrimaryNameAttr(CharSequence attrName,
                                                    I18nText name)
             throws IOException{
         String primaryName = name.getPrimaryText();
@@ -311,9 +309,13 @@ public class XmlExporter extends BasicXmlExporter{
     /**
      * PMDモデルデータをXML形式で出力する。
      * @param model PMDモデルデータ
+     * @param xmlOut XML出力先
      * @throws IOException 出力エラー
      */
-    public void putPmdModel(PmdModel model) throws IOException{
+    public void putPmdModel(PmdModel model, Appendable xmlOut)
+            throws IOException{
+        setAppendable(xmlOut);
+
         ind().putRawText("<?xml")
                 .sp().putAttr("version","1.0")
                 .sp().putAttr("encoding","UTF-8")
@@ -384,7 +386,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putModelInfo(PmdModel model)
+    private PmdXmlExporter putModelInfo(PmdModel model)
             throws IOException{
         I18nText modelName = model.getModelName();
         putI18nName(modelName);
@@ -407,7 +409,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putDescription(CharSequence lang639,
+    private PmdXmlExporter putDescription(CharSequence lang639,
                                               CharSequence content)
             throws IOException{
         String text = content.toString();
@@ -469,7 +471,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putMetaInfo(PmdModel model) throws IOException{
+    private PmdXmlExporter putMetaInfo(PmdModel model) throws IOException{
         ind().putRawText("<license>").ln();
         ind().putRawText("</license>").ln(2);
 
@@ -499,7 +501,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putMaterialList(PmdModel model)
+    private PmdXmlExporter putMaterialList(PmdModel model)
             throws IOException{
         ind().putRawText("<materialList>").ln();
 
@@ -526,7 +528,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putMaterial(Material material, int no)
+    private PmdXmlExporter putMaterial(Material material, int no)
             throws IOException{
         String bool;
         if(material.getEdgeAppearance()) bool = "true";
@@ -620,7 +622,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putToonMap(PmdModel model)
+    private PmdXmlExporter putToonMap(PmdModel model)
             throws IOException{
         ind().putRawText("<toonMap>").ln();
         pushNest();
@@ -642,7 +644,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putToon(ToonMap map, int index)
+    private PmdXmlExporter putToon(ToonMap map, int index)
             throws IOException{
         putRawText("<toonDef ");
         putNumberedIdAttr("toonFileId", PFX_TOONFILE, index).sp();
@@ -660,7 +662,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putSurfaceGroupList(PmdModel model)
+    private PmdXmlExporter putSurfaceGroupList(PmdModel model)
             throws IOException{
         ind().putRawText("<surfaceGroupList>").ln();
 
@@ -688,7 +690,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putSurfaceList(List<Surface> surfaceList,
+    private PmdXmlExporter putSurfaceList(List<Surface> surfaceList,
                                               int index)
             throws IOException{
         ind().putRawText("<surfaceGroup ");
@@ -712,7 +714,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putSurface(Surface surface)
+    private PmdXmlExporter putSurface(Surface surface)
             throws IOException{
         ind().putRawText("<surface ");
 
@@ -734,7 +736,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putVertexList(PmdModel model)
+    private PmdXmlExporter putVertexList(PmdModel model)
             throws IOException{
         ind().putRawText("<vertexList>").ln();
 
@@ -759,7 +761,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putVertex(Vertex vertex)
+    private PmdXmlExporter putVertex(Vertex vertex)
             throws IOException{
         String bool;
         if(vertex.getEdgeAppearance()) bool = "true";
@@ -808,7 +810,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putBoneList(PmdModel model)
+    private PmdXmlExporter putBoneList(PmdModel model)
             throws IOException{
         ind().putRawText("<boneList>").ln();
         pushNest();
@@ -834,7 +836,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putBone(BoneInfo bone)
+    private PmdXmlExporter putBone(BoneInfo bone)
             throws IOException{
         I18nText i18nName = bone.getBoneName();
         BoneType type = bone.getBoneType();
@@ -932,7 +934,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putBoneGroupList(PmdModel model)
+    private PmdXmlExporter putBoneGroupList(PmdModel model)
             throws IOException{
         ind().putRawText("<boneGroupList>").ln();
 
@@ -958,7 +960,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putBoneGroup(BoneGroup group)
+    private PmdXmlExporter putBoneGroup(BoneGroup group)
             throws IOException{
         I18nText i18nName = group.getGroupName();
 
@@ -990,7 +992,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putIKChainList(PmdModel model)
+    private PmdXmlExporter putIKChainList(PmdModel model)
             throws IOException{
         ind().putRawText("<ikChainList>").ln();
 
@@ -1015,7 +1017,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putIKChain(IKChain chain)
+    private PmdXmlExporter putIKChain(IKChain chain)
             throws IOException{
         int depth = chain.getIKDepth();
         float weight = chain.getIKWeight();
@@ -1049,7 +1051,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putMorphList(PmdModel model)
+    private PmdXmlExporter putMorphList(PmdModel model)
             throws IOException{
         ind().putRawText("<morphList>").ln();
         pushNest();
@@ -1081,7 +1083,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putMorphPart(MorphPart part)
+    private PmdXmlExporter putMorphPart(MorphPart part)
             throws IOException{
         I18nText i18nName = part.getMorphName();
         String primary = i18nName.getPrimaryText();
@@ -1121,7 +1123,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putRigidList(PmdModel model)
+    private PmdXmlExporter putRigidList(PmdModel model)
             throws IOException{
         ind().putRawText("<rigidList>").ln();
         pushNest();
@@ -1147,7 +1149,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putRigid(RigidInfo rigid)
+    private PmdXmlExporter putRigid(RigidInfo rigid)
             throws IOException{
         BoneInfo linkedBone = rigid.getLinkedBone();
         I18nText i18nName = rigid.getRigidName();
@@ -1203,7 +1205,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putRigidShape(RigidShape shape)
+    private PmdXmlExporter putRigidShape(RigidShape shape)
             throws IOException{
         RigidShapeType type = shape.getShapeType();
 
@@ -1239,7 +1241,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putDynamics(DynamicsInfo dynamics)
+    private PmdXmlExporter putDynamics(DynamicsInfo dynamics)
             throws IOException{
         ind().putRawText("<dynamics").ln();
         pushNest();
@@ -1262,7 +1264,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putRigidGroupList(PmdModel model)
+    private PmdXmlExporter putRigidGroupList(PmdModel model)
             throws IOException{
         ind().putRawText("<rigidGroupList>").ln(2);
         pushNest();
@@ -1315,7 +1317,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putJointList(PmdModel model)
+    private PmdXmlExporter putJointList(PmdModel model)
             throws IOException{
         ind().putRawText("<jointList>").ln();
 
@@ -1340,7 +1342,7 @@ public class XmlExporter extends BasicXmlExporter{
      * @return this本体
      * @throws IOException 出力エラー
      */
-    private XmlExporter putJoint(JointInfo joint)
+    private PmdXmlExporter putJoint(JointInfo joint)
             throws IOException{
         I18nText i18nName = joint.getJointName();
 

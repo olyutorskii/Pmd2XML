@@ -7,9 +7,13 @@
 
 package jp.sfjp.mikutoga.pmd2xml;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,9 +23,9 @@ import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
 import jp.sfjp.mikutoga.pmd.binio.PmdExporter;
 import jp.sfjp.mikutoga.pmd.binio.PmdLoader;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
+import jp.sfjp.mikutoga.pmd.xml.PmdXmlExporter;
 import jp.sfjp.mikutoga.pmd.xml.Schema101009;
 import jp.sfjp.mikutoga.pmd.xml.Schema130128;
-import jp.sfjp.mikutoga.pmd.xml.XmlExporter;
 import jp.sfjp.mikutoga.pmd.xml.XmlLoader;
 import jp.sfjp.mikutoga.pmd.xml.XmlModelFileType;
 import jp.sourceforge.mikutoga.xml.BotherHandler;
@@ -36,6 +40,10 @@ import org.xml.sax.SAXException;
  * PMD-XML間コンバータ本体。
  */
 public class Pmd2XmlConv {
+
+    /** デフォルトエンコーディング。 */
+    private static final Charset CS_UTF8 = Charset.forName("UTF-8");
+
 
     private ModelFileType inTypes  = ModelFileType.NONE;
     private ModelFileType outTypes = ModelFileType.NONE;
@@ -342,14 +350,18 @@ public class Pmd2XmlConv {
      */
     private void xmlOut(PmdModel model, OutputStream ostream)
             throws IOException, IllegalPmdDataException{
-        XmlExporter exporter = new XmlExporter(ostream);
+        PmdXmlExporter exporter = new PmdXmlExporter();
 
         XmlModelFileType xmlType = this.outTypes.toXmlType();
         exporter.setXmlFileType(xmlType);
         exporter.setNewLine(this.newLine);
         exporter.setGenerator(this.generator);
 
-        exporter.putPmdModel(model);
+        Writer writer;
+        writer = new OutputStreamWriter(ostream, CS_UTF8);
+        writer = new BufferedWriter(writer);
+
+        exporter.putPmdModel(model, writer);
 
         exporter.close();
 

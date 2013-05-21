@@ -7,7 +7,7 @@
 <!--
     Checkstyle用チェック項目定義。
 
-    Checkstyle 5.3 以降向けに記述。
+    Checkstyle 5.5 以降向けに記述。
 
     [ http://checkstyle.sourceforge.net/ ]
 
@@ -42,6 +42,7 @@
     <module name="RegexpHeader">
         <property name="header" value="^/\*$\n^ \*( .*)?$\n^ \*/$\n" />
         <property name="multiLines" value="2" />
+        <property name="fileExtensions" value="java" />
     </module>
 
 
@@ -50,7 +51,9 @@
 
 
     <!-- Miscellaneous -->
-    <module name="NewlineAtEndOfFile" />
+    <module name="NewlineAtEndOfFile">
+        <property name="fileExtensions" value="java" />
+    </module>
     <module name="Translation" />
 
 
@@ -167,6 +170,9 @@
         <module name="FallThrough" />
         <module name="MultipleStringLiterals" />
         <module name="MultipleVariableDeclarations" />
+        <module name="RequireThis">
+            <property name="checkMethods" value="false" />
+        </module>
         <module name="UnnecessaryParentheses" />
         <module name="OneStatementPerLine" />
 
