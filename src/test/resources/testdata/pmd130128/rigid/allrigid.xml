@@ -135,7 +135,7 @@ Rigid behavior types:
       friction="0.5"
     />
 
-    <throughRigidGroup rigidGroupIdRef="rg1"  />
+    <throughRigidGroup rigidGroupIdRef="rg1" />
   </rigid>
 
 </rigidList>

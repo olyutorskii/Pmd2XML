@@ -25,6 +25,7 @@ import java.util.TreeMap;
  */
 public class ToonMap {
 
+    public static final int MAX_CUSTOM_TOON = 10;
     private static final Map<Integer, String> DEF_TOONMAP;
 
     static{
@@ -43,6 +44,8 @@ public class ToonMap {
         map.put(0xff, "toon0.bmp");
 
         DEF_TOONMAP = Collections.unmodifiableMap(map);
+
+        assert DEF_TOONMAP.size() == MAX_CUSTOM_TOON + 1;
     }
 
     private final Map<Integer, String> toonMap =
@@ -85,8 +88,8 @@ public class ToonMap {
      * @return 等しければtrue
      */
     public boolean isDefaultMap(){
-        if(this.toonMap.equals(DEF_TOONMAP)) return true;
-        return false;
+        boolean result = this.toonMap.equals(DEF_TOONMAP);
+        return result;
     }
 
     /**
@@ -99,9 +102,10 @@ public class ToonMap {
         if(thisToon == null) return false;
 
         String defToon = DEF_TOONMAP.get(idx);
-        if(thisToon.equals(defToon)) return true;
 
-        return false;
+        boolean result = thisToon.equals(defToon);
+
+        return result;
     }
 
     /**

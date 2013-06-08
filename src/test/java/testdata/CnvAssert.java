@@ -57,6 +57,7 @@ public class CnvAssert {
         OutputStream destOut;
         destOut = new FileOutputStream(destFile);
         destOut = new BufferedOutputStream(destOut);
+//        destOut = new DebugOutputStream(destOut);
 
         Pmd2XmlConv converter = new Pmd2XmlConv();
         converter.setInType(ModelFileType.XML_AUTO);
@@ -188,12 +189,18 @@ public class CnvAssert {
         InputStream expis = new BufferedInputStream(expIn);
         InputStream resis = new BufferedInputStream(resIn);
 
-
+        int offset = 0;
         for(;;){
             int expCh = expis.read();
             int resCh = resis.read();
 
-            assertEquals(expCh, resCh);
+            try{
+                assertEquals(expCh, resCh);
+            }catch(AssertionError e){
+                System.err.println("offset=" + offset);
+                throw e;
+            }
+            offset++;
 
             if(expCh < 0) break;
         }

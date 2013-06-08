@@ -7,7 +7,7 @@
 
 package jp.sfjp.mikutoga.pmd2xml;
 
-import jp.sfjp.mikutoga.pmd.xml.XmlModelFileType;
+import jp.sfjp.mikutoga.pmd.model.xml.XmlModelFileType;
 
 /**
  * モデルファイル種別。

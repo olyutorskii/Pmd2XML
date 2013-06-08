@@ -22,7 +22,7 @@ import java.text.MessageFormat;
 import java.util.Properties;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
-import jp.sourceforge.mikutoga.xml.TogaXmlException;
+import jp.sfjp.mikutoga.xml.TogaXmlException;
 import org.xml.sax.SAXException;
 
 /**

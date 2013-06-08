@@ -20,21 +20,22 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.validation.Schema;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
-import jp.sfjp.mikutoga.pmd.binio.PmdExporter;
-import jp.sfjp.mikutoga.pmd.binio.PmdLoader;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
-import jp.sfjp.mikutoga.pmd.xml.PmdXmlExporter;
-import jp.sfjp.mikutoga.pmd.xml.Schema101009;
-import jp.sfjp.mikutoga.pmd.xml.Schema130128;
-import jp.sfjp.mikutoga.pmd.xml.XmlLoader;
-import jp.sfjp.mikutoga.pmd.xml.XmlModelFileType;
-import jp.sourceforge.mikutoga.xml.BotherHandler;
-import jp.sourceforge.mikutoga.xml.LocalXmlResource;
-import jp.sourceforge.mikutoga.xml.SchemaUtil;
-import jp.sourceforge.mikutoga.xml.TogaXmlException;
-import jp.sourceforge.mikutoga.xml.XmlResourceResolver;
+import jp.sfjp.mikutoga.pmd.model.binio.PmdExporter;
+import jp.sfjp.mikutoga.pmd.model.binio.PmdLoader;
+import jp.sfjp.mikutoga.pmd.model.xml.PmdXmlExporter;
+import jp.sfjp.mikutoga.pmd.model.xml.Schema101009;
+import jp.sfjp.mikutoga.pmd.model.xml.Schema130128;
+import jp.sfjp.mikutoga.pmd.model.xml.XmlModelFileType;
+import jp.sfjp.mikutoga.pmd.model.xml.XmlPmdLoader;
+import jp.sfjp.mikutoga.xml.BotherHandler;
+import jp.sfjp.mikutoga.xml.LocalXmlResource;
+import jp.sfjp.mikutoga.xml.SchemaUtil;
+import jp.sfjp.mikutoga.xml.TogaXmlException;
+import jp.sfjp.mikutoga.xml.XmlResourceResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  * PMD-XML間コンバータ本体。
@@ -320,9 +321,9 @@ public class Pmd2XmlConv {
             throws IOException,
                    SAXException,
                    TogaXmlException {
-        DocumentBuilder builder = buildBuilder();
-        XmlLoader loader = new XmlLoader();
-        PmdModel model = loader.parse(builder, source);
+        XMLReader reader = XmlInputUtil.buildReader(this.inTypes);
+        XmlPmdLoader loader = new XmlPmdLoader(reader);
+        PmdModel model = loader.parse(source);
         return model;
     }
 
@@ -361,7 +362,7 @@ public class Pmd2XmlConv {
         writer = new OutputStreamWriter(ostream, CS_UTF8);
         writer = new BufferedWriter(writer);
 
-        exporter.putPmdModel(model, writer);
+        exporter.putPmdXml(model, writer);
 
         exporter.close();
 

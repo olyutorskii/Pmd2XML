@@ -3,7 +3,7 @@
 
 package jp.sfjp.mikutoga.pmd2xml;
 
-import jp.sfjp.mikutoga.pmd.xml.XmlModelFileType;
+import jp.sfjp.mikutoga.pmd.model.xml.XmlModelFileType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

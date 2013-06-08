@@ -375,10 +375,6 @@
         <module name="RegexpSinglelineJava" />
 -->
 
-<!-- バグ？
-        <module name="RequireThis" />
--->
-
 <!-- Obsolated
         <module name="TabCharacter" />
 -->
