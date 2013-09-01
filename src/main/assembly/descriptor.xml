@@ -20,6 +20,7 @@
 
     <fileSets>
         <fileSet>
+            <directory>.</directory>
             <includes>
                 <include>pom.xml</include>
                 <include>fixcrlf.xml</include>
