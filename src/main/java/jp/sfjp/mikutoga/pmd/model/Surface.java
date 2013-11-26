@@ -16,11 +16,15 @@ import java.util.List;
  */
 public class Surface implements SerialNumbered, Iterable<Vertex> {
 
+    private static final int TRIANGLE = 3;
+
+
     private Vertex vertex1;
     private Vertex vertex2;
     private Vertex vertex3;
 
-    private int serialNo = -1;
+    private int surfaceSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -31,25 +35,26 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
         return;
     }
 
+
     /**
      * 3頂点を設定する。
-     * @param vertex1 頂点1
-     * @param vertex2 頂点2
-     * @param vertex3 頂点3
+     * @param vtx1 頂点1
+     * @param vtx2 頂点2
+     * @param vtx3 頂点3
      * @throws  IllegalArgumentException 重複する頂点が引数に含まれた
      */
-    public void setTriangle(Vertex vertex1, Vertex vertex2, Vertex vertex3)
+    public void setTriangle(Vertex vtx1, Vertex vtx2, Vertex vtx3)
             throws IllegalArgumentException{
-        if(vertex1 != null && (vertex1 == vertex2 || vertex1 == vertex3)){
+        if(vtx1 != null && (vtx1 == vtx2 || vtx1 == vtx3)){
             throw new IllegalArgumentException();
         }
-        if(vertex2 != null && vertex2 == vertex3){
+        if(vtx2 != null && vtx2 == vtx3){
             throw new IllegalArgumentException();
         }
 
-        this.vertex1 = vertex1;
-        this.vertex2 = vertex2;
-        this.vertex3 = vertex3;
+        this.vertex1 = vtx1;
+        this.vertex2 = vtx2;
+        this.vertex3 = vtx3;
 
         return;
     }
@@ -63,10 +68,10 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      */
     public Vertex[] getTriangle(Vertex[] store){
         Vertex[] result;
-        if(store == null || store.length < 3){
-            result = new Vertex[3];
-        }else{
+        if(store != null && store.length >= TRIANGLE){
             result = store;
+        }else{
+            result = new Vertex[TRIANGLE];
         }
 
         result[0] = this.vertex1;
@@ -108,7 +113,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      */
     @Override
     public Iterator<Vertex> iterator(){
-        List<Vertex> list = new ArrayList<Vertex>(3);
+        List<Vertex> list = new ArrayList<Vertex>(TRIANGLE);
 
         list.add(this.vertex1);
         list.add(this.vertex2);
@@ -122,12 +127,11 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      * @return 3頂点とも非nullが設定されていればtrue
      */
     public boolean isCompleted(){
-        if(   this.vertex1 != null
-           && this.vertex2 != null
-           && this.vertex3 != null ){
-            return true;
-        }
-        return false;
+        boolean result;
+        result =    this.vertex1 != null
+                 && this.vertex2 != null
+                 && this.vertex3 != null;
+        return result;
     }
 
     /**
@@ -136,7 +140,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.surfaceSerialNo = num;
         return;
     }
 
@@ -146,7 +150,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.surfaceSerialNo;
     }
 
     /**

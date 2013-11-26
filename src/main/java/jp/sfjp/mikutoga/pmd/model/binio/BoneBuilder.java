@@ -77,7 +77,7 @@ class BoneBuilder implements PmdBoneHandler {
                 this.currentIkChain = this.ikChainIt.next();
             }
         }else if(stage == PmdBoneHandler.IKCHAIN_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdBoneHandler.BONEGROUP_LIST){
             ListUtil.prepareDefConsList(this.boneGroupList,
                                         BoneGroup.class,
@@ -93,7 +93,7 @@ class BoneBuilder implements PmdBoneHandler {
                 this.currentBoneGroup = this.boneGroupIt.next();
             }
         }else if(stage == PmdBoneHandler.GROUPEDBONE_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else{
             assert false;
             throw new AssertionError();
@@ -117,13 +117,13 @@ class BoneBuilder implements PmdBoneHandler {
                 this.currentIkChain = this.ikChainIt.next();
             }
         }else if(stage == PmdBoneHandler.IKCHAIN_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdBoneHandler.BONEGROUP_LIST){
             if(this.boneGroupIt.hasNext()){
                 this.currentBoneGroup = this.boneGroupIt.next();
             }
         }else if(stage == PmdBoneHandler.GROUPEDBONE_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else{
             assert false;
             throw new AssertionError();
@@ -138,13 +138,13 @@ class BoneBuilder implements PmdBoneHandler {
     @Override
     public void loopEnd(ParseStage stage){
         if(stage == PmdBoneHandler.BONE_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdBoneHandler.IK_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdBoneHandler.IKCHAIN_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdBoneHandler.BONEGROUP_LIST){
-            //NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdBoneHandler.GROUPEDBONE_LIST){
             pickOrphanBone();
         }else{

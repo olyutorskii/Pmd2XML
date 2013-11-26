@@ -62,6 +62,7 @@ public final class Schema101009 implements LocalXmlResource{
     /**
      * {@inheritDoc}
      * @return {@inheritDoc}
+     * ※101009版。
      */
     @Override
     public URI getOriginalResource(){
@@ -70,6 +71,7 @@ public final class Schema101009 implements LocalXmlResource{
 
     /**
      * {@inheritDoc}
+     * ※101009版。
      * @return {@inheritDoc}
      */
     @Override

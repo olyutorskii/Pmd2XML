@@ -25,7 +25,8 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
     private final List<MorphVertex> morphVertexList =
             new ArrayList<MorphVertex>();
 
-    private int serialNo = -1;
+    private int morphSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -34,6 +35,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
         super();
         return;
     }
+
 
     /**
      * モーフ名を返す。
@@ -85,7 +87,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.morphSerialNo = num;
         return;
     }
 
@@ -95,7 +97,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.morphSerialNo;
     }
 
     @Override

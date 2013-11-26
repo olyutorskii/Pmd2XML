@@ -15,10 +15,14 @@ import jp.sfjp.mikutoga.pmd.RigidShapeType;
  */
 public class RigidShape {
 
+    private static final float DEF_DIM = 0.1f;
+
     private RigidShapeType type = RigidShapeType.BOX;
-    private float width  = 0.1f;
-    private float height = 0.1f;
-    private float depth  = 0.1f;
+
+    private float width  = DEF_DIM;
+    private float height = DEF_DIM;
+    private float depth  = DEF_DIM;
+
 
     /**
      * コンストラクタ。
@@ -27,6 +31,7 @@ public class RigidShape {
         super();
         return;
     }
+
 
     /**
      * 剛体形状種別を返す。

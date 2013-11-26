@@ -29,6 +29,9 @@ import jp.sfjp.mikutoga.pmd.parser.PmdRigidHandler;
  */
 class RigidBuilder implements PmdRigidHandler {
 
+    private static final int MAX_BONEID = 65534;
+
+
     private final List<BoneInfo> boneList;
 
     private final List<RigidInfo> rigidList;
@@ -78,6 +81,7 @@ class RigidBuilder implements PmdRigidHandler {
      */
     @Override
     public void loopNext(ParseStage stage){
+        assert this.rigidIt != null;
         if(this.rigidIt.hasNext()){
             this.currentRigid = this.rigidIt.next();
         }
@@ -111,7 +115,7 @@ class RigidBuilder implements PmdRigidHandler {
     @Override
     public void pmdRigidInfo(int rigidGroupId, int linkedBoneId){
         BoneInfo bone;
-        if(linkedBoneId < 0 || 65535 <= linkedBoneId){
+        if(linkedBoneId < 0 || MAX_BONEID < linkedBoneId){
             bone = null;
         }else{
             bone = this.boneList.get(linkedBoneId);

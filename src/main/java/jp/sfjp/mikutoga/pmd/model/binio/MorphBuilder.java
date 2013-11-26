@@ -75,9 +75,9 @@ class MorphBuilder implements PmdMorphHandler {
                 this.currentMorphPart = this.morphPartIt.next();
             }
         }else if(stage == PmdMorphHandler.MORPHVERTEX_LIST){
-            // NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdMorphHandler.MORPHORDER_LIST){
-            // NOTHING
+            assert true; // NOTHING
         }else{
             assert false;
             throw new AssertionError();
@@ -97,9 +97,9 @@ class MorphBuilder implements PmdMorphHandler {
                 this.currentMorphPart = this.morphPartIt.next();
             }
         }else if(stage == PmdMorphHandler.MORPHVERTEX_LIST){
-            // NOTHING
+            assert true;   // NOTHING
         }else if(stage == PmdMorphHandler.MORPHORDER_LIST){
-            // NOTHING
+            assert true;   // NOTHING
         }else{
             assert false;
             throw new AssertionError();
@@ -115,11 +115,11 @@ class MorphBuilder implements PmdMorphHandler {
     @Override
     public void loopEnd(ParseStage stage){
         if(stage == PmdMorphHandler.MORPH_LIST){
-            // NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdMorphHandler.MORPHVERTEX_LIST){
-            // NOTHING
+            assert true; // NOTHING
         }else if(stage == PmdMorphHandler.MORPHORDER_LIST){
-            // NOTHING
+            assert true; // NOTHING
         }else{
             assert false;
             throw new AssertionError();

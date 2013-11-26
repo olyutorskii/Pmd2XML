@@ -17,6 +17,7 @@ public interface SerialNumbered {
     /** 昇順での比較子。 */
     Comparator<SerialNumbered> COMPARATOR = new SerialComparator();
 
+
     /**
      * 通し番号を設定する。
      * @param num 通し番号
@@ -29,10 +30,12 @@ public interface SerialNumbered {
      */
     int getSerialNumber();
 
+
     /**
      * 通し番号による比較子Comparator。
      * 通し番号の昇順を定義づける。
      */
+    @SuppressWarnings("serial")
     class SerialComparator
             implements Comparator<SerialNumbered> {
 
@@ -43,6 +46,7 @@ public interface SerialNumbered {
             super();
             return;
         }
+
 
         /**
          * {@inheritDoc}

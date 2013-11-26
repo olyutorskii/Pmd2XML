@@ -198,7 +198,8 @@ class ShapeBuilder implements PmdShapeHandler {
      */
     @Override
     public void pmdVertexEdge(boolean hideEdge){
-        this.currentVertex.setEdgeAppearance( ! hideEdge );
+        boolean appearFlag = ! hideEdge;
+        this.currentVertex.setEdgeAppearance(appearFlag);
         return;
     }
 

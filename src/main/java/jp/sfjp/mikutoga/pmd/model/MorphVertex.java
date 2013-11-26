@@ -19,10 +19,11 @@ public class MorphVertex implements SerialNumbered{
     public static final Comparator<MorphVertex> VIDCOMPARATOR =
             new VertexIdComparator();
 
-    private Vertex baseVertex;
+    private Vertex baseVertex = null;
     private final MkPos3D offset = new MkPos3D();
 
-    private int serialNo = -1;
+    private int morphVertexSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -31,6 +32,7 @@ public class MorphVertex implements SerialNumbered{
         super();
         return;
     }
+
 
     /**
      * 移動元頂点情報を返す。
@@ -65,7 +67,7 @@ public class MorphVertex implements SerialNumbered{
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.morphVertexSerialNo = num;
         return;
     }
 
@@ -75,7 +77,7 @@ public class MorphVertex implements SerialNumbered{
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.morphVertexSerialNo;
     }
 
     /**
@@ -96,16 +98,18 @@ public class MorphVertex implements SerialNumbered{
         return result.toString();
     }
 
+
     /**
      * 頂点IDによる比較子Comparator。
      */
+    @SuppressWarnings("serial")
     private static final class VertexIdComparator
             implements Comparator<MorphVertex> {
 
         /**
          * コンストラクタ。
          */
-        private VertexIdComparator(){
+        VertexIdComparator(){
             super();
             return;
         }

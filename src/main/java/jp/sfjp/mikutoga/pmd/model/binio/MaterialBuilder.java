@@ -24,6 +24,9 @@ import jp.sfjp.mikutoga.pmd.parser.PmdMaterialHandler;
  */
 class MaterialBuilder implements PmdMaterialHandler {
 
+    private static final int TRIANGLE = 3;
+
+
     private final List<Material> materialList;
     private Iterator<Material> materialIt;
     private Material currentMaterial = null;
@@ -32,6 +35,7 @@ class MaterialBuilder implements PmdMaterialHandler {
     private Iterator<Surface> surfaceIt;
 
     private final ToonMap toonMap;
+
 
     /**
      * コンストラクタ。
@@ -46,6 +50,7 @@ class MaterialBuilder implements PmdMaterialHandler {
 
         return;
     }
+
 
     /**
      * {@inheritDoc}
@@ -154,7 +159,7 @@ class MaterialBuilder implements PmdMaterialHandler {
 
         List<Surface> list = this.currentMaterial.getSurfaceList();
 
-        int surfaceNum = vertexNum / 3;
+        int surfaceNum = vertexNum / TRIANGLE;
         for(int ct = 1; ct <= surfaceNum; ct++){
             Surface surface = this.surfaceIt.next();
             list.add(surface);

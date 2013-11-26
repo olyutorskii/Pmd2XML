@@ -19,6 +19,13 @@ import jp.sfjp.mikutoga.corelib.I18nText;
  */
 public class Material implements Iterable<Surface> {
 
+    // sRGBカラー情報配列インデックス
+    private static final int IDX_RED   = 0;
+    private static final int IDX_GREEN = 1;
+    private static final int IDX_BLUE  = 2;
+    private static final int IDX_ALPHA = 3;
+
+
     private final I18nText materialName = new I18nText();
 
     private Color diffuseColor;
@@ -34,6 +41,7 @@ public class Material implements Iterable<Surface> {
 
     private final List<Surface> surfaceList = new ArrayList<Surface>();
 
+
     /**
      * コンストラクタ。
      */
@@ -41,6 +49,7 @@ public class Material implements Iterable<Surface> {
         super();
         return;
     }
+
 
     /**
      * 色を不透明化する。
@@ -52,13 +61,17 @@ public class Material implements Iterable<Surface> {
             return color;
         }
 
-        float[] rgba = new float[4];
-        color.getRGBColorComponents(rgba);
+        float[] rgba = null;
+        rgba = color.getRGBColorComponents(rgba);
 
-        Color result = new Color(rgba[0], rgba[1], rgba[2], 1.0f);
+        Color result = new Color(rgba[IDX_RED],
+                                 rgba[IDX_GREEN],
+                                 rgba[IDX_BLUE],
+                                 1.0f );
 
         return result;
     }
+
 
     /**
      * マテリアル名を返す。
@@ -200,33 +213,34 @@ public class Material implements Iterable<Surface> {
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
+        final String delim = ", ";
 
         result.append("Material ");
 
-        float[] rgba = new float[4];
+        float[] rgba = null;
 
-        this.diffuseColor.getRGBComponents(rgba);
+        rgba = this.diffuseColor.getRGBComponents(rgba);
         result.append("diffuse=[")
-              .append(rgba[0]).append(", ")
-              .append(rgba[1]).append(", ")
-              .append(rgba[2]).append(", ")
-              .append(rgba[3]).append(']')
+              .append(rgba[IDX_RED]).append(delim)
+              .append(rgba[IDX_GREEN]).append(delim)
+              .append(rgba[IDX_BLUE]).append(delim)
+              .append(rgba[IDX_ALPHA]).append(']')
               .append(' ');
 
         this.specularColor.getRGBComponents(rgba);
         result.append("specular=[")
-              .append(rgba[0]).append(", ")
-              .append(rgba[1]).append(", ")
-              .append(rgba[2]).append(", ")
-              .append(rgba[3]).append(']')
+              .append(rgba[IDX_RED]).append(delim)
+              .append(rgba[IDX_GREEN]).append(delim)
+              .append(rgba[IDX_BLUE]).append(delim)
+              .append(rgba[IDX_ALPHA]).append(']')
               .append(' ');
 
         this.ambientColor.getRGBComponents(rgba);
         result.append("ambient=[")
-              .append(rgba[0]).append(", ")
-              .append(rgba[1]).append(", ")
-              .append(rgba[2]).append(", ")
-              .append(rgba[3]).append(']')
+              .append(rgba[IDX_RED]).append(delim)
+              .append(rgba[IDX_GREEN]).append(delim)
+              .append(rgba[IDX_BLUE]).append(delim)
+              .append(rgba[IDX_ALPHA]).append(']')
               .append(' ');
 
         result.append("shininess=")

@@ -23,6 +23,7 @@ public class IKChain implements Iterable<BoneInfo> {
 
     private final List<BoneInfo> chainList = new ArrayList<BoneInfo>();
 
+
     /**
      * コンストラクタ。
      */
@@ -30,6 +31,7 @@ public class IKChain implements Iterable<BoneInfo> {
         super();
         return;
     }
+
 
     /**
      * IKボーンを設定する。

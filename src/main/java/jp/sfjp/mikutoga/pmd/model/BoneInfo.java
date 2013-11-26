@@ -16,6 +16,8 @@ import jp.sfjp.mikutoga.pmd.BoneType;
  */
 public class BoneInfo implements SerialNumbered {
 
+    private static final String NO_BONE = "NONE";
+
     private final I18nText boneName = new I18nText();
     private BoneType boneType;
 
@@ -27,7 +29,8 @@ public class BoneInfo implements SerialNumbered {
 
     private int rotationRatio;
 
-    private int serialNo = -1;
+    private int boneSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -36,6 +39,7 @@ public class BoneInfo implements SerialNumbered {
         super();
         return;
     }
+
 
     /**
      * ボーン名を返す。
@@ -151,7 +155,7 @@ public class BoneInfo implements SerialNumbered {
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.boneSerialNo = num;
         return;
     }
 
@@ -161,7 +165,7 @@ public class BoneInfo implements SerialNumbered {
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.boneSerialNo;
     }
 
     /**
@@ -173,7 +177,7 @@ public class BoneInfo implements SerialNumbered {
         StringBuilder result = new StringBuilder();
 
         result.append("Bone")
-              .append(this.serialNo)
+              .append(this.boneSerialNo)
               .append("(")
               .append(this.boneName.getPrimaryText())
               .append(")");
@@ -183,11 +187,11 @@ public class BoneInfo implements SerialNumbered {
 
         result.append(" prev=");
         if(this.prevBone != null) result.append(this.prevBone.getBoneName());
-        else                      result.append("NONE");
+        else                      result.append(NO_BONE);
 
         result.append(" next=");
         if(this.nextBone != null) result.append(this.nextBone.getBoneName());
-        else                      result.append("NONE");
+        else                      result.append(NO_BONE);
 
         if(this.boneType == BoneType.LINKEDROT){
             result.append(" rotraio=").append(this.rotationRatio);
@@ -196,7 +200,7 @@ public class BoneInfo implements SerialNumbered {
             if(this.srcBone != null){
                 result.append(this.srcBone.getBoneName());
             }else{
-                result.append("NONE");
+                result.append(NO_BONE);
             }
         }
 

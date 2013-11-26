@@ -24,6 +24,7 @@ public final class ListUtil {
         throw new AssertionError();
     }
 
+
     /**
      * リストの出現順にシリアルナンバーを割り振る。
      * シリアルナンバー先頭は0。

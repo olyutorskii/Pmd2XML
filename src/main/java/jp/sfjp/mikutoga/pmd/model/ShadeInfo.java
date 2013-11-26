@@ -18,6 +18,7 @@ public class ShadeInfo {
     private String textureFileName = null;
     private String spheremapFileName = null;
 
+
     /**
      * コンストラクタ。
      */
@@ -25,6 +26,7 @@ public class ShadeInfo {
         super();
         return;
     }
+
 
     /**
      * トゥーンマップを設定する。
@@ -66,8 +68,10 @@ public class ShadeInfo {
      * @return 有効ならtrue
      */
     public boolean isValidToonIndex(){
-        if(0 <= this.toonIdx && this.toonIdx <= 9) return true;
-        return false;
+        boolean result;
+        result =   (0 <= this.toonIdx)
+                &&      (this.toonIdx < ToonMap.MAX_CUSTOM_TOON);
+        return result;
     }
 
     /**

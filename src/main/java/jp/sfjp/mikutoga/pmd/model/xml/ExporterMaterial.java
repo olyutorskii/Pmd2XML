@@ -30,6 +30,7 @@ class ExporterMaterial extends ProxyXmlExporter {
 
 
     private final ExtraExporter exp;
+    private float[] rgbaBuf = null;
 
 
     /**
@@ -121,27 +122,25 @@ class ExporterMaterial extends ProxyXmlExporter {
      */
     private void putPhongShade(Material material)
             throws IOException{
-        float[] rgba = null;
-
         ind().putOpenSTag(PmdTag.DIFFUSE.tag()).sp();
         Color diffuse = material.getDiffuseColor();
-        rgba = diffuse.getRGBComponents(rgba);
-        putTriColor(rgba);
-        putFloatAttr(PmdAttr.ALPHA.attr(), rgba[IDX_ALPHA]).sp();
+        this.rgbaBuf = diffuse.getRGBComponents(this.rgbaBuf);
+        putTriColor(this.rgbaBuf);
+        putFloatAttr(PmdAttr.ALPHA.attr(), this.rgbaBuf[IDX_ALPHA]).sp();
         putCloseEmpty().ln();
 
         float shininess = material.getShininess();
         ind().putOpenSTag(PmdTag.SPECULAR.tag()).sp();
         Color specular = material.getSpecularColor();
-        rgba = specular.getRGBComponents(rgba);
-        putTriColor(rgba);
+        this.rgbaBuf = specular.getRGBComponents(this.rgbaBuf);
+        putTriColor(this.rgbaBuf);
         putFloatAttr(PmdAttr.SHININESS.attr(), shininess).sp();
         putCloseEmpty().ln();
 
         ind().putOpenSTag(PmdTag.AMBIENT.tag()).sp();
         Color ambient = material.getAmbientColor();
-        rgba = ambient.getRGBComponents(rgba);
-        putTriColor(rgba);
+        this.rgbaBuf = ambient.getRGBComponents(this.rgbaBuf);
+        putTriColor(this.rgbaBuf);
         putCloseEmpty().ln();
 
         return;

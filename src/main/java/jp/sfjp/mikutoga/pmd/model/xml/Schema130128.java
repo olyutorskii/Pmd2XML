@@ -61,6 +61,7 @@ public final class Schema130128 implements LocalXmlResource{
 
     /**
      * {@inheritDoc}
+     * ※130128版。
      * @return {@inheritDoc}
      */
     @Override
@@ -70,6 +71,7 @@ public final class Schema130128 implements LocalXmlResource{
 
     /**
      * {@inheritDoc}
+     * ※130128版。
      * @return {@inheritDoc}
      */
     @Override

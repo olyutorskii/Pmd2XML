@@ -36,7 +36,8 @@ public class RigidInfo implements SerialNumbered {
 
     private RigidGroup rigidGroup;
 
-    private int serialNo = -1;
+    private int rigidSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -45,6 +46,7 @@ public class RigidInfo implements SerialNumbered {
         super();
         return;
     }
+
 
     /**
      * 剛体名を返す。
@@ -154,7 +156,7 @@ public class RigidInfo implements SerialNumbered {
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.rigidSerialNo = num;
         return;
     }
 
@@ -164,7 +166,7 @@ public class RigidInfo implements SerialNumbered {
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.rigidSerialNo;
     }
 
     /**

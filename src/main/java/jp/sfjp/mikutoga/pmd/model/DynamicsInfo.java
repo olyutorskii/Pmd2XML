@@ -25,6 +25,7 @@ public class DynamicsInfo {
     /** 摩擦力。 */
     private float friction;
 
+
     /**
      * コンストラクタ。
      */
@@ -32,6 +33,7 @@ public class DynamicsInfo {
         super();
         return;
     }
+
 
     /**
      * 質量を返す。
@@ -125,11 +127,12 @@ public class DynamicsInfo {
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
+        final String delim = ", ";
 
-        result.append("mass=").append(this.mass).append(", ");
-        result.append("damping(Pos)=").append(this.dampingPos).append(", ");
-        result.append("damping(Rot)=").append(this.dampingRot).append(", ");
-        result.append("restitution=").append(this.restitution).append(", ");
+        result.append("mass=").append(this.mass).append(delim);
+        result.append("damping(Pos)=").append(this.dampingPos).append(delim);
+        result.append("damping(Rot)=").append(this.dampingRot).append(delim);
+        result.append("restitution=").append(this.restitution).append(delim);
         result.append("friction=").append(this.friction);
 
         return result.toString();

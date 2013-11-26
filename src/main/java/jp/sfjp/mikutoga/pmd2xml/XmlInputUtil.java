@@ -23,7 +23,7 @@ import org.xml.sax.XMLReader;
 /**
  * XML入力に関する各種ユーティリティ。
  */
-class XmlInputUtil {
+final class XmlInputUtil {
 
     /**
      * 隠しコンストラクタ。

@@ -17,12 +17,14 @@ import java.util.List;
  */
 public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
 
+    /** 剛体グループ総数。 */
     public static final int MAX_RIGID_GROUP = 16;
 
 
     private final List<RigidInfo> rigidList = new ArrayList<RigidInfo>();
 
-    private int serialNo = -1;
+    private int rigidGroupSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -31,6 +33,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
         super();
         return;
     }
+
 
     /**
      * 所属する剛体のリストを返す。
@@ -55,7 +58,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.rigidGroupSerialNo = num;
         return;
     }
 
@@ -65,7 +68,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.rigidGroupSerialNo;
     }
 
     /**
@@ -75,7 +78,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
      * @return グループ番号
      */
     public int getGroupNumber(){
-        return this.serialNo + 1;
+        return this.rigidGroupSerialNo + 1;
     }
 
     /**

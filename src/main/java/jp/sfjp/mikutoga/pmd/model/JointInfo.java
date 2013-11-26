@@ -32,6 +32,7 @@ public class JointInfo {
     private final TripletRange posRange = new TripletRange();
     private final TripletRange rotRange = new TripletRange();
 
+
     /**
      * コンストラクタ。
      */
@@ -39,6 +40,7 @@ public class JointInfo {
         super();
         return;
     }
+
 
     /**
      * ジョイント名を返す。
@@ -66,12 +68,12 @@ public class JointInfo {
 
     /**
      * 連結する剛体を設定する。
-     * @param rigidA 連結剛体A
-     * @param rigidB 連結剛体B
+     * @param rigidAArg 連結剛体A
+     * @param rigidBArg 連結剛体B
      */
-    public void setRigidPair(RigidInfo rigidA, RigidInfo rigidB){
-        this.rigidA = rigidA;
-        this.rigidB = rigidB;
+    public void setRigidPair(RigidInfo rigidAArg, RigidInfo rigidBArg){
+        this.rigidA = rigidAArg;
+        this.rigidB = rigidBArg;
         return;
     }
 

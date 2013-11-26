@@ -70,9 +70,21 @@ public class PmdExporterBase extends BinaryExporter{
     /** 改行文字列 CRLF。 */
     private static final String CRLF = CR + LF;  // 0x0d, 0x0a
 
+    // sRGBカラー情報配列インデックス
+    private static final int IDX_RED   = 0;
+    private static final int IDX_GREEN = 1;
+    private static final int IDX_BLUE  = 2;
+    private static final int IDX_ALPHA = 3;
+
+    private static final int TRIANGLE = 3;
+
     static{
         assert NOPREVBONE_ID > PmdConst.MAX_BONE - 1;
     }
+
+
+    private float[] rgbaBuf = null;
+
 
     /**
      * コンストラクタ。
@@ -150,7 +162,7 @@ public class PmdExporterBase extends BinaryExporter{
      */
     private void dumpBasic(PmdModel model)
             throws IOException, IllegalTextExportException{
-        for(int idx=0; idx < MAGIC_BYTES.length; idx++){
+        for(int idx = 0; idx < MAGIC_BYTES.length; idx++){
             dumpByte(MAGIC_BYTES[idx]);
         }
 
@@ -231,9 +243,9 @@ public class PmdExporterBase extends BinaryExporter{
         for(Material material : materialList){
             surfaceNum += material.getSurfaceList().size();
         }
-        dumpLeInt(surfaceNum * 3);
+        dumpLeInt(surfaceNum * TRIANGLE);
 
-        Vertex[] triangle = new Vertex[3];
+        Vertex[] triangle = new Vertex[TRIANGLE];
         for(Material material : materialList){
             for(Surface surface : material){
                 surface.getTriangle(triangle);
@@ -261,48 +273,70 @@ public class PmdExporterBase extends BinaryExporter{
         int materialNum = materialList.size();
         dumpLeInt(materialNum);
 
-        float[] rgba = new float[4];
-
         for(Material material : materialList){
-            Color diffuse = material.getDiffuseColor();
-            diffuse.getRGBComponents(rgba);
-            dumpLeFloat(rgba[0]);
-            dumpLeFloat(rgba[1]);
-            dumpLeFloat(rgba[2]);
-            dumpLeFloat(rgba[3]);
-
-            float shininess = material.getShininess();
-            dumpLeFloat(shininess);
-
-            Color specular = material.getSpecularColor();
-            specular.getRGBComponents(rgba);
-            dumpLeFloat(rgba[0]);
-            dumpLeFloat(rgba[1]);
-            dumpLeFloat(rgba[2]);
-
-            Color ambient = material.getAmbientColor();
-            ambient.getRGBComponents(rgba);
-            dumpLeFloat(rgba[0]);
-            dumpLeFloat(rgba[1]);
-            dumpLeFloat(rgba[2]);
-
-            ShadeInfo shade = material.getShadeInfo();
-            int toonIdx = shade.getToonIndex();
-            dumpByte(toonIdx);
-
-            byte edgeFlag;
-            boolean showEdge = material.getEdgeAppearance();
-            if(showEdge) edgeFlag = 0x01;
-            else         edgeFlag = 0x00;
-            dumpByte(edgeFlag);
-
-            int surfaceNum = material.getSurfaceList().size();
-            dumpLeInt(surfaceNum * 3);
-
-            dumpShadeFileInfo(shade);
+            dumpColorInfo(material);
+            dumpShadeInfo(material);
         }
 
         flush();
+
+        return;
+    }
+
+    /**
+     * フォンシェーディングの色情報を出力する。
+     * @param material マテリアル情報
+     * @throws IOException 出力エラー
+     */
+    private void dumpColorInfo(Material material)
+            throws IOException{
+        Color diffuse = material.getDiffuseColor();
+        this.rgbaBuf = diffuse.getRGBComponents(this.rgbaBuf);
+        dumpLeFloat(this.rgbaBuf[IDX_RED]);
+        dumpLeFloat(this.rgbaBuf[IDX_GREEN]);
+        dumpLeFloat(this.rgbaBuf[IDX_BLUE]);
+        dumpLeFloat(this.rgbaBuf[IDX_ALPHA]);
+
+        float shininess = material.getShininess();
+        dumpLeFloat(shininess);
+
+        Color specular = material.getSpecularColor();
+        this.rgbaBuf = specular.getRGBComponents(this.rgbaBuf);
+        dumpLeFloat(this.rgbaBuf[IDX_RED]);
+        dumpLeFloat(this.rgbaBuf[IDX_GREEN]);
+        dumpLeFloat(this.rgbaBuf[IDX_BLUE]);
+
+        Color ambient = material.getAmbientColor();
+        this.rgbaBuf = ambient.getRGBComponents(this.rgbaBuf);
+        dumpLeFloat(this.rgbaBuf[IDX_RED]);
+        dumpLeFloat(this.rgbaBuf[IDX_GREEN]);
+        dumpLeFloat(this.rgbaBuf[IDX_BLUE]);
+
+        return;
+    }
+
+    /**
+     * シェーディング情報を出力する。
+     * @param material マテリアル情報
+     * @throws IOException 出力エラー
+     * @throws IllegalTextExportException ファイル名が長すぎる
+     */
+    private void dumpShadeInfo(Material material)
+            throws IOException, IllegalTextExportException{
+        ShadeInfo shade = material.getShadeInfo();
+        int toonIdx = shade.getToonIndex();
+        dumpByte(toonIdx);
+
+        boolean showEdge = material.getEdgeAppearance();
+        byte edgeFlag;
+        if(showEdge) edgeFlag = 0x01;
+        else         edgeFlag = 0x00;
+        dumpByte(edgeFlag);
+
+        int surfaceNum = material.getSurfaceList().size();
+        dumpLeInt(surfaceNum * TRIANGLE);
+
+        dumpShadeFileInfo(shade);
 
         return;
     }
@@ -459,15 +493,15 @@ public class PmdExporterBase extends BinaryExporter{
             throws IOException, IllegalTextExportException{
         Map<MorphType, List<MorphPart>> morphMap = model.getMorphMap();
         Set<MorphType> typeSet = morphMap.keySet();
-        List<MorphVertex> mergedMorphVertexList = model.mergeMorphVertex();
+        List<MorphPart> morphPartList = new LinkedList<MorphPart>();
 
-        int totalMorphPart = 0;
         for(MorphType type : typeSet){
             List<MorphPart> partList = morphMap.get(type);
             if(partList == null) continue;
-            totalMorphPart += partList.size();
+            morphPartList.addAll(partList);
         }
 
+        int totalMorphPart = morphPartList.size();
         if(totalMorphPart <= 0){
             dumpLeShort(0);
             return;
@@ -476,34 +510,47 @@ public class PmdExporterBase extends BinaryExporter{
             dumpLeShort(totalMorphPart);
         }
 
+        dumpBaseMorph(model);
+
+        for(MorphPart part : morphPartList){
+            dumpText(part.getMorphName().getPrimaryText(),
+                     PmdConst.MAXBYTES_MORPHNAME );
+
+            List<MorphVertex> morphVertexList = part.getMorphVertexList();
+            dumpLeInt(morphVertexList.size());
+
+            dumpByte(part.getMorphType().encode());
+            for(MorphVertex morphVertex : morphVertexList){
+                dumpLeInt(morphVertex.getSerialNumber());
+                dumpPos3D(morphVertex.getOffset());
+            }
+        }
+
+        flush();
+
+        return;
+    }
+
+    /**
+     * BASEモーフを出力する。
+     * @param model モデルデータ
+     * @throws IOException 出力エラー
+     * @throws IllegalTextExportException モーフ名が長すぎる
+     */
+    private void dumpBaseMorph(PmdModel model)
+            throws IOException, IllegalTextExportException{
         dumpText("base", PmdConst.MAXBYTES_MORPHNAME);
+
+        List<MorphVertex> mergedMorphVertexList = model.mergeMorphVertex();
         int totalVertex = mergedMorphVertexList.size();
         dumpLeInt(totalVertex);
+
         dumpByte(MorphType.BASE.encode());
         for(MorphVertex morphVertex : mergedMorphVertexList){
             Vertex baseVertex = morphVertex.getBaseVertex();
             dumpLeInt(baseVertex.getSerialNumber());
             dumpPos3D(baseVertex.getPosition());
         }
-
-        for(MorphType type : typeSet){
-            List<MorphPart> partList = morphMap.get(type);
-            if(partList == null) continue;
-            for(MorphPart part : partList){
-                dumpText(part.getMorphName().getPrimaryText(),
-                         PmdConst.MAXBYTES_MORPHNAME );
-                List<MorphVertex> morphVertexList = part.getMorphVertexList();
-                dumpLeInt(morphVertexList.size());
-                dumpByte(part.getMorphType().encode());
-
-                for(MorphVertex morphVertex : morphVertexList){
-                    dumpLeInt(morphVertex.getSerialNumber());
-                    dumpPos3D(morphVertex.getOffset());
-                }
-            }
-        }
-
-        flush();
 
         return;
     }

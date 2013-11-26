@@ -18,6 +18,8 @@ public class Vertex implements SerialNumbered {
 
     private static final int MIN_WEIGHT = 0;
     private static final int MAX_WEIGHT = 100;
+    private static final int BALANCED   = 50;
+
 
     private final MkPos3D position = new MkPos3D();
     private final MkVec3D normal = new MkVec3D();
@@ -27,11 +29,12 @@ public class Vertex implements SerialNumbered {
     private BoneInfo boneA = null;
     private BoneInfo boneB = null;
 
-    private int boneWeight = 50;
+    private int boneWeight = BALANCED;
 
     private boolean edgeAppearance = true;
 
-    private int serialNo = -1;
+    private int vertexSerialNo = -1;
+
 
     /**
      * コンストラクタ。
@@ -40,6 +43,7 @@ public class Vertex implements SerialNumbered {
         super();
         return;
     }
+
 
     /**
      * 頂点位置座標を返す。
@@ -67,15 +71,18 @@ public class Vertex implements SerialNumbered {
 
     /**
      * 頂点の属するボーンを設定する。
-     * @param boneA ボーンA
-     * @param boneB ボーンB
+     * @param boneAArg ボーンA
+     * @param boneBArg ボーンB
      * @throws NullPointerException 引数がnull
      */
-    public void setBonePair(BoneInfo boneA, BoneInfo boneB)
+    public void setBonePair(BoneInfo boneAArg, BoneInfo boneBArg)
             throws NullPointerException{
-        if(boneA == null || boneB == null) throw new NullPointerException();
-        this.boneA = boneA;
-        this.boneB = boneB;
+        if(boneAArg == null || boneBArg == null)
+            throw new NullPointerException();
+
+        this.boneA = boneAArg;
+        this.boneB = boneBArg;
+
         return;
     }
 
@@ -178,7 +185,7 @@ public class Vertex implements SerialNumbered {
      */
     @Override
     public void setSerialNumber(int num){
-        this.serialNo = num;
+        this.vertexSerialNo = num;
         return;
     }
 
@@ -188,7 +195,7 @@ public class Vertex implements SerialNumbered {
      */
     @Override
     public int getSerialNumber(){
-        return this.serialNo;
+        return this.vertexSerialNo;
     }
 
     /**
@@ -199,7 +206,7 @@ public class Vertex implements SerialNumbered {
     public String toString(){
         StringBuilder result = new StringBuilder();
 
-        result.append("Vertex(").append(this.serialNo).append(") ");
+        result.append("Vertex(").append(this.vertexSerialNo).append(") ");
         result.append(this.position).append(' ');
         result.append(this.normal).append(' ');
         result.append("UV").append(this.uvPosition).append(' ');

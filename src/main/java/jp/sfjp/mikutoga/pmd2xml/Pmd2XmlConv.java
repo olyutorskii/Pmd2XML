@@ -14,25 +14,15 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.validation.Schema;
 import jp.sfjp.mikutoga.bin.parser.MmdFormatException;
 import jp.sfjp.mikutoga.pmd.IllegalPmdDataException;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.pmd.model.binio.PmdExporter;
 import jp.sfjp.mikutoga.pmd.model.binio.PmdLoader;
 import jp.sfjp.mikutoga.pmd.model.xml.PmdXmlExporter;
-import jp.sfjp.mikutoga.pmd.model.xml.Schema101009;
-import jp.sfjp.mikutoga.pmd.model.xml.Schema130128;
 import jp.sfjp.mikutoga.pmd.model.xml.XmlModelFileType;
 import jp.sfjp.mikutoga.pmd.model.xml.XmlPmdLoader;
-import jp.sfjp.mikutoga.xml.BotherHandler;
-import jp.sfjp.mikutoga.xml.LocalXmlResource;
-import jp.sfjp.mikutoga.xml.SchemaUtil;
 import jp.sfjp.mikutoga.xml.TogaXmlException;
-import jp.sfjp.mikutoga.xml.XmlResourceResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -58,76 +48,6 @@ public class Pmd2XmlConv {
     public Pmd2XmlConv(){
         super();
         return;
-    }
-
-
-    /**
-     * ドキュメントビルダファクトリを初期化する。
-     * @param builderFactory ドキュメントビルダファクトリ
-     */
-    private static void initBuilderFactory(
-            DocumentBuilderFactory builderFactory ){
-        builderFactory.setCoalescing(true);
-        builderFactory.setExpandEntityReferences(true);
-        builderFactory.setIgnoringComments(true);
-        builderFactory.setIgnoringElementContentWhitespace(false);
-        builderFactory.setNamespaceAware(true);
-        builderFactory.setValidating(false);
-        builderFactory.setXIncludeAware(false);
-
-//      builderFactory.setFeature(name, value);
-//      builderFactory.setAttribute(name, value);
-
-        return;
-    }
-
-    /**
-     * DOMビルダ生成。
-     * @return DOMビルダ
-     */
-    private DocumentBuilder buildBuilder(){
-        XmlResourceResolver resolver = new XmlResourceResolver();
-
-        LocalXmlResource[] schemaArray;
-        switch(this.inTypes){
-        case XML_101009:
-            schemaArray = new LocalXmlResource[]{
-                Schema101009.SINGLETON,
-            };
-            break;
-        case XML_130128:
-            schemaArray = new LocalXmlResource[]{
-                Schema130128.SINGLETON,
-            };
-            break;
-        case XML_AUTO:
-            schemaArray = new LocalXmlResource[]{
-                Schema101009.SINGLETON,
-                Schema130128.SINGLETON,
-            };
-            break;
-        default:
-            throw new IllegalStateException();
-        }
-
-        Schema schema = SchemaUtil.newSchema(resolver, schemaArray);
-
-        DocumentBuilderFactory builderFactory =
-                DocumentBuilderFactory.newInstance();
-        initBuilderFactory(builderFactory);
-        builderFactory.setSchema(schema);
-
-        DocumentBuilder result;
-        try{
-            result = builderFactory.newDocumentBuilder();
-        }catch(ParserConfigurationException e){
-            assert false;
-            throw new AssertionError(e);
-        }
-        result.setEntityResolver(resolver);
-        result.setErrorHandler(BotherHandler.HANDLER);
-
-        return result;
     }
 
 

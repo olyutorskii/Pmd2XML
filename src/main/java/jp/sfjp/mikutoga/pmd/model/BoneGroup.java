@@ -26,6 +26,7 @@ public class BoneGroup implements SerialNumbered , Iterable<BoneInfo> {
 
     private int serialNo = -1;
 
+
     /**
      * コンストラクタ。
      */
@@ -33,6 +34,7 @@ public class BoneGroup implements SerialNumbered , Iterable<BoneInfo> {
         super();
         return;
     }
+
 
     /**
      * ボーングループ名を返す。

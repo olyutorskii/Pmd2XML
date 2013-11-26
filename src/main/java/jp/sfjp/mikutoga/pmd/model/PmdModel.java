@@ -49,6 +49,7 @@ public class PmdModel {
 
     private ToonMap toonMap = new ToonMap();
 
+
     /**
      * コンストラクタ。
      */
@@ -65,6 +66,7 @@ public class PmdModel {
 
         return;
     }
+
 
     /**
      * モデル名を返す。
@@ -198,10 +200,7 @@ public class PmdModel {
             if(bone.getBoneName().hasGlobalText()) return true;
         }
 
-        List<MorphType> typeList = new ArrayList<MorphType>();
-        typeList.addAll(this.morphMap.keySet());
-        for(MorphType type : typeList){
-            List<MorphPart> partList = this.morphMap.get(type);
+        for(List<MorphPart> partList : this.morphMap.values()){
             for(MorphPart part : partList){
                 if(part.getMorphName().hasGlobalText()) return true;
             }
@@ -215,6 +214,53 @@ public class PmdModel {
     }
 
     /**
+     * 全モーフが使う全モーフ頂点の出現順リストを返す。
+     * モーフ種別毎に固まっている事が保証される。
+     * @return モーフ頂点リスト
+     */
+    private List<MorphVertex> getAllMorphVertexList(){
+        List<MorphVertex> allList = new ArrayList<MorphVertex>();
+
+        for(MorphType type : this.morphMap.keySet()){
+            if(type.isBase()) continue;
+
+            List<MorphPart> partList = this.morphMap.get(type);
+            if(partList == null) continue;
+
+            for(MorphPart part : partList){
+                List<MorphVertex> morphVertexList =
+                        part.getMorphVertexList();
+                allList.addAll(morphVertexList);
+            }
+        }
+
+        return allList;
+    }
+
+    /**
+     * 重複する頂点参照を除いたモーフ頂点リストを返す。
+     * @param allList モーフ頂点リスト
+     * @return 重複が除かれたモーフ頂点リスト
+     */
+    private List<MorphVertex> getUniqueMorphVertexList(
+            List<MorphVertex> allList ){
+        List<MorphVertex> result = new ArrayList<MorphVertex>();
+
+        Set<Vertex> mergedVertexSet = new HashSet<Vertex>();
+
+        for(MorphVertex morphVertex : allList){
+            Vertex vertex = morphVertex.getBaseVertex();
+
+            if(mergedVertexSet.contains(vertex)) continue;
+
+            mergedVertexSet.add(vertex);
+            result.add(morphVertex);
+        }
+
+        return result;
+    }
+
+    /**
      * モーフで使われる全てのモーフ頂点のリストを返す。
      * モーフ間で重複する頂点はマージされる。
      * 頂点IDでソートされる。
@@ -224,47 +270,29 @@ public class PmdModel {
      * @return モーフに使われるモーフ頂点のリスト
      */
     public List<MorphVertex> mergeMorphVertex(){
-        List<MorphVertex> result = new ArrayList<MorphVertex>();
+        List<MorphVertex> result;
 
-        Set<Vertex> mergedVertexSet = new HashSet<Vertex>();
-        for(MorphType type : this.morphMap.keySet()){
-            if(type.isBase()) continue;
-            List<MorphPart> partList = this.morphMap.get(type);
-            if(partList == null) continue;
-            for(MorphPart part : partList){
-                for(MorphVertex morphVertex : part){
-                    Vertex vertex = morphVertex.getBaseVertex();
-                    if(mergedVertexSet.contains(vertex)) continue;
-                    mergedVertexSet.add(vertex);
-                    result.add(morphVertex);
-                }
-            }
-        }
+        List<MorphVertex> allList = getAllMorphVertexList();
+        result = getUniqueMorphVertexList(allList);
 
         Collections.sort(result, MorphVertex.VIDCOMPARATOR);
-        for(int idx = 0; idx < result.size(); idx++){
-            MorphVertex morphVertex = result.get(idx);
-            morphVertex.setSerialNumber(idx);
-        }
+        ListUtil.assignIndexedSerial(result);
 
         Map<Vertex, MorphVertex> numberedMap =
                 new HashMap<Vertex, MorphVertex>();
         for(MorphVertex morphVertex : result){
-            numberedMap.put(morphVertex.getBaseVertex(), morphVertex);
+            Vertex vertex = morphVertex.getBaseVertex();
+            numberedMap.put(vertex, morphVertex);
         }
 
-        for(MorphType type : this.morphMap.keySet()){
-            if(type.isBase()) continue;
-            List<MorphPart> partList = this.morphMap.get(type);
-            if(partList == null) continue;
-            for(MorphPart part : partList){
-                for(MorphVertex morphVertex : part){
-                    Vertex vertex = morphVertex.getBaseVertex();
-                    MorphVertex numbered = numberedMap.get(vertex);
-                    assert numbered != null;
-                    morphVertex.setSerialNumber(numbered.getSerialNumber());
-                }
-            }
+        for(MorphVertex morphVertex : allList){
+            Vertex vertex = morphVertex.getBaseVertex();
+
+            MorphVertex numbered = numberedMap.get(vertex);
+            assert numbered != null;
+
+            int serialNo = numbered.getSerialNumber();
+            morphVertex.setSerialNumber(serialNo);
         }
 
         return result;

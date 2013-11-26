@@ -10,7 +10,6 @@ package jp.sfjp.mikutoga.pmd.model.binio;
 import java.util.Iterator;
 import java.util.List;
 import jp.sfjp.mikutoga.bin.parser.ParseStage;
-import jp.sfjp.mikutoga.corelib.I18nText;
 import jp.sfjp.mikutoga.pmd.model.BoneGroup;
 import jp.sfjp.mikutoga.pmd.model.BoneInfo;
 import jp.sfjp.mikutoga.pmd.model.MorphPart;
@@ -25,10 +24,6 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
 
     private final PmdModel model;
 
-    private final I18nText modelName;
-    private final I18nText description;
-
-    private final List<BoneInfo> boneList;
     private Iterator<BoneInfo> boneIt;
     private BoneInfo currentBone = null;
 
@@ -36,7 +31,6 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
     private Iterator<MorphPart> morphPartIt;
     private MorphPart currentMorphPart = null;
 
-    private final List<BoneGroup> boneGroupList;
     private Iterator<BoneGroup> boneGroupIt;
     private BoneGroup currentBoneGroup = null;
 
@@ -48,15 +42,7 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
      */
     TextBuilder(PmdModel model){
         super();
-
         this.model = model;
-
-        this.modelName   = model.getModelName();
-        this.description = model.getDescription();
-
-        this.boneList      = model.getBoneList();
-        this.boneGroupList = model.getBoneGroupList();
-
         return;
     }
 
@@ -80,11 +66,11 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
 
     /**
      * {@inheritDoc}
-     * @param hasMoreData {@inheritDoc}
+     * @param hasMoreDataArg {@inheritDoc}
      */
     @Override
-    public void pmdParseEnd(boolean hasMoreData){
-        this.hasMoreData = hasMoreData;
+    public void pmdParseEnd(boolean hasMoreDataArg){
+        this.hasMoreData = hasMoreDataArg;
         return;
     }
 
@@ -96,7 +82,7 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
     @Override
     public void loopStart(ParseStage stage, int loops){
         if(stage == PmdEngHandler.ENGBONE_LIST){
-            this.boneIt = this.boneList.iterator();
+            this.boneIt = this.model.getBoneList().iterator();
             if(this.boneIt.hasNext()){
                 this.currentBone = this.boneIt.next();
             }
@@ -115,7 +101,7 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
                 this.currentMorphPart = this.morphPartIt.next();
             }
         }else if(stage == PmdEngHandler.ENGBONEGROUP_LIST){
-            this.boneGroupIt = this.boneGroupList.iterator();
+            this.boneGroupIt = this.model.getBoneGroupList().iterator();
 
             // デフォルトボーングループを読み飛ばす
             assert this.boneGroupIt.hasNext();
@@ -177,13 +163,13 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
 
     /**
      * {@inheritDoc}
-     * @param modelName {@inheritDoc}
-     * @param description {@inheritDoc}
+     * @param modelNameArg {@inheritDoc}
+     * @param descriptionArg {@inheritDoc}
      */
     @Override
-    public void pmdModelInfo(String modelName, String description){
-        this.modelName  .setPrimaryText(modelName);
-        this.description.setPrimaryText(description);
+    public void pmdModelInfo(String modelNameArg, String descriptionArg){
+        this.model.getModelName()  .setPrimaryText(modelNameArg);
+        this.model.getDescription().setPrimaryText(descriptionArg);
         return;
     }
 
@@ -198,13 +184,13 @@ class TextBuilder implements PmdBasicHandler, PmdEngHandler {
 
     /**
      * {@inheritDoc}
-     * @param modelName {@inheritDoc}
-     * @param description {@inheritDoc}
+     * @param modelNameArg {@inheritDoc}
+     * @param descriptionArg {@inheritDoc}
      */
     @Override
-    public void pmdEngModelInfo(String modelName, String description){
-        this.modelName  .setGlobalText(modelName);
-        this.description.setGlobalText(description);
+    public void pmdEngModelInfo(String modelNameArg, String descriptionArg){
+        this.model.getModelName()  .setGlobalText(modelNameArg);
+        this.model.getDescription().setGlobalText(descriptionArg);
         return;
     }
 
