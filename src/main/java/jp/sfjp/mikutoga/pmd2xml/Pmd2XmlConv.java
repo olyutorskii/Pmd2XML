@@ -131,6 +131,8 @@ public class Pmd2XmlConv {
 
     /**
      * ファイル変換を行う。
+     * <p>XML入力の場合は{@link #convert(InputSource, OutputStream)}を
+     * 推奨する。
      * @param is 入力ストリーム
      * @param os 出力ストリーム
      * @throws IOException 入力エラー
@@ -151,7 +153,34 @@ public class Pmd2XmlConv {
     }
 
     /**
+     * ファイル変換を行う。
+     * <p>PMD入力の場合は{@link InputStream}に
+     * バイトストリームが直接設定されていなければならない。
+     * <p>XML入力の場合は{@link InputStream}に
+     * URL(systemId)のみの設定を推奨する。
+     * @param source 入力ソース
+     * @param os 出力ストリーム
+     * @throws IOException 入力エラー
+     * @throws MmdFormatException フォーマットエラー
+     * @throws SAXException XMLエラー
+     * @throws TogaXmlException XMLエラー
+     * @throws IllegalPmdDataException 内部エラー
+     */
+    public void convert(InputSource source, OutputStream os)
+            throws IOException,
+                   MmdFormatException,
+                   SAXException,
+                   TogaXmlException,
+                   IllegalPmdDataException {
+        PmdModel model = readModel(source);
+        writeModel(model, os);
+        return;
+    }
+
+    /**
      * モデルファイルを読み込む。
+     * <p>XML読み込みの場合は、
+     * こちらより{@link #readModel(InputSource)}版を推奨する。
      * @param is 入力ストリーム
      * @return モデルデータ
      * @throws IOException 入力エラー
@@ -164,12 +193,44 @@ public class Pmd2XmlConv {
                    MmdFormatException,
                    SAXException,
                    TogaXmlException {
+        InputSource source = new InputSource(is);
+
+        PmdModel model;
+
+        try{
+            model = readModel(source);
+        }finally{
+            is.close();
+        }
+
+        return model;
+    }
+
+    /**
+     * モデルファイルを読み込む。
+     * @param source 入力ソース
+     * @return モデルデータ
+     * @throws IOException 入力エラー
+     * @throws MmdFormatException フォーマットエラー
+     * @throws SAXException XMLエラー
+     * @throws TogaXmlException XMLエラー
+     */
+    public PmdModel readModel(InputSource source)
+            throws IOException,
+                   MmdFormatException,
+                   SAXException,
+                   TogaXmlException {
         PmdModel model = null;
 
         if(this.inTypes.isPmd()){
-            model = pmdRead(is);
+            InputStream is = XmlInputUtil.openInputSource(source);
+            try{
+                model = pmdRead(is);
+            }finally{
+                is.close();
+            }
         }else if(this.inTypes.isXml()){
-            model = xmlRead(is);
+            model = xmlRead(source);
         }else{
             throw new IllegalStateException();
         }
@@ -210,23 +271,6 @@ public class Pmd2XmlConv {
         PmdLoader loader = new PmdLoader();
         PmdModel model = loader.load(is);
         return model;
-    }
-
-    /**
-     * XMLファイルからモデルデータを読み込む。
-     * @param is 入力ストリーム
-     * @return モデルデータ
-     * @throws IOException 入力エラー
-     * @throws SAXException XML構文エラー
-     * @throws TogaXmlException 不正なXMLデータ
-     */
-    private PmdModel xmlRead(InputStream is)
-            throws IOException,
-                   SAXException,
-                   TogaXmlException {
-        InputSource source = new InputSource(is);
-        PmdModel result = xmlRead(source);
-        return result;
     }
 
     /**

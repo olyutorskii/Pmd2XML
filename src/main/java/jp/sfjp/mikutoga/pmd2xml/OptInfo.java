@@ -31,9 +31,6 @@ final class OptInfo {
     private static final String NL_LF   =   "lf";
     private static final String NL_CRLF = "crlf";
 
-    private static final String GENERATOR =
-            Pmd2Xml.APPNAME + ' ' + Pmd2Xml.APPVER;
-
     private static final String ERRMSG_UNKNOWN =
             "Unknown option : {0}";
     private static final String ERRMSG_MOREARG =
@@ -62,7 +59,7 @@ final class OptInfo {
     private String outFilename = null;
     private boolean overwrite = false;
     private String newline = EOL_DEFAULT;
-    private String generator = GENERATOR;
+    private String generator = Pmd2Xml.GENERATOR;
 
 
     /**
@@ -210,7 +207,7 @@ final class OptInfo {
                 break;
             case OPT_GENOUT:
                 boolean genout = decodeBoolean(exArg1);
-                if(genout) result.generator = GENERATOR;
+                if(genout) result.generator = Pmd2Xml.GENERATOR;
                 else       result.generator = null;
                 break;
             case OPT_IFORM:

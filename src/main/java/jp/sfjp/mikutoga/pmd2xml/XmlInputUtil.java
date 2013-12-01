@@ -7,6 +7,13 @@
 
 package jp.sfjp.mikutoga.pmd2xml;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -17,6 +24,7 @@ import jp.sfjp.mikutoga.xml.BotherHandler;
 import jp.sfjp.mikutoga.xml.LocalXmlResource;
 import jp.sfjp.mikutoga.xml.SchemaUtil;
 import jp.sfjp.mikutoga.xml.XmlResourceResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
@@ -33,6 +41,60 @@ final class XmlInputUtil {
         throw new AssertionError();
     }
 
+
+    /**
+     * 実在ファイルからXML入力ソースを得る。
+     * @param file 実在ファイル
+     * @return XML入力ソース
+     */
+    static InputSource fileToSource(File file){
+        assert file.exists();
+
+        URI uri = file.toURI();
+
+        URL url;
+        try{
+            url = uri.toURL();
+        }catch(MalformedURLException e){
+            // 実在File由来のURLでは起こりえない
+            assert false;
+            throw new AssertionError(e);
+        }
+
+        String systemId = url.toString();
+
+        InputSource source = new InputSource(systemId);
+
+        return source;
+    }
+
+    /**
+     * InputSourceからInputStreamを得る。
+     * <p>入力ソースには、少なくともバイトストリームか
+     * URL文字列(SystemId)のいずれかが設定されていなければならない。
+     * @param source 入力ソース
+     * @return 入力バイトストリーム
+     * @throws IllegalArgumentException 入力ソースの設定が足りない。
+     * @throws IOException 入力ソースにアクセス不能。
+     */
+    static InputStream openInputSource(InputSource source)
+            throws IllegalArgumentException, IOException{
+        InputStream is;
+
+        is = source.getByteStream();
+
+        if(is == null){
+            String systemId = source.getSystemId();
+            if(systemId == null) throw new IllegalArgumentException();
+
+            URL url = new URL(systemId);
+            is = url.openStream();
+        }
+
+        is = new BufferedInputStream(is);
+
+        return is;
+    }
 
     /**
      * SAXパーサファクトリを生成する。
