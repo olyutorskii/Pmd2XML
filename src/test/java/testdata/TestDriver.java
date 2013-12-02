@@ -7,16 +7,15 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * 使い捨てテスト用ドライバ。
  */
 public class TestDriver {
-
-    static{
-        assert Test.class != null;
-    }
 
     @BeforeClass
     public static void setUpClass() {
@@ -36,12 +35,16 @@ public class TestDriver {
 
     /**
      * 使い捨てテスト本体。
-     * <p>テストが終わったら必ず元に戻して
-     * アノテーション"Test"をコメントアウトするように。
+     * <p>テストを行う時は
+     * アノテーション"Ignore"をコメントアウト。
      * @throws Exception テスト失敗
      */
-    //@Test
+    @Test
+    @Ignore
     public void main() throws Exception{
+        assertTrue(true);
+//        fail();
+        return;
     }
 
 }

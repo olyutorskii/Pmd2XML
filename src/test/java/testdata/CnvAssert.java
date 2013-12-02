@@ -17,7 +17,7 @@ import jp.sfjp.mikutoga.pmd2xml.Pmd2XmlConv;
 import static org.junit.Assert.*;
 
 /**
- *
+ * ファイル変換処理のユニットテスト下請け諸々。
  */
 public class CnvAssert {
 
@@ -30,7 +30,7 @@ public class CnvAssert {
      * @return テンポラリファイル
      * @throws IOException エラー
      */
-    public static File openTempFile() throws IOException{
+    private static File openTempFile() throws IOException{
         File file = File.createTempFile("pmd2xml", null);
         file.deleteOnExit();
         return file;
@@ -43,10 +43,9 @@ public class CnvAssert {
      * @param expPmdResource PMDリソース名
      * @throws Exception エラー
      */
-    public static void assertXml2Pmd(
-            Class<?> klass,
-            String xmlResource,
-            String expPmdResource )
+    public static void assertXml2Pmd(Class<?> klass,
+                                       String xmlResource,
+                                       String expPmdResource )
             throws Exception{
         InputStream xmlis =
                 klass.getResourceAsStream(xmlResource);
@@ -81,34 +80,12 @@ public class CnvAssert {
      * @param expXmlResource XMLリソース名
      * @throws Exception エラー
      */
-    public static void assertPmd2Xml(
-            Class<?> klass,
-            String pmdResource,
-            String expXmlResource )
+    public static void assertPmd2Xml(Class<?> klass,
+                                       String pmdResource,
+                                       String expXmlResource )
             throws Exception{
-        InputStream pmdis =
-                klass.getResourceAsStream(pmdResource);
-        assertNotNull(pmdis);
-        pmdis = new BufferedInputStream(pmdis);
-
-        File destFile = openTempFile();
-        OutputStream destOut;
-        destOut = new FileOutputStream(destFile);
-        destOut = new BufferedOutputStream(destOut);
-
-        Pmd2XmlConv converter = new Pmd2XmlConv();
-        converter.setInType(ModelFileType.PMD);
-        converter.setOutType(ModelFileType.XML_101009);
-        converter.setNewline("\n");
-        converter.setGenerator(null);
-
-        converter.convert(pmdis, destOut);
-
-        pmdis.close();
-        destOut.close();
-
-        assertSameFile(klass, expXmlResource, destFile);
-
+        assertPmd2Xml(klass, pmdResource, expXmlResource,
+                      ModelFileType.XML_101009 );
         return;
     }
 
@@ -119,10 +96,27 @@ public class CnvAssert {
      * @param expXmlResource XMLリソース名
      * @throws Exception エラー
      */
-    public static void assertPmd2Xml13(
-            Class<?> klass,
-            String pmdResource,
-            String expXmlResource )
+    public static void assertPmd2Xml13(Class<?> klass,
+                                         String pmdResource,
+                                         String expXmlResource )
+            throws Exception{
+        assertPmd2Xml(klass, pmdResource, expXmlResource,
+                      ModelFileType.XML_130128 );
+        return;
+    }
+
+    /**
+     * PMDリソースをXMLに変換した結果がXMLリソースに等しいと表明する。
+     * @param klass リソース元クラス
+     * @param pmdResource PMDリソース名
+     * @param expXmlResource XMLリソース名
+     * @param type XML種別
+     * @throws Exception エラー
+     */
+    private static void assertPmd2Xml(Class<?> klass,
+                                       String pmdResource,
+                                       String expXmlResource,
+                                       ModelFileType type )
             throws Exception{
         InputStream pmdis =
                 klass.getResourceAsStream(pmdResource);
@@ -136,7 +130,7 @@ public class CnvAssert {
 
         Pmd2XmlConv converter = new Pmd2XmlConv();
         converter.setInType(ModelFileType.PMD);
-        converter.setOutType(ModelFileType.XML_130128);
+        converter.setOutType(type);
         converter.setNewline("\n");
         converter.setGenerator(null);
 
@@ -157,10 +151,8 @@ public class CnvAssert {
      * @param resFile ファイル
      * @throws IOException 入力エラー
      */
-    public static void assertSameFile(
-            Class<?> klass,
-            String resourceName,
-            File resFile )
+    public static void assertSameFile(Class<?> klass, String resourceName,
+                                        File resFile )
             throws IOException{
         InputStream expis =
                 klass.getResourceAsStream(resourceName);
@@ -197,12 +189,13 @@ public class CnvAssert {
             try{
                 assertEquals(expCh, resCh);
             }catch(AssertionError e){
-                System.err.println("offset=" + offset);
+                System.err.println("unmatch stream:offset=" + offset);
                 throw e;
             }
             offset++;
 
             if(expCh < 0) break;
+            if(resCh < 0) break;
         }
 
         return;

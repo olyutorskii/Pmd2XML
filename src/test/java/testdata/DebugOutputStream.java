@@ -12,7 +12,7 @@ import java.io.OutputStream;
 public class DebugOutputStream extends OutputStream{
 
     private final OutputStream os;
-    private long offset = 0L;
+    private long dumpedBytes = 0L;
 
 
     /**
@@ -30,6 +30,7 @@ public class DebugOutputStream extends OutputStream{
      * デバッガ用監視場所。
      */
     private void before(){
+        assert true;
         return;
     }
 
@@ -37,7 +38,8 @@ public class DebugOutputStream extends OutputStream{
      * デバッガ用監視場所。
      */
     private void after(){
-        this.offset++;
+        assert true;
+        this.dumpedBytes++;
         return;
     }
 
