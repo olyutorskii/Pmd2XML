@@ -1,0 +1,27 @@
+### Git attributes  https://git-scm.com/docs/gitattributes
+
+* text=auto
+
+*.java text diff=java
+
+*.xml text eol=lf
+*.xsd text eol=lf
+*.dtd text eol=lf
+*.properties text eol=lf
+
+*.txt text
+*.md text
+*.yml text
+
+*.html text
+*.css text
+*.js text
+
+*.gif binary
+*.png binary
+*.jpeg binary
+*.jpg binary
+*.vmd binary
+*.pmd binary
+
+### EOF ###

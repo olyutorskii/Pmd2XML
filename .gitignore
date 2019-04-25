@@ -1,0 +1,67 @@
+##### Git ignore pattern   https://git-scm.com/docs/gitignore
+
+
+### Unix
+
+/tmp/
+*~
+*.swp
+*.orig
+# core
+
+
+### macOS
+
+*.DS_Store
+._*
+__MACOSX
+
+
+### Windows
+
+Thumbs.db
+desktop.ini
+
+
+### JDK
+
+hs_err_pid*
+
+
+### Maven
+
+/target/
+
+
+### Netbeans
+
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/nbproject/
+/nbactions.xml
+/nb-configuration.xml
+
+
+### Eclipse
+
+/bin/
+/.settings/
+/.metadata/
+/.externalToolBuilders/
+/.classpath
+/.project
+/.checkstyle
+
+
+### IntelliJ
+
+/.idea/
+/out/
+*.iws
+*.iml
+*.ipr
+
+
+### EOF ###
