@@ -94,12 +94,11 @@
         <!-- Walk around: JDK 11 javadoc + Maven -->
         <detectJavaApiLink>false</detectJavaApiLink>
 
-        <project.mainconf>${project.basedir}/src/main/config</project.mainconf>
-
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
         <jacoco-plugin.version>0.8.4</jacoco-plugin.version>
 
-        <checkstyle.config.location>${project.mainconf}/checks.xml</checkstyle.config.location>
+        <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
+        <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
         <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
@@ -372,7 +371,7 @@
                 <configuration>
                     <archiveBaseDirectory>.</archiveBaseDirectory>
                     <descriptors>
-                        <descriptor>src/main/assembly/descriptor.xml</descriptor>
+                        <descriptor>src/assembly/src.xml</descriptor>
                     </descriptors>
                 </configuration>
             </plugin>
@@ -391,7 +390,7 @@
                 <configuration>
                     <!--targetJdk>${maven.compiler.target}</targetJdk-->
                     <rulesets>
-                        <ruleset>${project.mainconf}/pmdrules.xml</ruleset>
+                        <ruleset>${project.basedir}/config/pmd/pmdrules.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>
@@ -563,7 +562,7 @@
                     <skip>false</skip>
                     <!--targetJdk>${maven.compiler.target}</targetJdk-->
                     <rulesets>
-                        <ruleset>${project.mainconf}/pmdrules.xml</ruleset>
+                        <ruleset>${project.basedir}/config/pmd/pmdrules.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <reportSets>
