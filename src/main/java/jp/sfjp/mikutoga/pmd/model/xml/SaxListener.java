@@ -15,8 +15,8 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.Map;
-import javax.xml.bind.DatatypeConverter;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
+import jp.sfjp.mikutoga.xml.DatatypeIo;
 import org.xml.sax.Attributes;
 
 /**
@@ -208,7 +208,7 @@ class SaxListener {
         String attrName = attr.attr();
         String attrVal = this.currentAttribute.getValue(attrName);
         boolean bVal;
-        bVal = DatatypeConverter.parseBoolean(attrVal);
+        bVal = DatatypeIo.parseBoolean(attrVal);
         return bVal;
     }
 
@@ -224,7 +224,7 @@ class SaxListener {
         String attrName = attr.attr();
         String attrVal = this.currentAttribute.getValue(attrName);
         float fVal;
-        fVal = DatatypeConverter.parseFloat(attrVal);
+        fVal = DatatypeIo.parseFloat(attrVal);
         return fVal;
     }
 
@@ -240,7 +240,7 @@ class SaxListener {
         String attrName = attr.attr();
         String attrVal = this.currentAttribute.getValue(attrName);
         int iVal;
-        iVal = DatatypeConverter.parseInt(attrVal);
+        iVal = DatatypeIo.parseInt(attrVal);
         return iVal;
     }
 
