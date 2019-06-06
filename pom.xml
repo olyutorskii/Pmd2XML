@@ -76,14 +76,13 @@
     <distributionManagement/>
 
     <properties>
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
 
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
 
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -91,6 +90,12 @@
 
         <checkstyle.config.location>${project.mainconf}/checks.xml</checkstyle.config.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
+
+        <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
+        <spotbugs.effort>Max</spotbugs.effort>
+        <spotbugs.threshold>Low</spotbugs.threshold>
+        <!-- for Jenkins -->
+        <spotbugs.xmlOutput>true</spotbugs.xmlOutput>
 
         <project.mainentry>jp.sfjp.mikutoga.pmd2xml.Pmd2Xml</project.mainentry>
 
@@ -344,17 +349,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <!-- for Jenkins -->
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-plugin.version}</version>
             </plugin>
 
         </plugins>
@@ -393,7 +390,7 @@
                     <exclude>**/version.properties</exclude>
 
                     <exclude>**/.DS_Store</exclude>
-                    <exclude>**/_MACOSX</exclude>
+                    <exclude>**/__MACOSX</exclude>
                     <exclude>**/Thumbs.db</exclude>
                     <exclude>**/thumbs.db</exclude>
                     <exclude>**/Desktop.ini</exclude>
@@ -540,31 +537,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
-                <configuration>
-                    <skip>false</skip>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <!-- for Jenkins -->
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- excludeFilterFile/ -->
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javancss-maven-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-plugin.version}</version>
             </plugin>
 
         </plugins>
