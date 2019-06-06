@@ -5,6 +5,7 @@ Pmd2XML 変更履歴
 
 
 X.XXX.X (20XX-XX-XX)
+    ・必須環境をJavaSE8に引き上げ。
     ・デフォルトロケールによる出力揺らぎを解消。
     ・プロセス終了コードの変更。
     ・Mercurial(1.201.5-SNAPSHOT)からGit(1.201.105-SNAPSHOT)へSCMを移行。
