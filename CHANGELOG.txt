@@ -7,6 +7,7 @@ Pmd2XML 変更履歴
 X.XXX.X (20XX-XX-XX)
     ・デフォルトロケールによる出力揺らぎを解消。
     ・プロセス終了コードの変更。
+    ・Mercurial(1.201.5-SNAPSHOT)からGit(1.201.105-SNAPSHOT)へSCMを移行。
     ・JAXBへの依存を解消。
 
 1.201.2B (2013-09-01)

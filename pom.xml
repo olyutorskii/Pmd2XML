@@ -25,12 +25,12 @@
 -->Pmd2XML is a PMD-XML converter for MikuMikuDance.<!--
  --></description>
 
-    <url>http://sourceforge.jp/projects/mikutoga/</url>
+    <url>https://ja.osdn.net/projects/mikutoga/devel/</url>
     <inceptionYear>2010</inceptionYear>
 
     <organization>
         <name>MikuToga Partners</name>
-        <url>http://sourceforge.jp/projects/mikutoga/devel/</url>
+        <url>https://ja.osdn.net/projects/mikutoga/devel/</url>
     </organization>
 
     <licenses>
@@ -44,9 +44,9 @@
     <developers>
         <developer>
             <id>olyutorskii</id>
-            <url>http://sites.google.com/site/olyutorskiipit/</url>
+            <url>https://sites.google.com/site/olyutorskiipit/</url>
             <organization>MikuToga Partners</organization>
-            <organizationUrl>http://sourceforge.jp/projects/mikutoga/devel/</organizationUrl>
+            <organizationUrl>https://ja.osdn.net/projects/mikutoga/devel/</organizationUrl>
             <roles>
                 <role>Project Founder</role>
                 <role>Java Developer</role>
@@ -62,14 +62,14 @@
     <modules/>
 
     <scm>
-        <connection>scm:hg:http://hg.sourceforge.jp/view/mikutoga/Pmd2XML</connection>
-        <developerConnection>scm:hg:ssh://hg.sourceforge.jp//hgroot/mikutoga/Pmd2XML</developerConnection>
-        <url>http://hg.sourceforge.jp/view/mikutoga/Pmd2XML</url>
+        <connection>scm:git:git://git.osdn.net/gitroot/mikutoga/Pmd2XML.git</connection>
+        <developerConnection>scm:git:https://scm.osdn.net/gitroot/mikutoga/Pmd2XML.git</developerConnection>
+        <url>https://ja.osdn.net/projects/mikutoga/scm/git/Pmd2XML/</url>
     </scm>
 
     <issueManagement>
-        <system>SourceForge.JP</system>
-        <url>http://sourceforge.jp/projects/mikutoga/ticket/</url>
+        <system>OSDN.net</system>
+        <url>https://ja.osdn.net/projects/mikutoga/ticket/</url>
     </issueManagement>
 
     <ciManagement/>
