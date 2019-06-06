@@ -97,6 +97,8 @@
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
         <jacoco-plugin.version>0.8.4</jacoco-plugin.version>
 
+        <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
+        <checkstyleruntime.version>8.21</checkstyleruntime.version>
         <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
@@ -141,6 +143,20 @@
         <pluginManagement>
 
             <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${checkstyle-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${checkstyleruntime.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
             </plugins>
 
         </pluginManagement>
@@ -380,8 +396,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.11</version>
-                <!-- config from property value -->
+                <version>${checkstyle-plugin.version}</version>
             </plugin>
 
             <plugin>
@@ -540,11 +555,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.11</version>
-                <configuration>
-                    <skip>false</skip>
-                    <!-- config from property value -->
-                </configuration>
+                <version>${checkstyle-plugin.version}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
