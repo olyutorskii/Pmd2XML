@@ -4,6 +4,10 @@
 Pmd2XML 変更履歴
 
 
+X.XXX.X ()
+    * Prevent XXE vulnerabilities with XML-schema(XSD).
+    * Upgrade ToaGem to 3.122.2
+
 1.202.2 (2019-06-06)
     ・必須環境をJavaSE8に引き上げ。
     ・デフォルトロケールによる出力揺らぎを解消。

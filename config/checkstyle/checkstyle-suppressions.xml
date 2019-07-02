@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle suppressions
-    for Checkstyle 8.20 or later
+    for Checkstyle 8.22 or later
 
     [ https://checkstyle.org/ ]
 
@@ -31,18 +31,18 @@
     <suppress files="" checks="ImportControl" />
 
     <!-- Javadoc Comments -->
-    <suppress files="" checks="JavadocParagraph" />
-    <suppress files="" checks="JavadocTagContinuationIndentation" />
     <suppress files="" checks="SummaryJavadocCheck" />
 
     <!-- Miscellaneous -->
     <suppress files="" checks="FinalParameters" />
+    <suppress files="" checks="OrderedProperties" />
     <suppress files="" checks="TrailingComment" />
 
     <!-- Modifier -->
-    <suppress files="" checks="InterfaceMemberImpliedModifier" />
+    <suppress files="" checks="RedundantModifier" />
 
     <!-- Whitespace -->
+    <suppress files="" checks="ParenPad" />
     <suppress files="" checks="SingleSpaceSeparator" />
 
 </suppressions>

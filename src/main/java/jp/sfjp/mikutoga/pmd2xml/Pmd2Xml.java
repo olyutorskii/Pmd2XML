@@ -71,7 +71,7 @@ public final class Pmd2Xml {
             + "If you want to overwrite, use -f.";
 
     private static final String MSG_OLDJRE = "You need JRE {0} or later.";
-    private static final String REQUIRED_JRE = "1.6";
+    private static final String REQUIRED_JRE = "1.8";
 
     static{
         THISCLASS = Pmd2Xml.class;

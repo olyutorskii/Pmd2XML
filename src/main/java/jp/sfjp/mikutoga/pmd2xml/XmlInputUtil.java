@@ -21,9 +21,8 @@ import javax.xml.validation.Schema;
 import jp.sfjp.mikutoga.pmd.model.xml.Schema101009;
 import jp.sfjp.mikutoga.pmd.model.xml.Schema130128;
 import jp.sfjp.mikutoga.xml.BotherHandler;
-import jp.sfjp.mikutoga.xml.LocalXmlResource;
+import jp.sfjp.mikutoga.xml.NoopEntityResolver;
 import jp.sfjp.mikutoga.xml.SchemaUtil;
-import jp.sfjp.mikutoga.xml.XmlResourceResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -130,10 +129,7 @@ final class XmlInputUtil {
         SAXParser parser;
         try{
             parser = factory.newSAXParser();
-        }catch(ParserConfigurationException e){
-            assert false;
-            throw new AssertionError(e);
-        }catch(SAXException e){
+        }catch(ParserConfigurationException | SAXException e){
             assert false;
             throw new AssertionError(e);
         }
@@ -149,31 +145,36 @@ final class XmlInputUtil {
      * @param xmlInType 入力XML種別
      * @return スキーマ
      */
-    private static Schema builsSchema(XmlResourceResolver resolver,
-                                        ModelFileType xmlInType ){
-        LocalXmlResource[] schemaArray;
+    private static Schema buildSchema(ModelFileType xmlInType ){
+        URI[] schemaUris;
         switch(xmlInType){
         case XML_101009:
-            schemaArray = new LocalXmlResource[]{
-                Schema101009.SINGLETON,
+            schemaUris = new URI[]{
+                Schema101009.RES_SCHEMA_PMDXML,
             };
             break;
         case XML_130128:
-            schemaArray = new LocalXmlResource[]{
-                Schema130128.SINGLETON,
+            schemaUris = new URI[]{
+                Schema130128.RES_SCHEMA_PMDXML,
             };
             break;
         case XML_AUTO:
-            schemaArray = new LocalXmlResource[]{
-                Schema101009.SINGLETON,
-                Schema130128.SINGLETON,
+            schemaUris = new URI[]{
+                Schema101009.RES_SCHEMA_PMDXML,
+                Schema130128.RES_SCHEMA_PMDXML,
             };
             break;
         default:
             throw new IllegalStateException();
         }
 
-        Schema schema = SchemaUtil.newSchema(resolver, schemaArray);
+        Schema schema;
+        try{
+            schema = SchemaUtil.newSchema(schemaUris);
+        }catch(IOException | SAXException e){
+            assert false;
+            throw new AssertionError(e);
+        }
 
         return schema;
     }
@@ -185,9 +186,7 @@ final class XmlInputUtil {
      * @return XMLリーダ
      */
     static XMLReader buildReader(ModelFileType xmlInType){
-        XmlResourceResolver resolver = new XmlResourceResolver();
-
-        Schema schema = builsSchema(resolver, xmlInType);
+        Schema schema = buildSchema(xmlInType);
 
         SAXParser parser = buildParser(schema);
 
@@ -199,7 +198,7 @@ final class XmlInputUtil {
             throw new AssertionError(e);
         }
 
-        reader.setEntityResolver(resolver);
+        reader.setEntityResolver(NoopEntityResolver.NOOP_RESOLVER);
         reader.setErrorHandler(BotherHandler.HANDLER);
 
         return reader;
