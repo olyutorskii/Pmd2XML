@@ -129,7 +129,7 @@
         <dependency>
             <groupId>jp.sourceforge.mikutoga</groupId>
             <artifactId>togagem</artifactId>
-            <version>3.121.2</version>
+            <version>3.122.2</version>
             <scope>compile</scope>
         </dependency>
 

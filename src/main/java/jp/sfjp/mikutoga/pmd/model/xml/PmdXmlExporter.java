@@ -11,7 +11,7 @@ import java.io.IOException;
 import jp.sfjp.mikutoga.corelib.I18nText;
 import jp.sfjp.mikutoga.pmd.model.PmdModel;
 import jp.sfjp.mikutoga.xml.BasicXmlExporter;
-import jp.sfjp.mikutoga.xml.XmlResourceResolver;
+import jp.sfjp.mikutoga.xml.SchemaUtil;
 
 /**
  * PMDモーションデータをXMLへエクスポートする。
@@ -225,7 +225,7 @@ public class PmdXmlExporter extends BasicXmlExporter{
         }
 
         ind().putAttr("xmlns", namespace).ln();
-        ind().putAttr("xmlns:" + XSINS, XmlResourceResolver.NS_XSD).ln();
+        ind().putAttr("xmlns:" + XSINS, SchemaUtil.NS_XSD).ln();
 
         ind().putRawText(XSINS).putRawText(":schemaLocation=")
              .putRawCh('"');
