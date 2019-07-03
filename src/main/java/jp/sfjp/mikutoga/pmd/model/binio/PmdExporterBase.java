@@ -510,7 +510,7 @@ public class PmdExporterBase extends BinaryExporter{
             throws IOException, IllegalTextExportException{
         Map<MorphType, List<MorphPart>> morphMap = model.getMorphMap();
         Set<MorphType> typeSet = morphMap.keySet();
-        List<MorphPart> morphPartList = new LinkedList<MorphPart>();
+        List<MorphPart> morphPartList = new LinkedList<>();
 
         for(MorphType type : typeSet){
             List<MorphPart> partList = morphMap.get(type);
@@ -592,7 +592,7 @@ public class PmdExporterBase extends BinaryExporter{
         }
         dumpByte(totalMorph);
 
-        List<MorphType> typeList = new LinkedList<MorphType>();
+        List<MorphType> typeList = new LinkedList<>();
         for(MorphType type : typeSet){
             assert ! type.isBase();
             typeList.add(type);

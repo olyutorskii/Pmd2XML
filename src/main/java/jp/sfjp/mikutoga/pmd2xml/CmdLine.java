@@ -49,7 +49,7 @@ final class CmdLine {
      * @return 解析されたコマンドライン並び
      */
     static List<CmdLine> parse(List<String> argList){
-        List<CmdLine> result = new LinkedList<CmdLine>();
+        List<CmdLine> result = new LinkedList<>();
 
         Iterator<String> it = argList.iterator();
         while (it.hasNext()) {
@@ -64,7 +64,7 @@ final class CmdLine {
             if (info.opt != null) {
                 exArgNum = info.opt.getExArgNum();
             }
-            info.optArgs = new ArrayList<String>(exArgNum + 1);
+            info.optArgs = new ArrayList<>(exArgNum + 1);
 
             info.optArgs.add(arg);
 

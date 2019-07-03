@@ -81,7 +81,7 @@ public class PmdLoader {
         RigidBuilder    rigidBuilder    = new RigidBuilder(model);
         JointBuilder    jointBuilder    = new JointBuilder(model);
 
-        List<MorphPart> morphPartList = new ArrayList<MorphPart>();
+        List<MorphPart> morphPartList = new ArrayList<>();
         morphBuilder.setMorphPartList(morphPartList);
         textBuilder.setMorphPartList(morphPartList);
 

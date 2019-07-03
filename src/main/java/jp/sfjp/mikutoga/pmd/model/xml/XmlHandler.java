@@ -45,7 +45,7 @@ class XmlHandler implements ContentHandler{
         SaxListener dynamicsListener = new SaxDynamicsListener(helper);
         SaxListener shapeListener    = new SaxShapeListener(helper);
 
-        this.listenerMap = new EnumMap<PmdTag, SaxListener>(PmdTag.class);
+        this.listenerMap = new EnumMap<>(PmdTag.class);
         this.listenerMap.put(PmdTag.PMD_MODEL,          modelListener);
         this.listenerMap.put(PmdTag.MATERIAL_LIST,      materialListener);
         this.listenerMap.put(PmdTag.BONE_LIST,          boneListener);

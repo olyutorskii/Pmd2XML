@@ -39,7 +39,7 @@ public class Material implements Iterable<Surface> {
 
     private boolean edgeAppearance = true;
 
-    private final List<Surface> surfaceList = new ArrayList<Surface>();
+    private final List<Surface> surfaceList = new ArrayList<>();
 
 
     /**

@@ -50,7 +50,7 @@ enum OptSwitch {
     private static final Map<String, OptSwitch> MAP_OPT;
 
     static{
-        Map<String, OptSwitch> map = new HashMap<String, OptSwitch>();
+        Map<String, OptSwitch> map = new HashMap<>();
 
         for(OptSwitch opt : values()){
             for(String cmdarg : opt.cmdopts){
@@ -73,7 +73,7 @@ enum OptSwitch {
      * @param argnum 必要な引数の数
      * @param cmdopts オプションスイッチパターン群
      */
-    private OptSwitch(int argnum, String... cmdopts) {
+    OptSwitch(int argnum, String... cmdopts) {
         this.exArgNum = argnum;
 
         List<String> optlist;

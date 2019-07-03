@@ -53,7 +53,7 @@ public enum ModelFileType {
     /**
      * コンストラクタ。
      */
-    private ModelFileType(){
+    ModelFileType(){
         return;
     }
 

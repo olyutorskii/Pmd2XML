@@ -119,7 +119,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      */
     @Override
     public Iterator<Vertex> iterator(){
-        List<Vertex> list = new ArrayList<Vertex>(TRIANGLE);
+        List<Vertex> list = new ArrayList<>(TRIANGLE);
 
         list.add(this.vertex1);
         list.add(this.vertex2);

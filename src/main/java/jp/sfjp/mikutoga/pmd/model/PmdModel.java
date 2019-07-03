@@ -29,23 +29,23 @@ public class PmdModel {
     private final I18nText modelName = new I18nText();
     private final I18nText description = new I18nText();
 
-    private final List<Vertex> vertexList = new ArrayList<Vertex>();
-    private final List<Surface> surfaceList = new ArrayList<Surface>();
-    private final List<Material> materialList = new LinkedList<Material>();
+    private final List<Vertex> vertexList = new ArrayList<>();
+    private final List<Surface> surfaceList = new ArrayList<>();
+    private final List<Material> materialList = new LinkedList<>();
 
-    private final List<BoneInfo> boneList = new ArrayList<BoneInfo>();
-    private final List<BoneGroup> boneGroupList = new ArrayList<BoneGroup>();
+    private final List<BoneInfo> boneList = new ArrayList<>();
+    private final List<BoneGroup> boneGroupList = new ArrayList<>();
 
-    private final List<IKChain> ikChainList = new ArrayList<IKChain>();
+    private final List<IKChain> ikChainList = new ArrayList<>();
 
     private final Map<MorphType, List<MorphPart>> morphMap =
-            new EnumMap<MorphType, List<MorphPart>>(MorphType.class);
+            new EnumMap<>(MorphType.class);
 
-    private final List<RigidInfo> rigidList = new ArrayList<RigidInfo>();
+    private final List<RigidInfo> rigidList = new ArrayList<>();
     private final List<RigidGroup> rigidGroupList =
-            new ArrayList<RigidGroup>();
+            new ArrayList<>();
 
-    private final List<JointInfo> jointList = new ArrayList<JointInfo>();
+    private final List<JointInfo> jointList = new ArrayList<>();
 
     private ToonMap toonMap = new ToonMap();
 
@@ -59,10 +59,10 @@ public class PmdModel {
         assert this.vertexList instanceof RandomAccess;
         assert this.surfaceList instanceof RandomAccess;
 
-        this.morphMap.put(MorphType.EYEBROW, new ArrayList<MorphPart>());
-        this.morphMap.put(MorphType.EYE,     new ArrayList<MorphPart>());
-        this.morphMap.put(MorphType.LIP,     new ArrayList<MorphPart>());
-        this.morphMap.put(MorphType.EXTRA,   new ArrayList<MorphPart>());
+        this.morphMap.put(MorphType.EYEBROW, new ArrayList<>());
+        this.morphMap.put(MorphType.EYE,     new ArrayList<>());
+        this.morphMap.put(MorphType.LIP,     new ArrayList<>());
+        this.morphMap.put(MorphType.EXTRA,   new ArrayList<>());
 
         return;
     }
@@ -235,7 +235,7 @@ public class PmdModel {
      * @return モーフ頂点リスト
      */
     private List<MorphVertex> getAllMorphVertexList(){
-        List<MorphVertex> allList = new ArrayList<MorphVertex>();
+        List<MorphVertex> allList = new ArrayList<>();
 
         for(MorphType type : this.morphMap.keySet()){
             if(type.isBase()) continue;
@@ -261,9 +261,9 @@ public class PmdModel {
      */
     private List<MorphVertex> getUniqueMorphVertexList(
             List<MorphVertex> allList ){
-        List<MorphVertex> result = new ArrayList<MorphVertex>();
+        List<MorphVertex> result = new ArrayList<>();
 
-        Set<Vertex> mergedVertexSet = new HashSet<Vertex>();
+        Set<Vertex> mergedVertexSet = new HashSet<>();
 
         for(MorphVertex morphVertex : allList){
             Vertex vertex = morphVertex.getBaseVertex();
@@ -297,7 +297,7 @@ public class PmdModel {
         ListUtil.assignIndexedSerial(result);
 
         Map<Vertex, MorphVertex> numberedMap =
-                new HashMap<Vertex, MorphVertex>();
+                new HashMap<>();
         for(MorphVertex morphVertex : result){
             Vertex vertex = morphVertex.getBaseVertex();
             numberedMap.put(vertex, morphVertex);
@@ -341,7 +341,7 @@ public class PmdModel {
      * @return トリミングされた面リスト
      */
     private List<Surface> trimmingSurfaceList(){
-        Set<Surface> materialedSurfaceSet = new HashSet<Surface>();
+        Set<Surface> materialedSurfaceSet = new HashSet<>();
         for(Material material : this.materialList){
             if(material == null) continue;
             for(Surface surface : material){
@@ -352,7 +352,7 @@ public class PmdModel {
 
         materialedSurfaceSet.removeAll(this.surfaceList);
 
-        List<Surface> result = new ArrayList<Surface>();
+        List<Surface> result = new ArrayList<>();
         for(Surface surface : this.surfaceList){
             if(surface == null) continue;
             result.add(surface);
@@ -378,7 +378,7 @@ public class PmdModel {
      * @return トリミングされた頂点リスト
      */
     private List<Vertex> trimmingVertexList(){
-        Set<Vertex> surfacedVertexSet = new HashSet<Vertex>();
+        Set<Vertex> surfacedVertexSet = new HashSet<>();
         for(Surface surface : this.surfaceList){
             if(surface == null) continue;
             for(Vertex vertex : surface){
@@ -388,7 +388,7 @@ public class PmdModel {
 
         surfacedVertexSet.removeAll(this.vertexList);
 
-        List<Vertex> result = new ArrayList<Vertex>();
+        List<Vertex> result = new ArrayList<>();
         for(Vertex vertex : this.vertexList){
             if(vertex == null) continue;
             result.add(vertex);
