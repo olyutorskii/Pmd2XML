@@ -38,6 +38,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * 3頂点を設定する。
+     *
      * @param vtx1 頂点1
      * @param vtx2 頂点2
      * @param vtx3 頂点3
@@ -61,10 +62,11 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * 3頂点を返す。
+     *
      * @param store 頂点格納用配列。nullもしくは3要素に満たない場合は無視され、
-     * 新規に格納用配列が生成される。
+     *     新規に格納用配列が生成される。
      * @return 先頭3要素に3頂点が収められた配列。未設定要素にはnullが入る。
-     * 引数が長さ3以上の配列であれば引数と同じ配列が返る。
+     *     引数が長さ3以上の配列であれば引数と同じ配列が返る。
      */
     public Vertex[] getTriangle(Vertex[] store){
         Vertex[] result;
@@ -83,6 +85,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * 頂点その1を返す。
+     *
      * @return 頂点その1
      */
     public Vertex getVertex1(){
@@ -91,6 +94,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * 頂点その2を返す。
+     *
      * @return 頂点その2
      */
     public Vertex getVertex2(){
@@ -99,6 +103,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * 頂点その3を返す。
+     *
      * @return 頂点その3
      */
     public Vertex getVertex3(){
@@ -109,6 +114,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
      * {@inheritDoc}
      * 頂点を返す反復子を生成する。
      * 反復子がnullを返す可能性もありうる。
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -124,6 +130,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * 3頂点全てが設定されているか判定する。
+     *
      * @return 3頂点とも非nullが設定されていればtrue
      */
     public boolean isCompleted(){
@@ -136,6 +143,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * {@inheritDoc}
+     *
      * @param num {@inheritDoc}
      */
     @Override
@@ -146,6 +154,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -155,6 +164,7 @@ public class Surface implements SerialNumbered, Iterable<Vertex> {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

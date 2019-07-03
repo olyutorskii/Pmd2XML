@@ -56,6 +56,7 @@ final class XmlInputUtil {
 
     /**
      * 実在ファイルからXML入力ソースを得る。
+     *
      * @param file 実在ファイル
      * @return XML入力ソース
      */
@@ -82,8 +83,10 @@ final class XmlInputUtil {
 
     /**
      * InputSourceからInputStreamを得る。
+     *
      * <p>入力ソースには、少なくともバイトストリームか
      * URL文字列(SystemId)のいずれかが設定されていなければならない。
+     *
      * @param source 入力ソース
      * @return 入力バイトストリーム
      * @throws IllegalArgumentException 入力ソースの設定が足りない。
@@ -110,11 +113,13 @@ final class XmlInputUtil {
 
     /**
      * SAXパーサファクトリを生成する。
+     *
      * <ul>
      * <li>XML名前空間機能は有効になる。
      * <li>DTDによる形式検証は無効となる。
      * <li>XIncludeによる差し込み機能は無効となる。
      * </ul>
+     *
      * @param schema スキーマ
      * @return ファクトリ
      */
@@ -133,8 +138,7 @@ final class XmlInputUtil {
             factory.setFeature(F_LOAD_EXTERNAL_DTD, false);
         }catch(   ParserConfigurationException
                 | SAXNotRecognizedException
-                | SAXNotSupportedException e
-                ){
+                | SAXNotSupportedException e ){
             assert false;
             throw new AssertionError(e);
         }
@@ -146,6 +150,7 @@ final class XmlInputUtil {
 
     /**
      * SAXパーサを生成する。
+     *
      * @param schema スキーマ
      * @return SAXパーサ
      */
@@ -173,7 +178,7 @@ final class XmlInputUtil {
 
     /**
      * スキーマを生成する。
-     * @param resolver リゾルバ
+     *
      * @param xmlInType 入力XML種別
      * @return スキーマ
      */
@@ -213,7 +218,9 @@ final class XmlInputUtil {
 
     /**
      * XMLリーダを生成する。
+     *
      * <p>エラーハンドラには{@link BotherHandler}が指定される。
+     *
      * @param xmlInType 入力XML種別
      * @return XMLリーダ
      */

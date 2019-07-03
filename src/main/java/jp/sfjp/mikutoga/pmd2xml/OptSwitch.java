@@ -18,14 +18,14 @@ import java.util.Map;
  */
 enum OptSwitch {
 
-    OPT_HELP    (0, "-h", "-help", "-?"),
-    OPT_INFILE  (1, "-i"),
-    OPT_OUTFILE (1, "-o"),
-    OPT_FORCE   (0, "-f"),
-    OPT_NEWLINE (1, "-nl"),
-    OPT_GENOUT  (1, "-genout"),
-    OPT_IFORM   (1, "-iform"),
-    OPT_OFORM   (1, "-oform"),
+    OPT_HELP(    0, "-h", "-help", "-?"),
+    OPT_INFILE(  1, "-i"),
+    OPT_OUTFILE( 1, "-o"),
+    OPT_FORCE(   0, "-f"),
+    OPT_NEWLINE( 1, "-nl"),
+    OPT_GENOUT(  1, "-genout"),
+    OPT_IFORM(   1, "-iform"),
+    OPT_OFORM(   1, "-oform"),
     ;
 
     private static final String HELP_CONSOLE =
@@ -69,6 +69,7 @@ enum OptSwitch {
 
     /**
      * コンストラクタ。
+     *
      * @param argnum 必要な引数の数
      * @param cmdopts オプションスイッチパターン群
      */
@@ -86,6 +87,7 @@ enum OptSwitch {
 
     /**
      * コンソール提示用ヘルプ出力文字列を返す。
+     *
      * @return オプションヘルプ文字列
      */
     static String getConsoleHelp(){
@@ -94,7 +96,9 @@ enum OptSwitch {
 
     /**
      * 文字列に合致するオプションを返す。
+     *
      * <p>一つのオプションが複数の表記に合致する場合がある。
+     *
      * @param cmd 文字列
      * @return オプション種別。合致する物が見つからなければnull
      */
@@ -106,7 +110,9 @@ enum OptSwitch {
 
     /**
      * 各オプションに後続する引数の数を返す。
+     *
      * <p>引数をとらないオプションは0を返す。
+     *
      * @return 引数の数
      */
     int getExArgNum(){

@@ -27,7 +27,9 @@ public class XmlPmdLoader {
 
     /**
      * コンストラクタ。
+     *
      * <p>XMLリーダは名前空間をサポートしていなければならない。
+     *
      * @param reader XMLリーダ
      * @throws NullPointerException 引数がnull
      * @throws SAXException 機能不足のXMLリーダが渡された
@@ -49,6 +51,7 @@ public class XmlPmdLoader {
 
     /**
      * XMLのパースを開始する。
+     *
      * @param source XML入力
      * @return モデルデータ
      * @throws SAXException 構文エラー

@@ -18,6 +18,12 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @interface OpenXmlMark {
-    /** タグ指定。 */
+
+    /**
+     * タグ指定。
+     *
+     * @return tag
+     */
     PmdTag value();
+
 }

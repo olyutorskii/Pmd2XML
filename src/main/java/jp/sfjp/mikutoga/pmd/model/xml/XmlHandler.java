@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 
 /**
  * XMLモデルファイルパース用SAXハンドラ。
+ *
  * <p>下位リスナに各種通知が振り分けられる。
  */
 class XmlHandler implements ContentHandler{
@@ -58,6 +59,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * ビルド対象のモデルを返す。
+     *
      * @return ビルド対象のモデル。ビルド前ならnull
      */
     PmdModel getPmdModel(){
@@ -66,6 +68,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @throws SAXException {@inheritDoc}
      */
     @Override
@@ -81,6 +84,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @throws SAXException {@inheritDoc}
      */
     @Override
@@ -92,6 +96,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param prefix {@inheritDoc}
      * @param uri {@inheritDoc}
      * @throws SAXException {@inheritDoc}
@@ -99,8 +104,8 @@ class XmlHandler implements ContentHandler{
     @Override
     public void startPrefixMapping(String prefix, String uri)
             throws SAXException {
-        if(   Schema101009.NS_PMDXML.equals(uri)
-           || Schema130128.NS_PMDXML.equals(uri) ){
+        if(    Schema101009.NS_PMDXML.equals(uri)
+            || Schema130128.NS_PMDXML.equals(uri) ){
             this.nspfx = prefix;
             this.nsuri = uri;
         }
@@ -109,6 +114,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param prefix {@inheritDoc}
      * @throws SAXException {@inheritDoc}
      */
@@ -123,6 +129,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param uri {@inheritDoc}
      * @param localName {@inheritDoc}
      * @param qName {@inheritDoc}
@@ -150,6 +157,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * タグ出現に従い通知リスナを切り替える。
+     *
      * @param tag タグ種別
      */
     private void switchListener(PmdTag tag){
@@ -163,6 +171,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param uri {@inheritDoc}
      * @param localName {@inheritDoc}
      * @param qName {@inheritDoc}
@@ -185,6 +194,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param locator {@inheritDoc}
      */
     @Override
@@ -195,6 +205,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param target {@inheritDoc}
      * @param data {@inheritDoc}
      * @throws SAXException {@inheritDoc}
@@ -208,6 +219,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @param start {@inheritDoc}
      * @param length {@inheritDoc}
@@ -223,6 +235,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param ch {@inheritDoc}
      * @param start {@inheritDoc}
      * @param length {@inheritDoc}
@@ -237,6 +250,7 @@ class XmlHandler implements ContentHandler{
 
     /**
      * {@inheritDoc}
+     *
      * @param name {@inheritDoc}
      * @throws SAXException {@inheritDoc}
      */
