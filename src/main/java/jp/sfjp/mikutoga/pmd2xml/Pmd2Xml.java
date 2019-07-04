@@ -387,7 +387,7 @@ public final class Pmd2Xml {
      * @param args コマンドライン文字列群
      * @return オプション情報
      */
-    private static OptInfo parseOption(String[] args){
+    private static OptInfo parseOption(String... args){
         OptInfo optInfo;
 
         try{
