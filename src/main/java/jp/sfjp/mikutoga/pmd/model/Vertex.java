@@ -47,6 +47,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * 頂点位置座標を返す。
+     *
      * @return 頂点の位置座標
      */
     public MkPos3D getPosition(){
@@ -55,6 +56,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * 法線ベクトルを返す。
+     *
      * @return 法線ベクトル
      */
     public MkVec3D getNormal(){
@@ -63,6 +65,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * UVマップ座標を返す。
+     *
      * @return UVマップ情報
      */
     public MkPos2D getUVPosition(){
@@ -71,6 +74,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * 頂点の属するボーンを設定する。
+     *
      * @param boneAArg ボーンA
      * @param boneBArg ボーンB
      * @throws NullPointerException 引数がnull
@@ -88,6 +92,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンAを返す。
+     *
      * @return ボーンA
      */
     public BoneInfo getBoneA(){
@@ -96,6 +101,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンBを返す。
+     *
      * @return ボーンB
      */
     public BoneInfo getBoneB(){
@@ -104,12 +110,13 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンAのウェイト値を設定する。
+     *
      * @param weight ウェイト値。0(影響小)-100(影響大)
      * @throws IllegalArgumentException ウェイト値が範囲外
      */
     public void setWeightA(int weight) throws IllegalArgumentException{
-        if(   weight < MIN_WEIGHT
-           || MAX_WEIGHT < weight ){
+        if(    weight < MIN_WEIGHT
+            || MAX_WEIGHT < weight ){
             throw new IllegalArgumentException();
         }
         this.boneWeight = weight;
@@ -118,6 +125,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンBのウェイト値を設定する。
+     *
      * @param weight ウェイト値。0(影響小)-100(影響大)
      * @throws IllegalArgumentException ウェイト値が範囲外
      */
@@ -128,6 +136,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンAのウェイト値を返す。
+     *
      * @return ウェイト値
      */
     public int getWeightA(){
@@ -136,6 +145,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンBのウェイト値を返す。
+     *
      * @return ウェイト値
      */
     public int getWeightB(){
@@ -145,6 +155,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンAのウェイト率を返す。
+     *
      * @return ウェイト率。0.0(影響小)-1.0(影響大)
      */
     public float getWeightRatioA(){
@@ -153,6 +164,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * ボーンBのウェイト率を返す。
+     *
      * @return ウェイト率。0.0(影響小)-1.0(影響大)
      */
     public float getWeightRatioB(){
@@ -163,6 +175,7 @@ public class Vertex implements SerialNumbered {
     /**
      * エッジを表示するか設定する。
      * マテリアル材質単位の設定より優先度は高い。
+     *
      * @param show 表示するならtrue
      */
     public void setEdgeAppearance(boolean show){
@@ -173,6 +186,7 @@ public class Vertex implements SerialNumbered {
     /**
      * エッジを表示するか判定する。
      * マテリアル材質単位の設定より優先度は高い。
+     *
      * @return 表示するならtrue
      */
     public boolean getEdgeAppearance(){
@@ -181,6 +195,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * {@inheritDoc}
+     *
      * @param num {@inheritDoc}
      */
     @Override
@@ -191,6 +206,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override
@@ -200,6 +216,7 @@ public class Vertex implements SerialNumbered {
 
     /**
      * {@inheritDoc}
+     *
      * @return {@inheritDoc}
      */
     @Override

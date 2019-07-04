@@ -53,7 +53,7 @@ class SaxListener {
      */
     private static Collection<Method> filtMethod(Class<?> klass,
                                    Class<? extends Annotation> filter ){
-        Collection<Method> result = new LinkedList<Method>();
+        Collection<Method> result = new LinkedList<>();
 
         for(Method method : klass.getDeclaredMethods()){
             int modifiers = method.getModifiers();
@@ -77,7 +77,7 @@ class SaxListener {
      */
     private static Map<PmdTag, Method> getOpenDispatcher(Class<?> klass){
         Map<PmdTag, Method> result =
-                new EnumMap<PmdTag, Method>(PmdTag.class);
+                new EnumMap<>(PmdTag.class);
 
         for(Method method : filtMethod(klass, OpenXmlMark.class)){
             Annotation anno = method.getAnnotation(OpenXmlMark.class);
@@ -96,7 +96,7 @@ class SaxListener {
      */
     private static Map<PmdTag, Method> getCloseDispatcher(Class<?> klass){
         Map<PmdTag, Method> result =
-                new EnumMap<PmdTag, Method>(PmdTag.class);
+                new EnumMap<>(PmdTag.class);
 
         for(Method method : filtMethod(klass, CloseXmlMark.class)){
             Annotation anno = method.getAnnotation(CloseXmlMark.class);

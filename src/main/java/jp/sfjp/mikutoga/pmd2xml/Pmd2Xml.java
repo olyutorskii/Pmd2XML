@@ -110,6 +110,7 @@ public final class Pmd2Xml {
 
     /**
      * VMを終了させる。
+     *
      * @param code 終了コード
      * @see java.lang.System#exit(int)
      */
@@ -121,6 +122,7 @@ public final class Pmd2Xml {
 
     /**
      * 共通エラーメッセージを出力する。
+     *
      * @param text 個別メッセージ
      */
     private static void errMsg(String text){
@@ -131,6 +133,7 @@ public final class Pmd2Xml {
 
     /**
      * 標準エラー出力へ例外情報出力。
+     *
      * @param ex 例外
      * @param dumpStack スタックトレースを出力するならtrue
      */
@@ -147,6 +150,7 @@ public final class Pmd2Xml {
 
     /**
      * 標準エラー出力へ例外情報出力。
+     *
      * @param ex 例外
      */
     private static void thPrintln(Throwable ex){
@@ -157,6 +161,7 @@ public final class Pmd2Xml {
     /**
      * 入出力エラー処理。
      * 例外を出力してVM終了する。
+     *
      * @param ex 例外
      */
     private static void ioError(IOException ex){
@@ -167,6 +172,7 @@ public final class Pmd2Xml {
     /**
      * XML構文エラー処理。
      * 例外を出力してVM終了する。
+     *
      * @param ex 例外
      */
     private static void xmlError(Throwable ex){
@@ -177,6 +183,7 @@ public final class Pmd2Xml {
     /**
      * PMDファイルフォーマットエラー処理。
      * 例外を出力してVM終了する。
+     *
      * @param ex 例外
      */
     private static void pmdError(MmdFormatException ex){
@@ -187,6 +194,7 @@ public final class Pmd2Xml {
     /**
      * 内部エラー処理。
      * 例外を出力してVM終了する。
+     *
      * @param ex 例外
      */
     private static void internalError(Throwable ex){
@@ -222,8 +230,11 @@ public final class Pmd2Xml {
 
     /**
      * ファイルサイズを0に切り詰める。
+     *
      * <p>ファイルが存在しなければなにもしない。
+     *
      * <p>通常ファイルでなければなにもしない。
+     *
      * @param file ファイル
      * @throws IOException 入出力エラー
      */
@@ -250,7 +261,9 @@ public final class Pmd2Xml {
 
     /**
      * 入力ソースを準備する。
+     *
      * <p>入力ファイルが通常ファイルとして存在しなければエラー終了。
+     *
      * @param optInfo オプション情報
      * @return 入力ソース
      */
@@ -272,8 +285,11 @@ public final class Pmd2Xml {
 
     /**
      * 出力ストリームを準備する。
+     *
      * <p>出力ファイルが通常ファイルでない場合はエラー終了。
+     *
      * <p>既存の出力ファイルに上書き指示が伴っていなければエラー終了。
+     *
      * @param optInfo オプション情報
      * @return 出力ストリーム
      */
@@ -318,13 +334,14 @@ public final class Pmd2Xml {
 
     /**
      * オプション情報に従いコンバータを生成する。
+     *
      * @param optInfo オプション情報
      * @return コンバータ
      */
     private static Pmd2XmlConv buildConverter(OptInfo optInfo){
         Pmd2XmlConv converter = new Pmd2XmlConv();
 
-        converter.setInType (optInfo.getInFileType());
+        converter.setInType( optInfo.getInFileType());
         converter.setOutType(optInfo.getOutFileType());
 
         converter.setNewline(optInfo.getNewline());
@@ -335,7 +352,9 @@ public final class Pmd2Xml {
 
     /**
      * 実際のコンバート作業と異常系処理を行う。
+     *
      * <p>異常系が起きた場合、このメソッドは制御を戻さない。
+     *
      * @param converter コンバータ
      * @param source 入力ソース
      * @param ostream 出力ストリーム
@@ -362,11 +381,13 @@ public final class Pmd2Xml {
 
     /**
      * コマンドライン文字列をオプション情報としてパースする。
+     *
      * <p>異常系が起きた場合、このメソッドは制御を戻さない。
+     *
      * @param args コマンドライン文字列群
      * @return オプション情報
      */
-    private static OptInfo parseOption(String[] args){
+    private static OptInfo parseOption(String... args){
         OptInfo optInfo;
 
         try{
@@ -385,6 +406,7 @@ public final class Pmd2Xml {
 
     /**
      * Mainエントリ。
+     *
      * @param args コマンドパラメータ
      */
     public static void main(String[] args){

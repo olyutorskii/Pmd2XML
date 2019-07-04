@@ -34,7 +34,7 @@ class MorphBuilder implements PmdMorphHandler {
     private MorphPart currentMorphPart;
     private final List<Vertex> vertexList;
 
-    private final List<Vertex> morphVertexList = new ArrayList<Vertex>();
+    private final List<Vertex> morphVertexList = new ArrayList<>();
 
     /**
      * コンストラクタ。
@@ -183,7 +183,7 @@ class MorphBuilder implements PmdMorphHandler {
 
         List<MorphPart> partList = this.morphMap.get(type);
         if(partList == null){
-            partList = new LinkedList<MorphPart>();
+            partList = new LinkedList<>();
             this.morphMap.put(type, partList);
         }
         partList.add(part);

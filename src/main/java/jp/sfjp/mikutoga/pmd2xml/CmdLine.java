@@ -33,6 +33,7 @@ final class CmdLine {
 
     /**
      * コマンドライン解析を行う。
+     *
      * @param args コマンドライン
      * @return 解析されたコマンドライン並び
      */
@@ -43,11 +44,12 @@ final class CmdLine {
 
     /**
      * コマンドライン解析を行う。
+     *
      * @param argList コマンドライン
      * @return 解析されたコマンドライン並び
      */
     static List<CmdLine> parse(List<String> argList){
-        List<CmdLine> result = new LinkedList<CmdLine>();
+        List<CmdLine> result = new LinkedList<>();
 
         Iterator<String> it = argList.iterator();
         while (it.hasNext()) {
@@ -62,7 +64,7 @@ final class CmdLine {
             if (info.opt != null) {
                 exArgNum = info.opt.getExArgNum();
             }
-            info.optArgs = new ArrayList<String>(exArgNum + 1);
+            info.optArgs = new ArrayList<>(exArgNum + 1);
 
             info.optArgs.add(arg);
 
@@ -81,8 +83,9 @@ final class CmdLine {
 
     /**
      * オプション識別子を返す。
+     *
      * @return オプション識別子。
-     * オプションを伴わない単純なコマンドライン引数の場合はnullを返す。
+     *     オプションを伴わない単純なコマンドライン引数の場合はnullを返す。
      */
     OptSwitch getOptSwitch() {
         return this.opt;
@@ -90,9 +93,10 @@ final class CmdLine {
 
     /**
      * オプションに付随する引数群を返す。
+     *
      * @return オプションに付随する引数群。
-     * 先頭要素はオプション識別子。
-     * 単純なコマンドライン引数の場合は自身が1要素のみを占める。
+     *     先頭要素はオプション識別子。
+     *     単純なコマンドライン引数の場合は自身が1要素のみを占める。
      */
     List<String> getOptArgs() {
         return this.optArgs;

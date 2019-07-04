@@ -33,7 +33,7 @@ public class ToonMap {
     private static final int IDX_SP = 0xff;  // 特殊トゥーンのインデックス
 
     static{
-        Map<Integer, String> map = new TreeMap<Integer, String>();
+        Map<Integer, String> map = new TreeMap<>();
 
         int idx = 0x00;
         map.put(idx++, "toon01.bmp");
@@ -57,7 +57,7 @@ public class ToonMap {
 
 
     private final Map<Integer, String> toonDefMap =
-            new TreeMap<Integer, String>(DEF_TOONMAP);
+            new TreeMap<>(DEF_TOONMAP);
 
 
     /**

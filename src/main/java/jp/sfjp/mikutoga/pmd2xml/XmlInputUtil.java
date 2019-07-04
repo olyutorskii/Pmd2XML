@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -25,12 +26,24 @@ import jp.sfjp.mikutoga.xml.NoopEntityResolver;
 import jp.sfjp.mikutoga.xml.SchemaUtil;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
 /**
  * XML入力に関する各種ユーティリティ。
  */
 final class XmlInputUtil {
+
+    private static final String F_DISALLOW_DOCTYPE_DECL =
+            "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String F_EXTERNAL_GENERAL_ENTITIES =
+            "http://xml.org/sax/features/external-general-entities";
+    private static final String F_EXTERNAL_PARAMETER_ENTITIES =
+            "http://xml.org/sax/features/external-parameter-entities";
+    private static final String F_LOAD_EXTERNAL_DTD =
+            "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+
 
     /**
      * 隠しコンストラクタ。
@@ -43,6 +56,7 @@ final class XmlInputUtil {
 
     /**
      * 実在ファイルからXML入力ソースを得る。
+     *
      * @param file 実在ファイル
      * @return XML入力ソース
      */
@@ -69,8 +83,10 @@ final class XmlInputUtil {
 
     /**
      * InputSourceからInputStreamを得る。
+     *
      * <p>入力ソースには、少なくともバイトストリームか
      * URL文字列(SystemId)のいずれかが設定されていなければならない。
+     *
      * @param source 入力ソース
      * @return 入力バイトストリーム
      * @throws IllegalArgumentException 入力ソースの設定が足りない。
@@ -97,11 +113,13 @@ final class XmlInputUtil {
 
     /**
      * SAXパーサファクトリを生成する。
+     *
      * <ul>
      * <li>XML名前空間機能は有効になる。
      * <li>DTDによる形式検証は無効となる。
      * <li>XIncludeによる差し込み機能は無効となる。
      * </ul>
+     *
      * @param schema スキーマ
      * @return ファクトリ
      */
@@ -111,7 +129,19 @@ final class XmlInputUtil {
         factory.setNamespaceAware(true);
         factory.setValidating(false);
         factory.setXIncludeAware(false);
-//      factory.setFeature(name, value);
+
+        try{
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            factory.setFeature(F_DISALLOW_DOCTYPE_DECL, true);
+            factory.setFeature(F_EXTERNAL_GENERAL_ENTITIES, false);
+            factory.setFeature(F_EXTERNAL_PARAMETER_ENTITIES, false);
+            factory.setFeature(F_LOAD_EXTERNAL_DTD, false);
+        }catch(   ParserConfigurationException
+                | SAXNotRecognizedException
+                | SAXNotSupportedException e ){
+            assert false;
+            throw new AssertionError(e);
+        }
 
         factory.setSchema(schema);
 
@@ -120,6 +150,7 @@ final class XmlInputUtil {
 
     /**
      * SAXパーサを生成する。
+     *
      * @param schema スキーマ
      * @return SAXパーサ
      */
@@ -134,14 +165,20 @@ final class XmlInputUtil {
             throw new AssertionError(e);
         }
 
-//      parser.setProperty(name, value);
+        try{
+            parser.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            parser.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        }catch(SAXNotRecognizedException | SAXNotSupportedException e){
+            assert false;
+            throw new AssertionError(e);
+        }
 
         return parser;
     }
 
     /**
      * スキーマを生成する。
-     * @param resolver リゾルバ
+     *
      * @param xmlInType 入力XML種別
      * @return スキーマ
      */
@@ -181,7 +218,9 @@ final class XmlInputUtil {
 
     /**
      * XMLリーダを生成する。
+     *
      * <p>エラーハンドラには{@link BotherHandler}が指定される。
+     *
      * @param xmlInType 入力XML種別
      * @return XMLリーダ
      */

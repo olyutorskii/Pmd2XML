@@ -93,7 +93,7 @@ enum PmdTag {
     ;
 
     private static final Map<String, PmdTag> NAME_MAP =
-            new HashMap<String, PmdTag>();
+            new HashMap<>();
 
     static{
         for(PmdTag tag : values()){

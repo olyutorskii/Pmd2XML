@@ -28,7 +28,9 @@ public final class Schema101009{
     public static final String LOCAL_SCHEMA_PMDXML =
             "resources/pmdxml-101009.xsd";
 
+    /** schema URI. */
     public static final URI URI_SCHEMA_PMDXML = URI.create(SCHEMA_PMDXML);
+    /** local resource URI. */
     public static final URI RES_SCHEMA_PMDXML;
 
     private static final Class<?> THISCLASS = Schema101009.class;

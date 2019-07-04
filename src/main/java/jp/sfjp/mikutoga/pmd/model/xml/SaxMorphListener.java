@@ -54,7 +54,7 @@ class SaxMorphListener extends SaxListener{
     void closeMorphList(){
         Map<MorphType, List<MorphPart>> morphMap =
                 getPmdModel().getMorphMap();
-        List<MorphPart> tempList = new LinkedList<MorphPart>();
+        List<MorphPart> tempList = new LinkedList<>();
 
         tempList.addAll(morphMap.get(MorphType.EYEBROW));
         tempList.addAll(morphMap.get(MorphType.EYE));
