@@ -38,8 +38,8 @@ import jp.sfjp.mikutoga.pmd.model.Vertex;
 
 /**
  * PMDファイルのエクスポーター(拡張無し基本フォーマット)。
- * <p>
- * 英名対応以降のPMDファイルフォーマットを
+ *
+ * <p>英名対応以降のPMDファイルフォーマットを
  * 使いたくない場合はこのエクスポーターを用いて出力せよ。
  */
 public class PmdExporterBase extends BinaryExporter{
@@ -88,6 +88,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * コンストラクタ。
+     *
      * @param stream 出力ストリーム
      * @throws NullPointerException 引数がnull
      */
@@ -100,6 +101,7 @@ public class PmdExporterBase extends BinaryExporter{
     /**
      * 改行文字の正規化を行う。
      * CR(0x0d)およびCRLF(0x0d0a)がLF(0x0a)へと正規化される。
+     *
      * @param text 文字列
      * @return 正規化の行われた文字列。
      */
@@ -117,11 +119,12 @@ public class PmdExporterBase extends BinaryExporter{
      * 文字列の改行記号はLF(0x0a)に正規化される。
      * エンコード結果がバイト長に満たない場合は
      * 1つの0x00及びそれに続く複数の0xfdがパディングされる。
+     *
      * @param text 文字列
      * @param maxByteLength バイト長指定
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException エンコード結果が
-     * 指定バイト長をはみ出した。
+     *     指定バイト長をはみ出した。
      */
     protected void dumpText(String text, int maxByteLength)
             throws IOException, IllegalTextExportException{
@@ -131,6 +134,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * モデルデータをPMDファイル形式で出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalPmdDataException モデルデータに不備が発見された
@@ -156,6 +160,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * モデル基本情報を出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException モデル名もしくは説明が長すぎる
@@ -179,6 +184,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 頂点リストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      */
@@ -200,6 +206,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 個別の頂点データを出力する。
+     *
      * @param vertex 頂点
      * @throws IOException 出力エラー
      */
@@ -233,6 +240,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 面リストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      */
@@ -262,6 +270,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * マテリアル素材リストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException シェーディングファイル情報が長すぎる
@@ -285,6 +294,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * フォンシェーディングの色情報を出力する。
+     *
      * @param material マテリアル情報
      * @throws IOException 出力エラー
      */
@@ -317,6 +327,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * シェーディング情報を出力する。
+     *
      * @param material マテリアル情報
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException ファイル名が長すぎる
@@ -343,6 +354,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * シェーディングファイル情報を出力する。
+     *
      * @param shade シェーディング情報
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException ファイル名が長すぎる
@@ -372,6 +384,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * ボーンリストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException ボーン名が長すぎる
@@ -394,6 +407,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 個別のボーン情報を出力する。
+     *
      * @param bone ボーン情報
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException ボーン名が長すぎる
@@ -431,6 +445,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * IKチェーンリストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      */
@@ -452,6 +467,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * IKチェーンを出力する。
+     *
      * @param chain IKチェーン
      * @throws IOException 出力エラー
      */
@@ -485,6 +501,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * モーフリストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException モーフ名が長すぎる
@@ -493,7 +510,7 @@ public class PmdExporterBase extends BinaryExporter{
             throws IOException, IllegalTextExportException{
         Map<MorphType, List<MorphPart>> morphMap = model.getMorphMap();
         Set<MorphType> typeSet = morphMap.keySet();
-        List<MorphPart> morphPartList = new LinkedList<MorphPart>();
+        List<MorphPart> morphPartList = new LinkedList<>();
 
         for(MorphType type : typeSet){
             List<MorphPart> partList = morphMap.get(type);
@@ -533,6 +550,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * BASEモーフを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException モーフ名が長すぎる
@@ -557,6 +575,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * モーフグループを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      */
@@ -573,7 +592,7 @@ public class PmdExporterBase extends BinaryExporter{
         }
         dumpByte(totalMorph);
 
-        List<MorphType> typeList = new LinkedList<MorphType>();
+        List<MorphType> typeList = new LinkedList<>();
         for(MorphType type : typeSet){
             assert ! type.isBase();
             typeList.add(type);
@@ -596,6 +615,7 @@ public class PmdExporterBase extends BinaryExporter{
     /**
      * ボーングループリストを出力する。
      * デフォルトボーングループ内訳は出力されない。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException ボーングループ名が長すぎる
@@ -632,6 +652,7 @@ public class PmdExporterBase extends BinaryExporter{
     /**
      * 各種通し番号をshort値で出力する。
      * short値に収まらない上位ビットは捨てられる。
+     *
      * @param obj 番号づけられたオブジェクト
      * @throws IOException 出力エラー
      */
@@ -644,6 +665,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 2次元位置情報を出力する。
+     *
      * @param position 2次元位置情報
      * @throws IOException 出力エラー
      */
@@ -659,6 +681,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 3次元位置情報を出力する。
+     *
      * @param position 3次元位置情報
      * @throws IOException 出力エラー
      */
@@ -676,6 +699,7 @@ public class PmdExporterBase extends BinaryExporter{
 
     /**
      * 3次元ベクトル情報を出力する。
+     *
      * @param vector 3次元ベクトル
      * @throws IOException 出力エラー
      */

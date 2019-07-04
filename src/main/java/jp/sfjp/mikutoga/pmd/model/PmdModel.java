@@ -29,23 +29,23 @@ public class PmdModel {
     private final I18nText modelName = new I18nText();
     private final I18nText description = new I18nText();
 
-    private final List<Vertex> vertexList = new ArrayList<Vertex>();
-    private final List<Surface> surfaceList = new ArrayList<Surface>();
-    private final List<Material> materialList = new LinkedList<Material>();
+    private final List<Vertex> vertexList = new ArrayList<>();
+    private final List<Surface> surfaceList = new ArrayList<>();
+    private final List<Material> materialList = new LinkedList<>();
 
-    private final List<BoneInfo> boneList = new ArrayList<BoneInfo>();
-    private final List<BoneGroup> boneGroupList = new ArrayList<BoneGroup>();
+    private final List<BoneInfo> boneList = new ArrayList<>();
+    private final List<BoneGroup> boneGroupList = new ArrayList<>();
 
-    private final List<IKChain> ikChainList = new ArrayList<IKChain>();
+    private final List<IKChain> ikChainList = new ArrayList<>();
 
     private final Map<MorphType, List<MorphPart>> morphMap =
-            new EnumMap<MorphType, List<MorphPart>>(MorphType.class);
+            new EnumMap<>(MorphType.class);
 
-    private final List<RigidInfo> rigidList = new ArrayList<RigidInfo>();
+    private final List<RigidInfo> rigidList = new ArrayList<>();
     private final List<RigidGroup> rigidGroupList =
-            new ArrayList<RigidGroup>();
+            new ArrayList<>();
 
-    private final List<JointInfo> jointList = new ArrayList<JointInfo>();
+    private final List<JointInfo> jointList = new ArrayList<>();
 
     private ToonMap toonMap = new ToonMap();
 
@@ -59,10 +59,10 @@ public class PmdModel {
         assert this.vertexList instanceof RandomAccess;
         assert this.surfaceList instanceof RandomAccess;
 
-        this.morphMap.put(MorphType.EYEBROW, new ArrayList<MorphPart>());
-        this.morphMap.put(MorphType.EYE,     new ArrayList<MorphPart>());
-        this.morphMap.put(MorphType.LIP,     new ArrayList<MorphPart>());
-        this.morphMap.put(MorphType.EXTRA,   new ArrayList<MorphPart>());
+        this.morphMap.put(MorphType.EYEBROW, new ArrayList<>());
+        this.morphMap.put(MorphType.EYE,     new ArrayList<>());
+        this.morphMap.put(MorphType.LIP,     new ArrayList<>());
+        this.morphMap.put(MorphType.EXTRA,   new ArrayList<>());
 
         return;
     }
@@ -70,6 +70,7 @@ public class PmdModel {
 
     /**
      * モデル名を返す。
+     *
      * @return モデル名
      */
     public I18nText getModelName(){
@@ -79,6 +80,7 @@ public class PmdModel {
     /**
      * モデル説明文を返す。
      * 改行表現には{@literal \n}が用いられる
+     *
      * @return モデル説明文
      */
     public I18nText getDescription(){
@@ -87,6 +89,7 @@ public class PmdModel {
 
     /**
      * 頂点リストを返す。
+     *
      * @return 頂点リスト。
      */
     public List<Vertex> getVertexList(){
@@ -95,6 +98,7 @@ public class PmdModel {
 
     /**
      * 面リストを返す。
+     *
      * @return 面リスト
      */
     public List<Surface> getSurfaceList(){
@@ -103,6 +107,7 @@ public class PmdModel {
 
     /**
      * 素材リストを返す。
+     *
      * @return 素材リスト
      */
     public List<Material> getMaterialList(){
@@ -111,6 +116,7 @@ public class PmdModel {
 
     /**
      * ボーンリストを返す。
+     *
      * @return ボーンリスト
      */
     public List<BoneInfo> getBoneList(){
@@ -119,6 +125,7 @@ public class PmdModel {
 
     /**
      * ボーングループリストを返す。
+     *
      * @return ボーングループリスト
      */
     public List<BoneGroup> getBoneGroupList(){
@@ -127,6 +134,7 @@ public class PmdModel {
 
     /**
      * IKチェーンリストを返す。
+     *
      * @return IKチェーンリスト
      */
     public List<IKChain> getIKChainList(){
@@ -135,6 +143,7 @@ public class PmdModel {
 
     /**
      * 種類別モーフリストのマップを返す。
+     *
      * @return 種類別モーフリストのマップ
      */
     public Map<MorphType, List<MorphPart>> getMorphMap(){
@@ -143,6 +152,7 @@ public class PmdModel {
 
     /**
      * 剛体リストを返す。
+     *
      * @return 剛体リスト
      */
     public List<RigidInfo> getRigidList(){
@@ -151,6 +161,7 @@ public class PmdModel {
 
     /**
      * 剛体グループリストを返す。
+     *
      * @return 剛体グループリスト。
      */
     public List<RigidGroup> getRigidGroupList(){
@@ -159,6 +170,7 @@ public class PmdModel {
 
     /**
      * 剛体間ジョイントリストを返す。
+     *
      * @return 剛体間ジョイントリスト
      */
     public List<JointInfo> getJointList(){
@@ -167,6 +179,7 @@ public class PmdModel {
 
     /**
      * トゥーンファイルマップを返す。
+     *
      * @return トゥーンファイルマップ
      */
     public ToonMap getToonMap(){
@@ -176,6 +189,7 @@ public class PmdModel {
     /**
      * トゥーンファイルマップを設定する。
      * 各素材のシェーディングで参照するトゥーンファイルマップも更新される。
+     *
      * @param map トゥーンファイルマップ
      */
     public void setToonMap(ToonMap map){
@@ -190,6 +204,7 @@ public class PmdModel {
     /**
      * このモデルがグローバル名を含むか判定する。
      * ボーン名、ボーングループ名、モーフ名、モデル説明文が判定対象。
+     *
      * @return グローバル名を持つならtrue
      */
     public boolean hasGlobalText(){
@@ -216,10 +231,11 @@ public class PmdModel {
     /**
      * 全モーフが使う全モーフ頂点の出現順リストを返す。
      * モーフ種別毎に固まっている事が保証される。
+     *
      * @return モーフ頂点リスト
      */
     private List<MorphVertex> getAllMorphVertexList(){
-        List<MorphVertex> allList = new ArrayList<MorphVertex>();
+        List<MorphVertex> allList = new ArrayList<>();
 
         for(MorphType type : this.morphMap.keySet()){
             if(type.isBase()) continue;
@@ -239,14 +255,15 @@ public class PmdModel {
 
     /**
      * 重複する頂点参照を除いたモーフ頂点リストを返す。
+     *
      * @param allList モーフ頂点リスト
      * @return 重複が除かれたモーフ頂点リスト
      */
     private List<MorphVertex> getUniqueMorphVertexList(
             List<MorphVertex> allList ){
-        List<MorphVertex> result = new ArrayList<MorphVertex>();
+        List<MorphVertex> result = new ArrayList<>();
 
-        Set<Vertex> mergedVertexSet = new HashSet<Vertex>();
+        Set<Vertex> mergedVertexSet = new HashSet<>();
 
         for(MorphVertex morphVertex : allList){
             Vertex vertex = morphVertex.getBaseVertex();
@@ -264,9 +281,10 @@ public class PmdModel {
      * モーフで使われる全てのモーフ頂点のリストを返す。
      * モーフ間で重複する頂点はマージされる。
      * 頂点IDでソートされる。
-     * <p>
-     * 0から始まる通し番号がリナンバリングされる。
+     *
+     * <p>0から始まる通し番号がリナンバリングされる。
      * 通し番号は返されるモーフ頂点リストの添え字番号と一致する。
+     *
      * @return モーフに使われるモーフ頂点のリスト
      */
     public List<MorphVertex> mergeMorphVertex(){
@@ -279,7 +297,7 @@ public class PmdModel {
         ListUtil.assignIndexedSerial(result);
 
         Map<Vertex, MorphVertex> numberedMap =
-                new HashMap<Vertex, MorphVertex>();
+                new HashMap<>();
         for(MorphVertex morphVertex : result){
             Vertex vertex = morphVertex.getBaseVertex();
             numberedMap.put(vertex, morphVertex);
@@ -319,10 +337,11 @@ public class PmdModel {
      * 所属マテリアル順に再配置し、通し番号を割り振り直す。
      * 所属マテリアルの無い面はリストの末端に配置される。
      * 面リスト中のnullは削除され詰められる。
+     *
      * @return トリミングされた面リスト
      */
     private List<Surface> trimmingSurfaceList(){
-        Set<Surface> materialedSurfaceSet = new HashSet<Surface>();
+        Set<Surface> materialedSurfaceSet = new HashSet<>();
         for(Material material : this.materialList){
             if(material == null) continue;
             for(Surface surface : material){
@@ -333,7 +352,7 @@ public class PmdModel {
 
         materialedSurfaceSet.removeAll(this.surfaceList);
 
-        List<Surface> result = new ArrayList<Surface>();
+        List<Surface> result = new ArrayList<>();
         for(Surface surface : this.surfaceList){
             if(surface == null) continue;
             result.add(surface);
@@ -355,10 +374,11 @@ public class PmdModel {
      * 通し番号を振り直す。
      * 所属面の無い頂点はリストの末端に配置される。
      * 頂点リスト中のnullは削除され詰められる。
+     *
      * @return トリミングされた頂点リスト
      */
     private List<Vertex> trimmingVertexList(){
-        Set<Vertex> surfacedVertexSet = new HashSet<Vertex>();
+        Set<Vertex> surfacedVertexSet = new HashSet<>();
         for(Surface surface : this.surfaceList){
             if(surface == null) continue;
             for(Vertex vertex : surface){
@@ -368,7 +388,7 @@ public class PmdModel {
 
         surfacedVertexSet.removeAll(this.vertexList);
 
-        List<Vertex> result = new ArrayList<Vertex>();
+        List<Vertex> result = new ArrayList<>();
         for(Vertex vertex : this.vertexList){
             if(vertex == null) continue;
             result.add(vertex);

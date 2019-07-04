@@ -40,8 +40,10 @@ public class PmdLoader {
 
     /**
      * 正常パース時に読み残したデータがあったか判定する。
+     *
      * <p>MMDでの仕様拡張による
      * PMDファイルフォーマットの拡張が行われた場合を想定。
+     *
      * @return 読み残したデータがあればtrue
      * @throws IllegalStateException まだパースを試みていない。
      */
@@ -53,6 +55,7 @@ public class PmdLoader {
     /**
      * PMDファイルの読み込みを行いモデル情報を返す。
      * 1インスタンスにつき一度しかロードできない。
+     *
      * @param source PMDファイル入力ソース
      * @return モデル情報
      * @throws IOException 入力エラー
@@ -78,7 +81,7 @@ public class PmdLoader {
         RigidBuilder    rigidBuilder    = new RigidBuilder(model);
         JointBuilder    jointBuilder    = new JointBuilder(model);
 
-        List<MorphPart> morphPartList = new ArrayList<MorphPart>();
+        List<MorphPart> morphPartList = new ArrayList<>();
         morphBuilder.setMorphPartList(morphPartList);
         textBuilder.setMorphPartList(morphPartList);
 

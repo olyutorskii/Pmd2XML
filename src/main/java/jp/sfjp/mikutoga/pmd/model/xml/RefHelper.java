@@ -28,41 +28,41 @@ class RefHelper {
 
     // マテリアル関連
     private final List<IdRefHolder<Material>> materialSfcGroupIdRefList =
-            new LinkedList<IdRefHolder<Material>>();
+            new LinkedList<>();
     private final List<IdRefHolder<Material>> materialToonIdRefList =
-            new LinkedList<IdRefHolder<Material>>();
+            new LinkedList<>();
     private final Map<String, Integer> toonIdxMap =
-            new HashMap<String, Integer>();
+            new HashMap<>();
 
     // ボーン関連
     private final Map<String, BoneInfo> boneIdMap =
-            new HashMap<String, BoneInfo>();
+            new HashMap<>();
     private final List<IdRefHolder<BoneInfo>> boneChainIdRefList =
-            new LinkedList<IdRefHolder<BoneInfo>>();
+            new LinkedList<>();
     private final List<IdRefHolder<BoneInfo>> boneSourceIdRefList =
-            new LinkedList<IdRefHolder<BoneInfo>>();
+            new LinkedList<>();
 
     // モーフ関連
     private final List<IdRefHolder<MorphVertex>> morphVertexIdRefList =
-            new LinkedList<IdRefHolder<MorphVertex>>();
+            new LinkedList<>();
 
     // 剛体関連
     private final Map<String, RigidInfo> rigidIdMap =
-            new HashMap<String, RigidInfo>();
+            new HashMap<>();
     private final Map<String, RigidGroup> rigidGroupIdMap =
-            new HashMap<String, RigidGroup>();
+            new HashMap<>();
     private final List<IdRefHolder<RigidInfo>> thghRigidGroupIdRefList =
-            new LinkedList<IdRefHolder<RigidInfo>>();
+            new LinkedList<>();
 
     // 面関連
     private final Map<String, List<Surface>> surfaceGroupIdMap =
-            new HashMap<String, List<Surface>>();
+            new HashMap<>();
     private final List<IdRefHolder<Surface>> surfaceVertexIdRef =
-            new LinkedList<IdRefHolder<Surface>>();
+            new LinkedList<>();
 
     // 頂点関連
     private final Map<String, Vertex> vertexIdMap =
-            new HashMap<String, Vertex>();
+            new HashMap<>();
 
 
     /**
@@ -81,7 +81,7 @@ class RefHelper {
      */
     void addSurfaceGroupIdRef(Material material, String idRef){
         IdRefHolder<Material> holder =
-                new IdRefHolder<Material>(material, idRef);
+                new IdRefHolder<>(material, idRef);
         this.materialSfcGroupIdRefList.add(holder);
 
         return;
@@ -96,7 +96,7 @@ class RefHelper {
         List<Surface> surfaceGroup =
                 this.surfaceGroupIdMap.get(surfaceGroupId);
         if(surfaceGroup == null){
-            surfaceGroup = new LinkedList<Surface>();
+            surfaceGroup = new LinkedList<>();
             this.surfaceGroupIdMap.put(surfaceGroupId, surfaceGroup);
         }
 
@@ -130,7 +130,7 @@ class RefHelper {
      */
     void addToonFileIdRef(Material material, String idRef){
         IdRefHolder<Material> holder =
-                new IdRefHolder<Material>(material, idRef);
+                new IdRefHolder<>(material, idRef);
         this.materialToonIdRefList.add(holder);
         return;
     }
@@ -190,7 +190,7 @@ class RefHelper {
     void addBoneChain(BoneInfo bone,
                         String prevBoneIdRef, String nextBoneIdRef ){
         IdRefHolder<BoneInfo> holder =
-                new IdRefHolder<BoneInfo>(bone, prevBoneIdRef, nextBoneIdRef);
+                new IdRefHolder<>(bone, prevBoneIdRef, nextBoneIdRef);
         this.boneChainIdRefList.add(holder);
         return;
     }
@@ -225,7 +225,7 @@ class RefHelper {
      */
     void addSrcBoneIdRef(BoneInfo bone, String srcBoneIdRef){
         IdRefHolder<BoneInfo> holder =
-                new IdRefHolder<BoneInfo>(bone, srcBoneIdRef);
+                new IdRefHolder<>(bone, srcBoneIdRef);
         this.boneSourceIdRefList.add(holder);
         return;
     }
@@ -253,7 +253,7 @@ class RefHelper {
      */
     void addMorphVertexIdRef(MorphVertex morphVertex, String vertexIdRef){
         IdRefHolder<MorphVertex> holder =
-                new IdRefHolder<MorphVertex>(morphVertex, vertexIdRef);
+                new IdRefHolder<>(morphVertex, vertexIdRef);
         this.morphVertexIdRefList.add(holder);
         return;
     }
@@ -285,7 +285,7 @@ class RefHelper {
      */
     void addThroughRigidGroupIdRef(RigidInfo rigid, String rigidGroupIdRef){
         IdRefHolder<RigidInfo> holder =
-                new IdRefHolder<RigidInfo>(rigid, rigidGroupIdRef);
+                new IdRefHolder<>(rigid, rigidGroupIdRef);
         this.thghRigidGroupIdRefList.add(holder);
         return;
     }
@@ -329,10 +329,10 @@ class RefHelper {
                             String vtxIdRef2,
                             String vtxIdRef3 ){
         IdRefHolder<Surface> holder =
-                new IdRefHolder<Surface>(surface,
-                                         vtxIdRef1,
-                                         vtxIdRef2,
-                                         vtxIdRef3 );
+                new IdRefHolder<>(surface,
+                                  vtxIdRef1,
+                                  vtxIdRef2,
+                                  vtxIdRef3 );
 
         this.surfaceVertexIdRef.add(holder);
 

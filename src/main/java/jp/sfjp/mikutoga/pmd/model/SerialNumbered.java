@@ -15,20 +15,23 @@ import java.util.Comparator;
 public interface SerialNumbered {
 
     /** 昇順での比較子。 */
-    Comparator<SerialNumbered> COMPARATOR = new SerialComparator();
+    public static final Comparator<SerialNumbered> COMPARATOR =
+            new SerialComparator();
 
 
     /**
      * 通し番号を設定する。
+     *
      * @param num 通し番号
      */
-    void setSerialNumber(int num);
+    public abstract void setSerialNumber(int num);
 
     /**
      * 通し番号を返す。
+     *
      * @return 通し番号
      */
-    int getSerialNumber();
+    public abstract int getSerialNumber();
 
 
     /**
@@ -36,7 +39,7 @@ public interface SerialNumbered {
      * 通し番号の昇順を定義づける。
      */
     @SuppressWarnings("serial")
-    class SerialComparator
+    public static class SerialComparator
             implements Comparator<SerialNumbered> {
 
         /**
@@ -50,6 +53,7 @@ public interface SerialNumbered {
 
         /**
          * {@inheritDoc}
+         *
          * @param o1 {@inheritDoc}
          * @param o2 {@inheritDoc}
          * @return {@inheritDoc}

@@ -27,8 +27,8 @@ import jp.sfjp.mikutoga.pmd.model.RigidShape;
 
 /**
  * PMDファイルのエクスポーター(拡張3:物理演算対応)。
- * <p>
- * 物理演算対応のPMDファイルフォーマットを
+ *
+ * <p>物理演算対応のPMDファイルフォーマットを
  * 使いたい場合はこのエクスポーターを用いて出力せよ。
  */
 public class PmdExporterExt3 extends PmdExporterExt2{
@@ -37,6 +37,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * コンストラクタ。
+     *
      * @param stream 出力ストリーム
      * @throws NullPointerException 引数がnull
      */
@@ -48,6 +49,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * {@inheritDoc}
+     *
      * @param model {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws IllegalPmdDataException {@inheritDoc}
@@ -69,6 +71,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 剛体リストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException 長すぎる剛体名
@@ -90,6 +93,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 個別の剛体情報を出力する。
+     *
      * @param rigid 剛体
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException 長すぎる剛体名
@@ -130,6 +134,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 剛体形状を出力する。
+     *
      * @param shape 剛体形状
      * @throws IOException 出力エラー
      */
@@ -151,6 +156,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 力学設定を出力する。
+     *
      * @param dynamics 力学設定
      * @throws IOException 出力エラー
      */
@@ -173,6 +179,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * ジョイントリストを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException 長すぎるジョイント名
@@ -194,6 +201,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 個別のジョイント情報を出力する。
+     *
      * @param joint ジョイント
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException 長すぎるジョイント名
@@ -223,6 +231,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 3次元範囲制約を出力する。
+     *
      * @param range 3次元範囲制約
      * @throws IOException 出力エラー
      */
@@ -248,6 +257,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * ラジアンによる3次元姿勢情報を出力する。
+     *
      * @param rad 3次元姿勢情報
      * @throws IOException 出力エラー
      */
@@ -265,6 +275,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
 
     /**
      * 度数法による3次元姿勢情報を出力する。
+     *
      * @param deg 3次元姿勢情報
      * @throws IOException 出力エラー
      */

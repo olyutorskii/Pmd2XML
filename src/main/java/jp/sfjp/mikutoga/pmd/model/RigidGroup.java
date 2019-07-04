@@ -21,7 +21,7 @@ public class RigidGroup implements SerialNumbered, Iterable<RigidInfo> {
     public static final int MAX_RIGID_GROUP = 16;
 
 
-    private final List<RigidInfo> rigidList = new ArrayList<RigidInfo>();
+    private final List<RigidInfo> rigidList = new ArrayList<>();
 
     private int rigidGroupSerialNo = -1;
 

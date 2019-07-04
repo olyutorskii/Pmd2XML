@@ -23,7 +23,7 @@ public class MorphPart implements SerialNumbered, Iterable<MorphVertex> {
     private MorphType type;
 
     private final List<MorphVertex> morphVertexList =
-            new ArrayList<MorphVertex>();
+            new ArrayList<>();
 
     private int morphSerialNo = -1;
 

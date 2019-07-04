@@ -17,14 +17,15 @@ import jp.sfjp.mikutoga.pmd.model.ToonMap;
 
 /**
  * PMDファイルのエクスポーター(拡張2:任意のトゥーンファイル名対応)。
- * <p>
- * 物理演算対応以降のPMDファイルフォーマットを
+ *
+ * <p>物理演算対応以降のPMDファイルフォーマットを
  * 使いたくない場合はこのエクスポーターを用いて出力せよ。
  */
 public class PmdExporterExt2 extends PmdExporterExt1{
 
     /**
      * コンストラクタ。
+     *
      * @param stream 出力ストリーム
      * @throws NullPointerException 引数がnull
      */
@@ -36,6 +37,7 @@ public class PmdExporterExt2 extends PmdExporterExt1{
 
     /**
      * {@inheritDoc}
+     *
      * @param model {@inheritDoc}
      * @throws IOException {@inheritDoc}
      * @throws IllegalPmdDataException {@inheritDoc}
@@ -56,6 +58,7 @@ public class PmdExporterExt2 extends PmdExporterExt1{
 
     /**
      * 独自トゥーンファイルテーブルを出力する。
+     *
      * @param model モデルデータ
      * @throws IOException 出力エラー
      * @throws IllegalTextExportException トゥーンファイル名が長すぎる
