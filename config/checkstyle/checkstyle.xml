@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 8.22 or later
+    for Checkstyle 10.10.0 or later
 
     [ https://checkstyle.org/ ]
 
@@ -28,7 +28,9 @@
 
     <module name="SeverityMatchFilter" />
     <!--module name="SuppressionFilter" /-->
+    <!--module name="SuppressionSingleFilter" /-->
     <module name="SuppressWarningsFilter" />
+    <module name="SuppressWithNearbyTextFilter" />
     <module name="SuppressWithPlainTextCommentFilter" />
 
 
@@ -39,7 +41,6 @@
         <property name="fileExtensions" value="xml" />
     </module>
     <module name="RegexpHeader">
-        <!-- /* ... */ -->
         <property name="header" value="^/\*$\n^ \*( .*)?$\n^ \*/$\n" />
         <property name="multiLines" value="2" />
         <property name="fileExtensions" value="java" />
@@ -79,6 +80,10 @@
     <!-- Size Violations -->
 
     <module name="FileLength" />
+    <module name="LineLength">
+        <property name="fileExtensions" value="java" />
+        <property name="max" value="100" />
+    </module>
 
 
     <!-- Whitespace -->
@@ -147,7 +152,9 @@
     <!-- Coding -->
 
         <module name="ArrayTrailingComma" />
+        <module name="AvoidDoubleBraceInitialization" />
         <module name="AvoidInlineConditionals" />
+        <module name="AvoidNoArgumentSuperConstructorCall" />
         <module name="CovariantEquals" />
         <module name="DeclarationOrder" />
         <module name="DefaultComesLast" />
@@ -173,6 +180,7 @@
         <module name="IllegalType" />
         <module name="InnerAssignment" />
         <module name="MagicNumber" />
+        <module name="MatchXpath" />
         <module name="MissingCtor" />
         <module name="MissingSwitchDefault" />
         <module name="ModifiedControlVariable" />
@@ -181,7 +189,9 @@
         <module name="NestedForDepth" />
         <module name="NestedIfDepth" />
         <module name="NestedTryDepth" />
+        <module name="NoArrayTrailingComma" />
         <module name="NoClone" />
+        <module name="NoEnumTrailingComma" />
         <module name="NoFinalizer" />
         <module name="OneStatementPerLine" />
         <module name="OverloadMethodsDeclarationOrder" />
@@ -189,6 +199,7 @@
         <module name="ParameterAssignment" />
         <module name="RequireThis">
             <property name="checkMethods" value="false" />
+            <property name="validateOnlyOverlapping" value="false" />
         </module>
         <module name="ReturnCount">
             <property name="max" value="5" />
@@ -200,11 +211,12 @@
         <module name="SuperClone" />
         <module name="SuperFinalize" />
         <module name="UnnecessaryParentheses" />
+        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration" />
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration" />
         <module name="UnnecessarySemicolonInEnumeration" />
         <module name="UnnecessarySemicolonInTryWithResources" />
-        <module name="VariableDeclarationUsageDistance">
-            <property name="allowedDistance" value="5"/>
-        </module>
+        <module name="UnusedLocalVariable" />
+        <module name="VariableDeclarationUsageDistance" />
 
 
     <!-- Imports -->
@@ -222,7 +234,12 @@
     <!-- Javadoc Comments -->
 
         <module name="AtclauseOrder" />
+        <module name="InvalidJavadocPosition" />
+        <module name="JavadocBlockTagLocation" />
+        <module name="JavadocContentLocationCheck" />
         <module name="JavadocMethod" />
+        <module name="JavadocMissingLeadingAsterisk" />
+        <module name="JavadocMissingWhitespaceAfterAsterisk" />
         <module name="JavadocParagraph" />
         <module name="JavadocStyle">
             <property
@@ -270,6 +287,7 @@
         <module name="Indentation">
             <property name="caseIndent" value="0" />
         </module>
+        <module name="NoCodeInFile" />
         <module name="OuterTypeFilename" />
         <module name="TodoComment">
             <property name="format" value="TODO" />
@@ -294,6 +312,7 @@
         <module name="CatchParameterName" />
         <module name="ClassTypeParameterName" />
         <module name="ConstantName" />
+        <module name="IllegalIdentifierName" />
         <module name="InterfaceTypeParameterName" />
         <module name="LambdaParameterName" />
         <module name="LocalFinalVariableName" />
@@ -303,6 +322,9 @@
         <module name="MethodTypeParameterName" />
         <module name="PackageName" />
         <module name="ParameterName" />
+        <module name="PatternVariableName" />
+        <module name="RecordComponentName" />
+        <module name="RecordTypeParameterName" />
         <module name="StaticVariableName" />
         <module name="TypeName" />
 
@@ -329,13 +351,12 @@
 
         <module name="AnonInnerLength" />
         <module name="ExecutableStatementCount" />
-        <module name="LineLength">
-            <property name="max" value="78" />
-        </module>
+        <module name="LambdaBodyLength" />
         <module name="MethodCount" />
         <module name="MethodLength" />
         <module name="OuterTypeNumber" />
         <module name="ParameterNumber" />
+        <module name="RecordComponentNumber" />
 
 
     <!-- Whitespace -->
@@ -369,6 +390,7 @@
         <module name="NoWhitespaceBefore">
             <property name="allowLineBreaks" value="true" />
         </module>
+        <module name="NoWhitespaceBeforeCaseDefaultColon" />
         <module name="OperatorWrap" />
         <module name="ParenPad" />
         <module name="SeparatorWrap">
