@@ -3,11 +3,7 @@
 
 package testdata.pmd101009.charset;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static testdata.CnvAssert.*;
 
@@ -21,22 +17,6 @@ public class CharsetTest {
     public CharsetTest() {
         assert this.getClass() == THISCLASS;
         return;
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test

@@ -14,7 +14,8 @@ import java.io.OutputStream;
 import jp.sfjp.mikutoga.pmd2xml.ModelFileType;
 import jp.sfjp.mikutoga.pmd2xml.Pmd2XmlConv;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  * ファイル変換処理のユニットテスト下請け諸々。
