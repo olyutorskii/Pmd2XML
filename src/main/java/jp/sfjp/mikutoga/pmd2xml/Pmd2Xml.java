@@ -70,9 +70,6 @@ public final class Pmd2Xml {
               "{0} already exists.\n"
             + "If you want to overwrite, use -f.";
 
-    private static final String MSG_OLDJRE = "You need JRE {0} or later.";
-    private static final String REQUIRED_JRE = "1.8";
-
     static{
         THISCLASS = Pmd2Xml.class;
         InputStream ver = THISCLASS.getResourceAsStream(RES_VER);
@@ -200,20 +197,6 @@ public final class Pmd2Xml {
     private static void internalError(Throwable ex){
         thPrintln(ex, true);
         exit(EXIT_INTERR);
-    }
-
-    /**
-     * JREのバージョン判定を行う。
-     * 不適切ならVMごと終了。
-     */
-    private static void checkJRE(){
-        Package jrePackage = java.lang.Object.class.getPackage();
-        if( ! jrePackage.isCompatibleWith(REQUIRED_JRE)){
-            String msg = MessageFormat.format(MSG_OLDJRE, REQUIRED_JRE);
-            ERROUT.println(msg);
-            exit(EXIT_ENVERR);
-        }
-        return;
     }
 
     /**
@@ -410,8 +393,6 @@ public final class Pmd2Xml {
      * @param args コマンドパラメータ
      */
     public static void main(String[] args){
-        checkJRE();
-
         OptInfo optInfo = parseOption(args);
         if(optInfo.needHelp()){
             putHelp();
