@@ -7,7 +7,8 @@
 
 - numeric.pmd 様々な数値が書き込まれたテストデータ。
 - source.xml モデルデータのソースとなったXMLファイル。
-- result.xml モデルデータをXML化したときのあるべきXMLファイル。
+- result.xml モデルデータをXML化したときのあるべきXMLファイル。JDK18以前向け
+- result10Later.xml モデルデータをXML化したときのあるべきXMLファイル。JDK19以降向け
 
 
 MMDのモデルファイルでは、実数表現としてIEEE754単精度型を用いる。
