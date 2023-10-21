@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.203.6] - 2023-10-21
+
 ### Remove
 - remove JRE version check
 
@@ -45,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## → CHANGELOG.old (2010-2013) へ続く…
 
 
-[Unreleased]: https://github.com/olyutorskii/Pmd2XML/compare/v1.203.4...HEAD
+[Unreleased]: https://github.com/olyutorskii/Pmd2XML/compare/v1.203.6...HEAD
+[1.203.6]: https://github.com/olyutorskii/Pmd2XML/compare/release-1.203.4...v1.203.6
 [1.203.4]: https://github.com/olyutorskii/Pmd2XML/compare/release-1.203.2...v1.203.4
 [1.203.2]: https://github.com/olyutorskii/Pmd2XML/compare/release-1.202.2...release-1.203.2
 [1.202.2]: https://github.com/olyutorskii/Pmd2XML/releases/tag/release-1.202.2
