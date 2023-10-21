@@ -8,13 +8,13 @@
 >
 
 <!--
-    OSDN.net用リリースファイル構成定義ファイル
-    Maven3 assembly用
+    for maven-assembly-plugin
 -->
 
     <id>src</id>
 
     <formats>
+        <format>tar.gz</format>
         <format>zip</format>
     </formats>
 

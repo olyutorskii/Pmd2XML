@@ -15,7 +15,7 @@ class CmdLineException extends Exception{
 
     /**
      * コンストラクタ。
-     * @param message {@inheritDoc}
+     * @param message detail message.
      */
     CmdLineException(String message) {
         super(message);
