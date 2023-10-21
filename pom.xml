@@ -16,7 +16,7 @@
     <groupId>jp.sourceforge.mikutoga</groupId>
     <artifactId>pmd2xml</artifactId>
 
-    <version>1.203.3-SNAPSHOT</version>
+    <version>1.203.4</version>
 
     <packaging>jar</packaging>
     <name>Pmd2XML</name>
