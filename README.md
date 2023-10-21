@@ -32,7 +32,7 @@ OSDNの可用性に関する問題が長期化しているため、GitHubへと�
 * Pmd2XMLはビルドに際して [Maven 3.3.9+](https://maven.apache.org/)
 と JDK 1.8+ を要求します。
 
-* Pmd2XMLはTogaGemなどのライブラリに依存しています。
+* Pmd2XMLは[TogaGem][TOGAGEM]などのライブラリに依存しています。
 開発時はMaven等を用いてこれらのライブラリを用意してください。
 
 * Mavenを使わずとも `src/main/java/` 配下のソースツリーをコンパイルすることで
@@ -63,6 +63,7 @@ OSDNの可用性に関する問題が長期化しているため、GitHubへと�
 
 
 [OSDN]: https://ja.osdn.net
+[TOGAGEM]: https://github.com/olyutorskii/TogaGem
 [MIT]: https://opensource.org/licenses/MIT
 
 
