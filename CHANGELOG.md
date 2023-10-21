@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.203.4] - 2023-10-21
+
 ### Changed
 - from OSDN to GitHub
 - from JUnit4 to JUnit5
+
+### Build
+- Bump TogaGem to v3.122.4
+
+### Fixed
+- Update Maven plugins for JDK21
 
 
 ## [1.203.2] - 2019-07-04
