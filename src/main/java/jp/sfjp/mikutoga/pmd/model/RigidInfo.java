@@ -32,7 +32,7 @@ public class RigidInfo implements SerialNumbered {
     private final DynamicsInfo dynamicsInfo = new DynamicsInfo();
 
     private final Collection<RigidGroup> throughGroupColl =
-            new ArrayList<RigidGroup>();
+            new ArrayList<>();
 
     private RigidGroup rigidGroup;
 

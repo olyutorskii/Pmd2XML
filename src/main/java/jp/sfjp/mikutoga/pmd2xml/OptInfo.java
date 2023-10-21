@@ -73,6 +73,7 @@ final class OptInfo {
 
     /**
      * フォーマット種別指定子をデコードする。
+     *
      * @param arg 文字列
      * @return デコード結果。
      * @throws CmdLineException 不正なフォーマット種別
@@ -99,6 +100,7 @@ final class OptInfo {
 
     /**
      * 改行文字指定子をデコードする。
+     *
      * @param arg 文字列
      * @return デコード結果。
      * @throws CmdLineException 不正なフォーマット種別
@@ -121,6 +123,7 @@ final class OptInfo {
 
     /**
      * ブール指定子をデコードする。
+     *
      * @param arg 文字列
      * @return デコード結果。
      * @throws CmdLineException 不正なフォーマット種別
@@ -129,9 +132,9 @@ final class OptInfo {
             throws CmdLineException{
         boolean result;
 
-        if(   "on"  .equals(arg)
-           || "true".equals(arg)
-           || "yes" .equals(arg) ){
+        if(    "on"  .equals(arg)
+            || "true".equals(arg)
+            || "yes" .equals(arg) ){
             result = true;
         }else if(   "off"  .equals(arg)
                  || "false".equals(arg)
@@ -147,7 +150,9 @@ final class OptInfo {
 
     /**
      * ファイル名からファイル種別を類推する。
+     *
      * <p>拡張子が「pmd」ならPMDファイル、「xml」ならXMLファイル。
+     *
      * @param fileName ファイル名
      * @return ファイル種別
      */
@@ -164,6 +169,7 @@ final class OptInfo {
 
     /**
      * コマンドラインを解析する。
+     *
      * @param args コマンドライン
      * @return オプション情報
      * @throws CmdLineException 不正なコマンドライン
@@ -233,7 +239,9 @@ final class OptInfo {
 
     /**
      * 単純なコマンドラインエラーを検出する。
+     *
      * <p>検出項目は未知のオプションおよび不正な引数の個数
+     *
      * @param cmdLines コマンドライン
      * @throws CmdLineException 異常系
      */
@@ -266,6 +274,7 @@ final class OptInfo {
 
     /**
      * ファイルフォーマット情報の推測を行う。
+     *
      * @param result オプション情報
      */
     private static void fixFormat(OptInfo result){
@@ -282,6 +291,7 @@ final class OptInfo {
 
     /**
      * オプション整合性の事後検査。
+     *
      * @param result オプション情報
      * @throws CmdLineException 不正なオプション設定
      */
@@ -309,6 +319,7 @@ final class OptInfo {
 
     /**
      * ヘルプ表示が必要か否か判定する。
+     *
      * @return 必要ならtrue
      */
     boolean needHelp(){
@@ -317,6 +328,7 @@ final class OptInfo {
 
     /**
      * 入力ファイル種別を返す。
+     *
      * @return 入力ファイル種別
      */
     ModelFileType getInFileType(){
@@ -325,6 +337,7 @@ final class OptInfo {
 
     /**
      * 出力ファイル種別を返す。
+     *
      * @return 出力ファイル種別
      */
     ModelFileType getOutFileType(){
@@ -333,6 +346,7 @@ final class OptInfo {
 
     /**
      * 入力ファイル名を返す。
+     *
      * @return 入力ファイル名
      */
     String getInFilename(){
@@ -341,6 +355,7 @@ final class OptInfo {
 
     /**
      * 出力ファイル名を返す。
+     *
      * @return 出力ファイル名
      */
     String getOutFilename(){
@@ -349,6 +364,7 @@ final class OptInfo {
 
     /**
      * 上書きモードか否か返す。
+     *
      * @return 上書きモードならtrue
      */
     boolean overwriteMode(){
@@ -357,6 +373,7 @@ final class OptInfo {
 
     /**
      * XML改行文字を返す。
+     *
      * @return 改行文字
      */
     String getNewline(){
@@ -365,6 +382,7 @@ final class OptInfo {
 
     /**
      * ジェネレータ名を返す。
+     *
      * @return ジェネレータ名。表示したくない時はnull
      */
     String getGenerator(){

@@ -18,11 +18,11 @@ import jp.sfjp.mikutoga.corelib.I18nText;
  * 通し番号0のボーングループは、
  * 暗黙に用意される「デフォルトボーングループ」とする。
  */
-public class BoneGroup implements SerialNumbered , Iterable<BoneInfo> {
+public class BoneGroup implements SerialNumbered, Iterable<BoneInfo> {
 
     private final I18nText groupName = new I18nText();
 
-    private final List<BoneInfo> boneList = new ArrayList<BoneInfo>();
+    private final List<BoneInfo> boneList = new ArrayList<>();
 
     private int serialNo = -1;
 

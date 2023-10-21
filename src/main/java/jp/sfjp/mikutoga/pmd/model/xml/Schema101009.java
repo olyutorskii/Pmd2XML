@@ -9,15 +9,11 @@ package jp.sfjp.mikutoga.pmd.model.xml;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import jp.sfjp.mikutoga.xml.LocalXmlResource;
 
 /**
  * 101009形式XML各種リソースの定義。
  */
-public final class Schema101009 implements LocalXmlResource{
-
-    /** 唯一のシングルトン。 */
-    public static final Schema101009 SINGLETON;
+public final class Schema101009{
 
     /** 名前空間。 */
     public static final String NS_PMDXML =
@@ -32,8 +28,10 @@ public final class Schema101009 implements LocalXmlResource{
     public static final String LOCAL_SCHEMA_PMDXML =
             "resources/pmdxml-101009.xsd";
 
-    private static final URI URI_SCHEMA_PMDXML = URI.create(SCHEMA_PMDXML);
-    private static final URI RES_SCHEMA_PMDXML;
+    /** schema URI. */
+    public static final URI URI_SCHEMA_PMDXML = URI.create(SCHEMA_PMDXML);
+    /** local resource URI. */
+    public static final URI RES_SCHEMA_PMDXML;
 
     private static final Class<?> THISCLASS = Schema101009.class;
 
@@ -44,8 +42,6 @@ public final class Schema101009 implements LocalXmlResource{
         }catch(URISyntaxException e){
             throw new ExceptionInInitializerError(e);
         }
-
-        SINGLETON = new Schema101009();
     }
 
 
@@ -53,30 +49,7 @@ public final class Schema101009 implements LocalXmlResource{
      * コンストラクタ。
      */
     private Schema101009(){
-        super();
-        assert this.getClass() == THISCLASS;
-        return;
-    }
-
-
-    /**
-     * {@inheritDoc}
-     * @return {@inheritDoc}
-     * ※101009版。
-     */
-    @Override
-    public URI getOriginalResource(){
-        return URI_SCHEMA_PMDXML;
-    }
-
-    /**
-     * {@inheritDoc}
-     * ※101009版。
-     * @return {@inheritDoc}
-     */
-    @Override
-    public URI getLocalResource(){
-        return RES_SCHEMA_PMDXML;
+        assert false;
     }
 
 }

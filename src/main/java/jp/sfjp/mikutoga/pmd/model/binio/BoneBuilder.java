@@ -158,7 +158,7 @@ class BoneBuilder implements PmdBoneHandler {
      * 所属グループの無いボーンをデフォルトボーングループへ登録する。
      */
     private void pickOrphanBone(){
-        List<BoneInfo> orpahnList = new LinkedList<BoneInfo>();
+        List<BoneInfo> orpahnList = new LinkedList<>();
         orpahnList.addAll(this.boneList);
         for(BoneGroup group : this.boneGroupList){
             orpahnList.removeAll(group.getBoneList());

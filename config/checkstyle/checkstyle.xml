@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 8.21 or later
+    for Checkstyle 8.22 or later
 
     [ https://checkstyle.org/ ]
 
@@ -39,6 +39,7 @@
         <property name="fileExtensions" value="xml" />
     </module>
     <module name="RegexpHeader">
+        <!-- /* ... */ -->
         <property name="header" value="^/\*$\n^ \*( .*)?$\n^ \*/$\n" />
         <property name="multiLines" value="2" />
         <property name="fileExtensions" value="java" />
@@ -55,6 +56,7 @@
     <module name="NewlineAtEndOfFile">
         <property name="fileExtensions" value="java, properties, xml, xsd, md, txt" />
     </module>
+    <module name="OrderedProperties" />
     <module name="Translation" />
     <module name="UniqueProperties" />
 
@@ -188,13 +190,18 @@
         <module name="RequireThis">
             <property name="checkMethods" value="false" />
         </module>
-        <module name="ReturnCount" />
+        <module name="ReturnCount">
+            <property name="max" value="5" />
+            <property name="maxForVoid" value="5" />
+        </module>
         <module name="SimplifyBooleanExpression" />
         <module name="SimplifyBooleanReturn" />
         <module name="StringLiteralEquality" />
         <module name="SuperClone" />
         <module name="SuperFinalize" />
         <module name="UnnecessaryParentheses" />
+        <module name="UnnecessarySemicolonInEnumeration" />
+        <module name="UnnecessarySemicolonInTryWithResources" />
         <module name="VariableDeclarationUsageDistance">
             <property name="allowedDistance" value="5"/>
         </module>
@@ -230,6 +237,7 @@
             <property name="scope" value="protected" />
         </module>
         <module name="MissingJavadocMethod" />
+        <module name="MissingJavadocPackage" />
         <module name="MissingJavadocType" />
         <module name="NonEmptyAtclauseDescription" />
         <module name="SingleLineJavadoc" />
@@ -352,16 +360,17 @@
         <module name="GenericWhitespace" />
         <module name="MethodParamPad" />
         <module name="NoLineWrap" />
-        <module name="NoWhitespaceAfter" />
-        <module name="NoWhitespaceBefore" />
-        <module name="OperatorWrap" />
-        <module name="ParenPad">
-            <property name="option" value="nospace" />
+        <module name="NoWhitespaceAfter">
             <property
                 name="tokens"
-                value="CTOR_CALL, METHOD_CALL, SUPER_CTOR_CALL"
+                value="AT, INC, DEC, UNARY_MINUS, UNARY_PLUS, DOT"
             />
         </module>
+        <module name="NoWhitespaceBefore">
+            <property name="allowLineBreaks" value="true" />
+        </module>
+        <module name="OperatorWrap" />
+        <module name="ParenPad" />
         <module name="SeparatorWrap">
             <property name="tokens" value="DOT"/>
             <property name="option" value="nl"/>
@@ -392,6 +401,6 @@
     </module>
 
 
-    </module>
+</module>
 
 <!-- EOF -->

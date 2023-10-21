@@ -21,7 +21,7 @@ public class IKChain implements Iterable<BoneInfo> {
     private int ikDepth;
     private float ikWeight;
 
-    private final List<BoneInfo> chainList = new ArrayList<BoneInfo>();
+    private final List<BoneInfo> chainList = new ArrayList<>();
 
 
     /**

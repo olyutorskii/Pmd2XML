@@ -26,7 +26,9 @@ public enum ModelFileType {
 
     /**
      * XMLファイル。
+     *
      * <p>読み込み時のスキーマ判別は自動。
+     *
      * <p>書き込み時のスキーマは最新。
      */
     XML_AUTO,
@@ -51,13 +53,15 @@ public enum ModelFileType {
     /**
      * コンストラクタ。
      */
-    private ModelFileType(){
+    ModelFileType(){
         return;
     }
 
     /**
      * ファイル種別をXMLファイル種別に変換する。
+     *
      * <p>未定義の場合はXML_AUTOを返す。
+     *
      * @return XMLファイル種別
      */
     public XmlModelFileType toXmlType(){
@@ -83,6 +87,7 @@ public enum ModelFileType {
 
     /**
      * ファイル種別がXMLか判定する。
+     *
      * @return XMLならtrue
      */
     public boolean isXml(){
@@ -104,6 +109,7 @@ public enum ModelFileType {
 
     /**
      * ファイル種別がPMDか判定する。
+     *
      * @return PMDならtrue
      */
     public boolean isPmd(){

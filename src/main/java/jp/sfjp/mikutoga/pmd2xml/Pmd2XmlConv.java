@@ -53,6 +53,7 @@ public class Pmd2XmlConv {
 
     /**
      * 入力ファイル種別を設定する。
+     *
      * @param type ファイル種別
      * @throws NullPointerException 引数がnull
      * @throws IllegalArgumentException 具体的な種別を渡さなかった
@@ -67,6 +68,7 @@ public class Pmd2XmlConv {
 
     /**
      * 入力ファイル種別を返す。
+     *
      * @return ファイル種別
      */
     public ModelFileType getInTypes(){
@@ -75,6 +77,7 @@ public class Pmd2XmlConv {
 
     /**
      * 出力ファイル種別を設定する。
+     *
      * @param type ファイル種別
      * @throws NullPointerException 引数がnull
      * @throws IllegalArgumentException 具体的な種別を渡さなかった
@@ -89,6 +92,7 @@ public class Pmd2XmlConv {
 
     /**
      * 出力ファイル種別を返す。
+     *
      * @return ファイル種別
      */
     public ModelFileType getOutTypes(){
@@ -97,6 +101,7 @@ public class Pmd2XmlConv {
 
     /**
      * XML出力用改行文字列を設定する。
+     *
      * @param newline 改行文字
      */
     public void setNewline(String newline){
@@ -106,6 +111,7 @@ public class Pmd2XmlConv {
 
     /**
      * XML出力用改行文字列を返す。
+     *
      * @return 改行文字
      */
     public String getNewline(){
@@ -114,6 +120,7 @@ public class Pmd2XmlConv {
 
     /**
      * ジェネレータ名を設定する。
+     *
      * @param generator ジェネレータ名。表示したくない場合はnull
      */
     public void setGenerator(String generator){
@@ -123,6 +130,7 @@ public class Pmd2XmlConv {
 
     /**
      * ジェネレータ名を返す。
+     *
      * @return ジェネレータ名。非表示の場合はnullを返す。
      */
     public String getGenerator(){
@@ -131,8 +139,10 @@ public class Pmd2XmlConv {
 
     /**
      * ファイル変換を行う。
+     *
      * <p>XML入力の場合は{@link #convert(InputSource, OutputStream)}を
      * 推奨する。
+     *
      * @param is 入力ストリーム
      * @param os 出力ストリーム
      * @throws IOException 入力エラー
@@ -154,10 +164,13 @@ public class Pmd2XmlConv {
 
     /**
      * ファイル変換を行う。
+     *
      * <p>PMD入力の場合は{@link InputStream}に
      * バイトストリームが直接設定されていなければならない。
+     *
      * <p>XML入力の場合は{@link InputStream}に
      * URL(systemId)のみの設定を推奨する。
+     *
      * @param source 入力ソース
      * @param os 出力ストリーム
      * @throws IOException 入力エラー
@@ -179,8 +192,10 @@ public class Pmd2XmlConv {
 
     /**
      * モデルファイルを読み込む。
+     *
      * <p>XML読み込みの場合は、
      * こちらより{@link #readModel(InputSource)}版を推奨する。
+     *
      * @param is 入力ストリーム
      * @return モデルデータ
      * @throws IOException 入力エラー
@@ -208,6 +223,7 @@ public class Pmd2XmlConv {
 
     /**
      * モデルファイルを読み込む。
+     *
      * @param source 入力ソース
      * @return モデルデータ
      * @throws IOException 入力エラー
@@ -240,6 +256,7 @@ public class Pmd2XmlConv {
 
     /**
      * モデルファイルを出力する。
+     *
      * @param model モデルデータ
      * @param os 出力ストリーム
      * @throws IOException 出力エラー
@@ -261,6 +278,7 @@ public class Pmd2XmlConv {
 
     /**
      * PMDファイルからモデルデータを読み込む。
+     *
      * @param is 入力ストリーム
      * @return モデルデータ
      * @throws IOException 入力エラー
@@ -275,6 +293,7 @@ public class Pmd2XmlConv {
 
     /**
      * XMLファイルからモデルデータを読み込む。
+     *
      * @param source 入力ソース
      * @return モデルデータ
      * @throws IOException 入力エラー
@@ -293,6 +312,7 @@ public class Pmd2XmlConv {
 
     /**
      * モデルデータをPMDファイルに出力する。
+     *
      * @param model モデルデータ
      * @param ostream 出力ストリーム
      * @throws IOException 出力エラー
@@ -308,6 +328,7 @@ public class Pmd2XmlConv {
 
     /**
      * モデルデータをXMLファイルに出力する。
+     *
      * @param model モデルデータ
      * @param ostream 出力ストリーム
      * @throws IOException 出力エラー

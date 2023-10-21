@@ -16,7 +16,7 @@
     <groupId>jp.sourceforge.mikutoga</groupId>
     <artifactId>pmd2xml</artifactId>
 
-    <version>1.202.2</version>
+    <version>1.203.2</version>
 
     <packaging>jar</packaging>
     <name>Pmd2XML</name>
@@ -86,26 +86,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <locale>en</locale>
-        <site.locales>${locale}</site.locales>
-        <javadoc.locale>${locale}</javadoc.locale>
-        <spotbugs.jvmArgs>-Duser.language=${locale}</spotbugs.jvmArgs>
-
-        <!-- Walk around: JDK 11 javadoc + Maven -->
-        <detectJavaApiLink>false</detectJavaApiLink>
+        <!-- DO NOT USE ${locale} with site-plugin -->
+        <site.locales>en</site.locales>
+        <javadoc.locale>en</javadoc.locale>
+        <spotbugs.jvmArgs>-Duser.language=en</spotbugs.jvmArgs>
 
         <surefire-plugin.version>3.0.0-M3</surefire-plugin.version>
         <jacoco-plugin.version>0.8.4</jacoco-plugin.version>
 
         <checkstyle-plugin.version>3.1.0</checkstyle-plugin.version>
-        <checkstyleruntime.version>8.21</checkstyleruntime.version>
-        <checkstyle.config.location>${project.basedir}/config/checkstyle/checkstyle.xml</checkstyle.config.location>
-        <checkstyle.suppressions.location>${project.basedir}/config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
+        <checkstyleruntime.version>8.22</checkstyleruntime.version>
+        <checkstyle.config.location>config/checkstyle/checkstyle.xml</checkstyle.config.location>
+        <checkstyle.suppressions.location>config/checkstyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.enable.rss>false</checkstyle.enable.rss>
 
         <pmd-plugin.version>3.12.0</pmd-plugin.version>
 
-        <spotbugs-plugin.version>3.1.11</spotbugs-plugin.version>
+        <spotbugs-plugin.version>3.1.12</spotbugs-plugin.version>
         <spotbugs.effort>Max</spotbugs.effort>
         <spotbugs.threshold>Low</spotbugs.threshold>
         <!-- for Jenkins -->
@@ -129,7 +126,7 @@
         <dependency>
             <groupId>jp.sourceforge.mikutoga</groupId>
             <artifactId>togagem</artifactId>
-            <version>3.121.2</version>
+            <version>3.122.2</version>
             <scope>compile</scope>
         </dependency>
 
@@ -315,7 +312,7 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
-                          <goal>shade</goal>
+                            <goal>shade</goal>
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -349,7 +346,7 @@
                         <id>attach-sources</id>
                         <phase>verify</phase>
                         <goals>
-                          <goal>jar-no-fork</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -508,13 +505,14 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
+                    <locale>${javadoc.locale}</locale>
+                    <source>${maven.compiler.source}</source>
                     <author>false</author>
                     <notimestamp>true</notimestamp>
                     <quiet>true</quiet>
                     <show>protected</show>
                     <header>${project.name} ${project.version} API</header>
                     <version>true</version>
-                    <locale>${javadoc.locale}</locale>
                     <!-- for JDK11 javadoc -->
                     <additionalJOption>-J-Duser.language=${javadoc.locale}</additionalJOption>
                 </configuration>
@@ -571,7 +569,7 @@
                 <version>${pmd-plugin.version}</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>${project.basedir}/config/pmd/pmdrules.xml</ruleset>
+                        <ruleset>config/pmd/pmdrules.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <reportSets>
