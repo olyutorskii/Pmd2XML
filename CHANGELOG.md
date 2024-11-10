@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Update Jacoco & SpotBugs for JDK23
+- Update Maven plugins
+
+### Build
+- Bump TogaGem to v3.122.6
+
 
 ## [1.203.6] - 2023-10-21
 
@@ -49,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [Unreleased]: https://github.com/olyutorskii/Pmd2XML/compare/v1.203.6...HEAD
-[1.203.6]: https://github.com/olyutorskii/Pmd2XML/compare/release-1.203.4...v1.203.6
+[1.203.6]: https://github.com/olyutorskii/Pmd2XML/compare/v1.203.4...v1.203.6
 [1.203.4]: https://github.com/olyutorskii/Pmd2XML/compare/release-1.203.2...v1.203.4
 [1.203.2]: https://github.com/olyutorskii/Pmd2XML/compare/release-1.202.2...release-1.203.2
 [1.202.2]: https://github.com/olyutorskii/Pmd2XML/releases/tag/release-1.202.2
