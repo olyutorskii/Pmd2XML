@@ -116,7 +116,7 @@ public class PmdExporterExt3 extends PmdExporterExt2{
         short mask = MASK_FULLCOLLISION;
         for(RigidGroup throughGroup : rigid.getThroughGroupColl()){
             int serialId = throughGroup.getSerialNumber();
-            mask &= ~(0x0001 << serialId);
+            mask &= (short)(~(0x0001 << serialId));
         }
         dumpLeShort(mask);
 

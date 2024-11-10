@@ -218,7 +218,7 @@ class RigidBuilder implements PmdRigidHandler {
 
         for(int bitPos = 0; bitPos < PmdConst.RIGIDGROUP_FIXEDNUM; bitPos++){
             short mask = 0x0001;
-            mask <<= bitPos;
+            mask <<= (short)bitPos;
             if((collisionMap & mask) == 0){
                 RigidGroup group = this.rigidGroupList.get(bitPos);
                 this.currentRigid.getThroughGroupColl().add(group);
