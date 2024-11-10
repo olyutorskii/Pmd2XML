@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Update Jacoco & SpotBugs for JDK23
+- Update Maven plugins
+
+### Build
+- Bump TogaGem to v3.122.6
 
 
 ## [1.203.6] - 2023-10-21
