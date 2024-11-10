@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 10.10.0 or later
+    for Checkstyle 10.18.0 or later
 
     [ https://checkstyle.org/ ]
 
@@ -107,9 +107,9 @@
     <!-- Filters -->
 
         <module name="SuppressionCommentFilter" />
-        <module name="SuppressWithNearbyCommentFilter" />
         <!--module name="SuppressionXpathFilter" /-->
         <!--module name="SuppressionXpathSingleFilter" /-->
+        <module name="SuppressWithNearbyCommentFilter" />
 
 
     <!-- Annotations -->
@@ -145,6 +145,7 @@
         <module name="InterfaceIsType" />
         <module name="MutableException" />
         <module name="OneTopLevelClass" />
+        <module name="SealedShouldHavePermitsList" />
         <module name="ThrowsCount" />
         <module name="VisibilityModifier" />
 
@@ -155,6 +156,7 @@
         <module name="AvoidDoubleBraceInitialization" />
         <module name="AvoidInlineConditionals" />
         <module name="AvoidNoArgumentSuperConstructorCall" />
+        <module name="ConstructorsDeclarationGrouping" />
         <module name="CovariantEquals" />
         <module name="DeclarationOrder" />
         <module name="DefaultComesLast" />
@@ -182,6 +184,7 @@
         <module name="MagicNumber" />
         <module name="MatchXpath" />
         <module name="MissingCtor" />
+        <module name="MissingNullCaseInSwitch" />
         <module name="MissingSwitchDefault" />
         <module name="ModifiedControlVariable" />
         <module name="MultipleStringLiterals" />
@@ -217,6 +220,7 @@
         <module name="UnnecessarySemicolonInTryWithResources" />
         <module name="UnusedLocalVariable" />
         <module name="VariableDeclarationUsageDistance" />
+        <module name="WhenShouldBeUsed" />
 
 
     <!-- Imports -->
@@ -237,6 +241,7 @@
         <module name="InvalidJavadocPosition" />
         <module name="JavadocBlockTagLocation" />
         <module name="JavadocContentLocationCheck" />
+        <module name="JavadocLeadingAsteriskAlign" />
         <module name="JavadocMethod" />
         <module name="JavadocMissingLeadingAsterisk" />
         <module name="JavadocMissingWhitespaceAfterAsterisk" />
@@ -257,6 +262,7 @@
         <module name="MissingJavadocPackage" />
         <module name="MissingJavadocType" />
         <module name="NonEmptyAtclauseDescription" />
+        <module name="RequireEmptyLineBeforeBlockTagGroup" />
         <module name="SingleLineJavadoc" />
         <module name="SummaryJavadocCheck" />
         <module name="WriteTag" />
@@ -276,8 +282,8 @@
 
         <module name="ArrayTypeStyle" />
         <module name="AvoidEscapedUnicodeCharacters">
-            <property name="allowEscapesForControlCharacters" value="true" />
             <property name="allowByTailComment" value="true" />
+            <property name="allowEscapesForControlCharacters" value="true" />
             <property name="allowIfAllCharactersEscaped" value="true" />
             <property name="allowNonPrintableEscapes" value="true" />
         </module>
