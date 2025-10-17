@@ -278,12 +278,12 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.8.6.5</version>
+                    <version>4.9.6.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.github.spotbugs</groupId>
                             <artifactId>spotbugs</artifactId>
-                            <version>4.8.6</version>
+                            <version>4.9.6</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -599,11 +599,6 @@
             </plugin>
 
             <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
@@ -647,7 +642,27 @@
             </activation>
             <reporting>
                 <plugins>
-                    <!-- Checkstyle 10.0+ require JDK11+ -->
+
+                    <!-- SpotBugs 4.9.0+ require JDK11+ -->
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                    </plugin>
+
+                </plugins>
+            </reporting>
+        </profile>
+
+        <!-- JDK17 or later -->
+        <profile>
+            <id>jdk17later</id>
+            <activation>
+                <jdk>[17</jdk>
+            </activation>
+            <reporting>
+                <plugins>
+
+                    <!-- Checkstyle 11.0+ require JDK17+ -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -659,6 +674,7 @@
                             </reportSet>
                         </reportSets>
                     </plugin>
+
                 </plugins>
             </reporting>
         </profile>
