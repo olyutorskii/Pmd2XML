@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 10.18.0 or later
+    for Checkstyle 10.25.0 or later
 
     [ https://checkstyle.org/ ]
 
@@ -40,6 +40,7 @@
         <property name="header" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;" />
         <property name="fileExtensions" value="xml" />
     </module>
+    <module name="MultiFileRegexpHeader" />
     <module name="RegexpHeader">
         <property name="header" value="^/\*$\n^ \*( .*)?$\n^ \*/$\n" />
         <property name="multiLines" value="2" />
@@ -213,6 +214,7 @@
         <module name="StringLiteralEquality" />
         <module name="SuperClone" />
         <module name="SuperFinalize" />
+        <module name="UnnecessaryNullCheckWithInstanceOf" />
         <module name="UnnecessaryParentheses" />
         <module name="UnnecessarySemicolonAfterOuterTypeDeclaration" />
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration" />
@@ -256,7 +258,7 @@
         <module name="JavadocTagContinuationIndentation" />
         <module name="JavadocType" />
         <module name="JavadocVariable">
-            <property name="scope" value="protected" />
+            <property name="accessModifiers" value="public, protected, package" />
         </module>
         <module name="MissingJavadocMethod" />
         <module name="MissingJavadocPackage" />
