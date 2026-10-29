@@ -6,7 +6,7 @@
 
 <!--
     Checkstyle modules
-    for Checkstyle 13.3.0 or later
+    for Checkstyle 14.2.0 or later
 
     [ https://checkstyle.org/ ]
 
@@ -22,16 +22,6 @@
     <!--property name="localeLanguage" value="ja" /-->
     <property name="fileExtensions" value="java, properties, xml, xsd, md, txt" />
     <property name="severity" value="error" />
-
-
-    <!-- Filters -->
-
-    <module name="SeverityMatchFilter" />
-    <!--module name="SuppressionFilter" /-->
-    <!--module name="SuppressionSingleFilter" /-->
-    <module name="SuppressWarningsFilter" />
-    <module name="SuppressWithNearbyTextFilter" />
-    <module name="SuppressWithPlainTextCommentFilter" />
 
 
     <!-- Headers -->
@@ -93,6 +83,18 @@
     <module name="FileTabCharacter" />
 
 
+    <!-- Filters -->
+
+    <module name="SeverityMatchFilter" />
+    <!--module name="SuppressionFilter" /-->
+    <!--module name="SuppressionSingleFilter" /-->
+    <module name="SuppressWarningsFilter" />
+    <module name="SuppressWithNearbyTextFilter" />
+    <module name="SuppressWithPlainTextCommentFilter" />
+
+
+    <!-- File Filters -->
+
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$" />
     </module>
@@ -122,6 +124,7 @@
         <module name="MissingDeprecated" />
         <module name="MissingOverride" />
         <module name="MissingOverrideOnRecordAccessor" />
+        <module name="OpenjdkAnnotationLocation" />
         <module name="PackageAnnotation" />
         <module name="SuppressWarnings" />
         <module name="SuppressWarningsHolder" />
@@ -132,6 +135,7 @@
         <module name="AvoidNestedBlocks" />
         <module name="EmptyBlock" />
         <module name="EmptyCatchBlock" />
+        <module name="GoogleRightCurly" />
         <module name="LeftCurly" />
         <module name="NeedBraces">
             <property name="allowSingleLineStatement" value="true" />
@@ -167,6 +171,7 @@
         <module name="EqualsAvoidNull" />
         <module name="EqualsHashCode" />
         <module name="ExplicitInitialization" />
+        <module name="ExpressionOverBlockLambda" />
         <module name="FallThrough" />
         <module name="FinalLocalVariable" />
         <module name="HiddenField">
@@ -177,6 +182,7 @@
         </module>
         <module name="IllegalCatch" />
         <module name="IllegalInstantiation" />
+        <module name="IllegalSymbol" />
         <module name="IllegalThrows" />
         <module name="IllegalToken">
             <property name="tokens" value="LITERAL_NATIVE" />
@@ -203,6 +209,7 @@
         <module name="OverloadMethodsDeclarationOrder" />
         <module name="PackageDeclaration" />
         <module name="ParameterAssignment" />
+        <module name="PatternVariableAssignment" />
         <module name="RequireThis">
             <property name="checkMethods" value="false" />
             <property name="validateOnlyOverlapping" value="false" />
@@ -216,13 +223,20 @@
         <module name="StringLiteralEquality" />
         <module name="SuperClone" />
         <module name="SuperFinalize" />
+        <module name="TextBlockGoogleStyleFormatting" />
         <module name="UnnecessaryNullCheckWithInstanceOf" />
         <module name="UnnecessaryParentheses" />
+        <module name="UnnecessaryPermitsClause" />
         <module name="UnnecessarySemicolonAfterOuterTypeDeclaration" />
         <module name="UnnecessarySemicolonAfterTypeMemberDeclaration" />
         <module name="UnnecessarySemicolonInEnumeration" />
         <module name="UnnecessarySemicolonInTryWithResources" />
+        <module name="UnnecessaryTypeArgumentsWithRecordPattern" />
+        <module name="UnusedCatchParameterShouldBeUnnamed" />
+        <module name="UnusedLambdaParameterShouldBeUnnamed" />
         <module name="UnusedLocalVariable" />
+        <module name="UnusedPrivateField" />
+        <module name="UnusedTryResourceShouldBeUnnamed" />
         <module name="UseEnhancedSwitch" />
         <module name="VariableDeclarationUsageDistance" />
         <module name="WhenShouldBeUsed" />
@@ -230,35 +244,43 @@
 
     <!-- Imports -->
 
+        <module name="AvoidModuleImport" />
         <module name="AvoidStarImport" />
         <module name="AvoidStaticImport" />
         <module name="CustomImportOrder" />
         <module name="IllegalImport" />
         <!--module name="ImportControl" /-->
         <module name="ImportOrder" />
+        <module name="ModuleImportOrder" />
         <module name="RedundantImport" />
+        <module name="UnnecessaryFullyQualifiedType" />
         <module name="UnusedImports" />
 
 
     <!-- Javadoc Comments -->
 
         <module name="AtclauseOrder" />
+        <module name="IllegalBlockTag" />
+        <module name="InappropriateJavadocBlockTagsOnField" />
+        <module name="InappropriateJavadocBlockTagsOnPackage" />
+        <module name="InappropriateJavadocBlockTagsOnType" />
         <module name="InvalidJavadocPosition" />
         <module name="JavadocBlockTagLocation" />
-        <module name="JavadocContentLocationCheck" />
+        <module name="JavadocContentLocation" />
+        <module name="JavadocEndCommentDelimiter" />
         <module name="JavadocLeadingAsteriskAlign" />
+        <module name="JavadocLinkFirstOccurrence" />
+        <module name="JavadocLinkWellKnownApi" />
         <module name="JavadocMethod" />
         <module name="JavadocMissingLeadingAsterisk" />
         <module name="JavadocMissingWhitespaceAfterAsterisk" />
+        <module name="JavadocNoErrorInThrowsTag" />
         <module name="JavadocParagraph" />
-        <module name="JavadocStyle">
-            <property
-                name="endOfSentenceFormat"
-                value="([。.?!][ \t\n\r\f&lt;])|([。.?!]$)" />
-            <property name="checkEmptyJavadoc" value="true" />
-            <property name="checkHtml" value="true" />
-        </module>
+        <module name="JavadocParamOrder" />
+        <module name="JavadocRegexp" />
+        <module name="JavadocSeeTagOrder" />
         <module name="JavadocTagContinuationIndentation" />
+        <module name="JavadocThrowsOrder" />
         <module name="JavadocType" />
         <module name="JavadocVariable">
             <property name="accessModifiers" value="public, protected, package" />
@@ -267,9 +289,11 @@
         <module name="MissingJavadocPackage" />
         <module name="MissingJavadocType" />
         <module name="NonEmptyAtclauseDescription" />
+        <module name="PreferCodeOrSnippetJavadocInlineTag" />
+        <module name="PreferLiteralJavadocInlineTag" />
         <module name="RequireEmptyLineBeforeBlockTagGroup" />
         <module name="SingleLineJavadoc" />
-        <module name="SummaryJavadocCheck" />
+        <module name="SummaryJavadoc" />
         <module name="WriteTag" />
 
 
@@ -299,8 +323,10 @@
         <module name="Indentation">
             <property name="caseIndent" value="0" />
         </module>
+        <module name="MultilineCommentLeadingAsteriskPresence" />
         <module name="NoCodeInFile" />
         <module name="NumericalPrefixesInfixesSuffixesCharacterCase" />
+        <module name="OpenjdkMethodThrowsAlignment" />
         <module name="OuterTypeFilename" />
         <module name="TodoComment">
             <property name="format" value="TODO" />
@@ -312,10 +338,16 @@
 
     <!-- Modifiers -->
 
+        <module name="AnnotatedDeclarationVisibility" />
         <module name="ClassMemberImpliedModifier" />
         <module name="InterfaceMemberImpliedModifier" />
         <module name="ModifierOrder" />
         <module name="RedundantModifier" />
+
+
+    <!-- Modules -->
+
+        <module name="ModuleDirectiveOrder" />
 
 
     <!-- Naming Conventions -->
@@ -325,6 +357,7 @@
         <module name="CatchParameterName" />
         <module name="ClassTypeParameterName" />
         <module name="ConstantName" />
+        <module name="GoogleMethodName" />
         <module name="GoogleNonConstantFieldName" />
         <module name="IllegalIdentifierName" />
         <module name="InterfaceTypeParameterName" />
@@ -375,6 +408,7 @@
 
     <!-- Whitespace -->
 
+        <module name="ArrayBracketNoWhitespace" />
         <module name="EmptyForInitializerPad" />
         <module name="EmptyForIteratorPad" />
         <module name="EmptyLineSeparator">
@@ -412,6 +446,7 @@
             <property name="option" value="nl"/>
         </module>
         <module name="SingleSpaceSeparator" />
+        <module name="TypeBodyPadding" />
         <module name="TypecastParenPad" />
         <module name="WhitespaceAfter" >
             <property name="tokens" value="COMMA, SEMI," />
@@ -432,6 +467,7 @@
                        "
             />
         </module>
+        <module name="WhitespaceBeforeEmptyBody" />
 
 
     </module>
