@@ -281,12 +281,12 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.9.8.2</version>
+                    <version>4.10.5.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>com.github.spotbugs</groupId>
                             <artifactId>spotbugs</artifactId>
-                            <version>4.9.8</version>
+                            <version>4.10.5</version>
                         </dependency>
                     </dependencies>
                 </plugin>
